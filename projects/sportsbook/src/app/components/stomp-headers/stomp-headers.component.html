@@ -1,0 +1,54 @@
+<div class="frame">
+    <div>
+        Header to send
+        <div class="stomp-headers" cdkDropList
+            #stompHeadersDropList="cdkDropList"
+            [cdkDropListConnectedTo]="standbyHeadersDropList"
+            [cdkDropListData]="stompHeaders"
+            (cdkDropListDropped)="headerMoved($event)">
+            <div *ngFor="let header of stompHeaders" cdkDrag [@jitter]="header.jitters">
+                {{header.key}}
+                <mat-icon>keyboard_arrow_right</mat-icon>
+                {{header.value}}
+                <div class="actions">
+                    <button mat-icon-button (click)="editHeader(header)">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button (click)="removeHeader(header)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        Unused Headers
+        <div class="standby-headers" cdkDropList
+        #standbyHeadersDropList="cdkDropList"
+        [cdkDropListConnectedTo]="stompHeadersDropList"
+        [cdkDropListData]="standbyHeaders"
+        (cdkDropListDropped)="headerMoved($event)">
+            <div *ngFor="let header of standbyHeaders" cdkDrag>
+                {{header.key}}
+                <mat-icon>keyboard_arrow_right</mat-icon>
+                {{header.value}}
+                <div class="actions">
+                    <button mat-icon-button (click)="removeStandby(header)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form class="new-header" [@jitter]="editorJitterCount">
+        <mat-form-field>
+            <mat-label>Header Title</mat-label>
+            <input matInput [formControl]="headerTitleControl">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Header Value</mat-label>
+            <input matInput [formControl]="headerValueControl">
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="addHeader()" type="submit">Add</button>
+    </form>
+</div>

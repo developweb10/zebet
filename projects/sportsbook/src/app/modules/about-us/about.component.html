@@ -1,0 +1,18 @@
+<section class="flex main-wrapper about-section custom-row">
+    <div class="left-aside col-w2">
+    </div>
+    <div class="middle-wrapper col-w8">
+        <h1 class="h1">{{ aboutData.title}}</h1>
+        <div class="about-content">
+            <div class="about-content-row">
+                <div class="about-content-text" [innerHTML]="aboutData.main_content"></div>
+                <div class="about-content-image">
+                    <img [src]="ASSETS_URL + 'assets/' + aboutData.image" alt="Social Media Icon" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="right-aside col-w2">
+   
+    </div>
+</section>

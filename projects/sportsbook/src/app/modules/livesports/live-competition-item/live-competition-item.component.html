@@ -1,0 +1,71 @@
+<ng-container *ngIf="isMultibet; else eventView">
+  <div class="bg-[#2C3538] px-2 py-1 rounded-md mb-4 min-w-full w-min" *ngIf="isLargeScreen()">
+    <div class="grid grid-cols-[120px_1fr_auto_60px_60px] gap-2 text-[14px] font-normal items-center pb-1">
+
+      <div class="col-start-2 col-span-1 yellow_color  text-left  text-[14px] h-4 animate-pulse" *ngIf="nameLoading"> <div class="bg-gray-700 w-36 h-4  rounded dark:bg-gray-900 mb-4"></div> </div>
+      <div class="col-start-2 col-span-1 yellow_color  text-left  text-[14px]" *ngIf="!nameLoading">{{compName}}</div>
+      <div class="col-start-5 col-span-1 mt-0 p-1 text-center text-zinc-400">
+      Markets
+      </div>
+    </div>
+    <!-- list matches for this league -->
+    <app-live-event-item 
+    *ngFor="let match of events; trackBy : trackByFn"
+    [match]="match"
+    [sport]="sport"
+    [overUnder]="overUnder"
+    [currentEventMiniCouponData]="currentEventMiniCouponData"
+    [currentMarketTabIndex]="currentMarketTabIndex"
+    [latestMarketCount]="latestMarketCount"
+    [compName]="compName"
+    (openModalEvent)="openModal($event)"
+    >
+    </app-live-event-item>
+</div>
+
+
+<div class="flex flex-col gap-1 my-2" *ngIf="!isLargeScreen()" >
+              
+    <div class="compName w-full yellow_color px-2 text-[12px]">{{compName}}</div>
+    <!-- each matches of said competition -->
+    <div class="bg-[#18242A] rounded-md p-2">
+        <app-live-event-item 
+        *ngFor="let match of events; trackBy : trackByFn"
+        [match]="match"
+        [sport]="sport"
+        [overUnder]="overUnder"
+        [currentEventMiniCouponData]="currentEventMiniCouponData"
+        [currentMarketTabIndex]="currentMarketTabIndex"
+        [latestMarketCount]="latestMarketCount"
+        [compName]="compName"
+        (openModalEvent)="openModal($event)"
+        >
+        </app-live-event-item>
+    </div>
+</div>
+</ng-container>
+
+
+<ng-template #eventView>
+  <div class="w-full flex flex-col gap-2 bg-[#2C3538] rounded-md py-1 px-2">
+         <!-- comp title -->
+         <span class="text-[10px] pl-2 font-medium uppercase">{{compName}}</span>
+         <!-- match cards -->
+         <ng-container *ngFor="let match of events;index as i; trackBy : trackByFn">
+          <app-live-event-item 
+          [match]="match"
+          [sport]="sport"
+          [overUnder]="overUnder"
+          [currentEventMiniCouponData]="currentEventMiniCouponData"
+          [currentMarketTabIndex]="currentMarketTabIndex"
+          [latestMarketCount]="latestMarketCount"
+          [compName]="compName"
+          [isMultibet]="isMultibet"
+          (openModalEvent)="openModal($event)"
+          >
+          </app-live-event-item>
+             
+             <div class="w-full h-[2px] rounded-full bg-gray-500" *ngIf="i<events?.length-1"></div>
+         </ng-container>
+  </div>
+</ng-template>

@@ -1,0 +1,444 @@
+
+<div class="w-full">
+  <ng-container *ngIf="activeScreen === kycScreens.SelectKycMethod">
+    <div class="text-white text-[20px] flex flex-row gap-2 items-center">
+      <span class="back-arrow lg:hidden" (click)="goHome()">
+        <a>
+          <img src="assets/svg/Backarrow.svg" />
+        </a>
+      </span>
+      <span>
+        Select KYC Method
+      </span>
+    </div>
+
+    <!-- KYC METHODS HERE!!! -->
+    <!-- A user can select any pf the methods below -->
+
+    <div class="flex space-x-4 mt-4 justify-center md:justify-start relative">
+      <!-- With Selfie -->
+      <!-- add a c;lick function to show selfie component when it is true -->
+      <div *ngIf="kycStatus === 1" class="overley absolute z-10 w-full h-full"></div>
+      <div
+        class="bg-[#2c3538] h-[174px] w-[161px] rounded-[10px] group"
+        (click)="displayKycSelfieForm()" [ngClass]="kycStatus === 1 ? '':'cursor-pointer hover:bg-[#FFC600]'">
+        <div>
+          <div class="flex justify-center mt-4">
+            <i class="group-hover:hidden">
+              <svg
+                width="75"
+                height="75"
+                viewBox="0 0 75 75"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M30.7812 70.3125L26.4062 65.9375L29.8438 62.5H15.625V56.25H29.8438L26.4062 52.8125L30.7812 48.4375L41.7188 59.375L30.7812 70.3125ZM43.75 62.5V56.25H59.375V62.5H43.75ZM15.625 53.125V12.5C15.625 10.7812 16.237 9.3099 17.4609 8.08594C18.6849 6.86198 20.1562 6.25 21.875 6.25H53.125C54.8438 6.25 56.3151 6.86198 57.5391 8.08594C58.763 9.3099 59.375 10.7812 59.375 12.5V53.125H39.9219L30.7812 43.9844L21.6406 53.125H15.625ZM21.875 41.0938C24.375 39.8958 26.9401 38.9974 29.5703 38.3984C32.2005 37.7995 34.8438 37.5 37.5 37.5C40.1562 37.5 42.7995 37.7995 45.4297 38.3984C48.0599 38.9974 50.625 39.8958 53.125 41.0938V12.5H21.875V41.0938ZM37.5 34.375C34.8958 34.375 32.6823 33.4635 30.8594 31.6406C29.0365 29.8177 28.125 27.6042 28.125 25C28.125 22.3958 29.0365 20.1823 30.8594 18.3594C32.6823 16.5365 34.8958 15.625 37.5 15.625C40.1042 15.625 42.3177 16.5365 44.1406 18.3594C45.9635 20.1823 46.875 22.3958 46.875 25C46.875 27.6042 45.9635 29.8177 44.1406 31.6406C42.3177 33.4635 40.1042 34.375 37.5 34.375Z"
+                  fill="#D9D9D9"
+                />
+              </svg>
+            </i>
+            <i class="group-hover:block hidden">
+              <svg xmlns="http://www.w3.org/2000/svg" width="75" height="75" viewBox="0 0 75 75" fill="none">
+                <path d="M30.7812 70.3125L26.4062 65.9375L29.8438 62.5H15.625V56.25H29.8438L26.4062 52.8125L30.7812 48.4375L41.7188 59.375L30.7812 70.3125ZM43.75 62.5V56.25H59.375V62.5H43.75ZM15.625 53.125V12.5C15.625 10.7812 16.237 9.3099 17.4609 8.08594C18.6849 6.86198 20.1562 6.25 21.875 6.25H53.125C54.8438 6.25 56.3151 6.86198 57.5391 8.08594C58.763 9.3099 59.375 10.7812 59.375 12.5V53.125H39.9219L30.7812 43.9844L21.6406 53.125H15.625ZM21.875 41.0938C24.375 39.8958 26.9401 38.9974 29.5703 38.3984C32.2005 37.7995 34.8438 37.5 37.5 37.5C40.1562 37.5 42.7995 37.7995 45.4297 38.3984C48.0599 38.9974 50.625 39.8958 53.125 41.0938V12.5H21.875V41.0938ZM37.5 34.375C34.8958 34.375 32.6823 33.4635 30.8594 31.6406C29.0365 29.8177 28.125 27.6042 28.125 25C28.125 22.3958 29.0365 20.1823 30.8594 18.3594C32.6823 16.5365 34.8958 15.625 37.5 15.625C40.1042 15.625 42.3177 16.5365 44.1406 18.3594C45.9635 20.1823 46.875 22.3958 46.875 25C46.875 27.6042 45.9635 29.8177 44.1406 31.6406C42.3177 33.4635 40.1042 34.375 37.5 34.375Z" fill="#18242A"/>
+                </svg>
+            </i>
+          </div>
+
+          <p class="mt-3 text-center text-[16px] group-hover:text-[#18242A] font-normal">With selfie</p>
+        </div>
+      </div>
+
+      <!-- Without selfie -->
+      <!-- add a click to show the form for without selfie -->
+
+      <div
+        class="bg-[#2c3538] h-[174px] w-[161px] rounded-[10px] group"
+        (click)="displayKycWithoutSelfieForm()" [ngClass]="kycStatus === 1 ? '':'cursor-pointer hover:bg-[#FFC600]'"
+      >
+        <div>
+          <div class="flex justify-center mt-4">
+            <i class="group-hover:hidden">
+              <svg
+                width="58"
+                height="58"
+                viewBox="0 0 58 58"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g clip-path="url(#clip0_12498_24608)">
+                  <path
+                    d="M33.8333 26.5833H50.75V14.5H33.8333V26.5833ZM42.2917 23.5625L36.25 19.3333V16.9167L42.2917 21.1458L48.3333 16.9167V19.3333L42.2917 23.5625ZM4.83333 50.75C3.50417 50.75 2.36632 50.2767 1.41979 49.3302C0.473264 48.3837 0 47.2458 0 45.9167V12.0833C0 10.7542 0.473264 9.61632 1.41979 8.66979C2.36632 7.72326 3.50417 7.25 4.83333 7.25H53.1667C54.4958 7.25 55.6337 7.72326 56.5802 8.66979C57.5267 9.61632 58 10.7542 58 12.0833V45.9167C58 47.2458 57.5267 48.3837 56.5802 49.3302C55.6337 50.2767 54.4958 50.75 53.1667 50.75H4.83333ZM21.75 33.8333C23.7639 33.8333 25.4757 33.1285 26.8854 31.7188C28.2951 30.309 29 28.5972 29 26.5833C29 24.5694 28.2951 22.8576 26.8854 21.4479C25.4757 20.0382 23.7639 19.3333 21.75 19.3333C19.7361 19.3333 18.0243 20.0382 16.6146 21.4479C15.2049 22.8576 14.5 24.5694 14.5 26.5833C14.5 28.5972 15.2049 30.309 16.6146 31.7188C18.0243 33.1285 19.7361 33.8333 21.75 33.8333ZM5.075 45.9167H38.425C36.7333 42.8958 34.3972 40.5295 31.4167 38.8177C28.4361 37.1059 25.2139 36.25 21.75 36.25C18.2861 36.25 15.0639 37.1059 12.0833 38.8177C9.10278 40.5295 6.76667 42.8958 5.075 45.9167Z"
+                    fill="#D9D9D9"
+                  />
+                </g>
+                <defs>
+                  <clipPath id="clip0_12498_24608">
+                    <rect width="58" height="58" fill="white" />
+                  </clipPath>
+                </defs>
+              </svg>
+            </i>
+            <i class="group-hover:block hidden">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="58"
+                height="58"
+                viewBox="0 0 102 103"
+                fill="none"
+              >
+                <g clip-path="url(#clip0_12498_18949)">
+                  <path
+                    d="M59.5 47.2083H89.25V25.75H59.5V47.2083ZM74.375 41.8438L63.75 34.3333V30.0417L74.375 37.5521L85 30.0417V34.3333L74.375 41.8438ZM8.5 90.125C6.1625 90.125 4.16146 89.2846 2.49688 87.6036C0.832292 85.9227 0 83.9021 0 81.5417V21.4583C0 19.0979 0.832292 17.0773 2.49688 15.3964C4.16146 13.7155 6.1625 12.875 8.5 12.875H93.5C95.8375 12.875 97.8385 13.7155 99.5031 15.3964C101.168 17.0773 102 19.0979 102 21.4583V81.5417C102 83.9021 101.168 85.9227 99.5031 87.6036C97.8385 89.2846 95.8375 90.125 93.5 90.125H8.5ZM38.25 60.0833C41.7917 60.0833 44.8021 58.8316 47.2812 56.3281C49.7604 53.8247 51 50.7847 51 47.2083C51 43.6319 49.7604 40.592 47.2812 38.0885C44.8021 35.5851 41.7917 34.3333 38.25 34.3333C34.7083 34.3333 31.6979 35.5851 29.2188 38.0885C26.7396 40.592 25.5 43.6319 25.5 47.2083C25.5 50.7847 26.7396 53.8247 29.2188 56.3281C31.6979 58.8316 34.7083 60.0833 38.25 60.0833ZM8.925 81.5417H67.575C64.6 76.1771 60.4917 71.9748 55.25 68.9349C50.0083 65.895 44.3417 64.375 38.25 64.375C32.1583 64.375 26.4917 65.895 21.25 68.9349C16.0083 71.9748 11.9 76.1771 8.925 81.5417Z"
+                    fill="#18242A"
+                  />
+                </g>
+                <defs>
+                  <clipPath id="clip0_12498_18949">
+                    <rect width="102" height="103" fill="white" />
+                  </clipPath>
+                </defs>
+              </svg>
+            </i>
+          </div>
+
+          <p class="mt-8 text-center text-[16px] group-hover:text-[#18242A] font-normal">Without selfie</p>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- WITHOUT SELFIE -->
+  <!-- Show this component when a user selects Without Selfie KYC Method -->
+
+  <ng-container *ngIf="activeScreen === kycScreens.KycwithoutSelfieForm">
+    <div class="text-white text-[20px] flex flex-row gap-2 items-center mb-[32px]">
+      <span class="back-arrow" (click)="this.activeScreen = kycScreens.SelectKycMethod">
+          <img src="assets/svg/Backarrow.svg" />
+      </span>
+      <span>
+      KYC
+      </span>
+    </div>
+    <div [formGroup]="kycWithoutSelfieForm"
+      class="flex flex-col"
+    >
+    
+
+      <div class="w-full lg:w-[31%]">
+        <p class="text-white text-[20px] font-bold pb-3">Valid ID</p>
+
+        <div class="flex flex-col y-2 py-2">
+          <label class="font-normal text-[12px]">Choose ID Type*</label>
+          <select formControlName="id_type" (change)="updatePatternValidations($event)"
+            name="languages"
+            class="bg-[#2c3538] border border-gray-600 text-[#D9D9D9] rounded-lg py-4 px-1 text-[12px] w-full mt-2"
+          >
+          <option value="NIN_SLIP">NIN SLIP</option>
+          <option value="DRIVERS_LICENSE">DRIVERS LICENSE</option>
+          <option value="VOTER_ID">VOTER ID</option>
+          <!-- <option value="PASSPORT">International Passport</option> -->
+          </select>
+          <small class="text-xs italic text-red-500 mt-1" *ngIf="kycWithoutSelfieForm.get('id_type')?.hasError('required') && kycWithoutSelfieForm.get('id_type')?.touched">Please select Id type.</small>
+        </div>
+
+        <div class="flex flex-col y-2 py-3">
+          <label class="font-normal text-[12px]">Enter ID Number *</label>
+          <input formControlName="id_number" maxlength="25"
+            type="text"
+            placeholder=""
+            class="bg-[#2c3538] border border-gray-600 text-[#D9D9D9] rounded-lg py-6 px-3 h-9 text-[12px] mt-2 w-full"
+          />
+          <small class="text-xs italic text-red-500 mt-1" *ngIf="kycWithoutSelfieForm.get('id_number')?.hasError('required') && kycWithoutSelfieForm.get('id_number')?.touched">Id number is required.</small>
+          <small class="text-xs italic text-red-500 mt-1" *ngIf="kycWithoutSelfieForm.get('id_number')?.hasError('pattern') && kycWithoutSelfieForm.get('id_number')?.touched">{{validationMessage}}</small>
+        </div>
+
+        <div
+          class="hidden text-center lg:flex justify-center items-center pt-6"
+        >
+          <p class="w-[80%] text-[12px] text-[#D9D9D9]">
+            Note: You have two attempts. Please contact customer service if the
+            KYC verification is unsuccessful.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      class="flex flex-col items-center lg:flex-row mt-6 gap-4"
+    >
+      <button
+        (click)="displayKycMehtodsSelction()"
+        class="uppercase bg-[#4D585D] text-[#18242A] text-[16px] w-full lg:w-[343px] font-semibold text-center h-full py-4 rounded-lg order-2 lg:order-1"
+      >
+        CANCEL
+      </button>
+      <button [disabled]="this.kycWithoutSelfieForm.invalid"
+        (click)="displayDocsProcessing()"
+        class="submitbtn uppercase bg-[#FFC600] w-full lg:w-[343px] rounded-lg h-full text-center py-4 order-1 lg:order-2 mt-0"
+      >
+      <div *ngIf="isLoading" class="button-spinner mx-auto"></div>
+        <span class="text-[#18242A] text-[16px] font-semibold" *ngIf="!isLoading">SUBMIT</span>
+      </button>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="activeScreen === kycScreens.kycWithSelfie">
+    <div class="text-white text-[20px] flex flex-row gap-2 items-center mb-[32px]">
+      <span class="back-arrow" (click)="this.activeScreen = kycScreens.SelectKycMethod">
+          <img src="assets/svg/Backarrow.svg" />
+      </span>
+      <span>
+      KYC
+      </span>
+    </div>
+    <div [formGroup]="kycWithSelfieForm"
+      class="w-full"
+    >
+    <div class="max-w-320px mb-[30px]">
+      <p class="mb-[13px] text-base font-bold">Upload document to initiate KYC process</p>
+      <p class="text-sm font-normal ">Kindly upload your image and verify your account to avoid withdrawal delays</p>
+    </div>
+    <div class="">
+      <p class="text-sm font-medium leading-4 mb-2">Take a selfie and Upload *</p>
+
+      <ng-container *ngIf="!webcamImage">
+        <div class="w-full h-[246px] border-2 border-dashed border-[#4D585D] rounded-[10px] bg-[#2C3538] flex items-center justify-center">
+          <div class="text-center w-[260px]" [ngClass]="{'w-[250px]' : webcamImage}">
+            <ng-container>
+              <i>
+                <svg xmlns="http://www.w3.org/2000/svg" width="260" height="93" viewBox="0 0 168 93" fill="none">
+                  <path d="M84.0003 68.0521C88.792 68.0521 92.8649 66.375 96.2191 63.0208C99.5732 59.6667 101.25 55.5938 101.25 50.8021C101.25 46.0104 99.5732 41.9375 96.2191 38.5833C92.8649 35.2292 88.792 33.5521 84.0003 33.5521C79.2087 33.5521 75.1357 35.2292 71.7816 38.5833C68.4274 41.9375 66.7503 46.0104 66.7503 50.8021C66.7503 55.5938 68.4274 59.6667 71.7816 63.0208C75.1357 66.375 79.2087 68.0521 84.0003 68.0521ZM84.0003 60.3854C81.317 60.3854 79.0489 59.459 77.1962 57.6063C75.3434 55.7535 74.417 53.4854 74.417 50.8021C74.417 48.1187 75.3434 45.8507 77.1962 43.9979C79.0489 42.1451 81.317 41.2188 84.0003 41.2188C86.6837 41.2188 88.9517 42.1451 90.8045 43.9979C92.6573 45.8507 93.5837 48.1187 93.5837 50.8021C93.5837 53.4854 92.6573 55.7535 90.8045 57.6063C88.9517 59.459 86.6837 60.3854 84.0003 60.3854ZM53.3337 81.4688C51.2253 81.4688 49.4205 80.7181 47.9191 79.2167C46.4177 77.7153 45.667 75.9104 45.667 73.8021V27.8021C45.667 25.6937 46.4177 23.8889 47.9191 22.3875C49.4205 20.8861 51.2253 20.1354 53.3337 20.1354H65.4087L72.5003 12.4688H95.5003L102.592 20.1354H114.667C116.775 20.1354 118.58 20.8861 120.082 22.3875C121.583 23.8889 122.334 25.6937 122.334 27.8021V73.8021C122.334 75.9104 121.583 77.7153 120.082 79.2167C118.58 80.7181 116.775 81.4688 114.667 81.4688H53.3337Z" fill="#4D585D"/>
+                </svg>
+              </i>
+              <button
+              (click)="openWebcam()"
+              class="uppercase bg-[#4D585D] text-[#18242A] text-[16px] font-semibold w-full text-center  py-3 rounded-lg "
+            >
+              CAPTURE
+            </button>
+            </ng-container>
+          </div>
+        </div>
+      </ng-container>
+
+      <!-- <ng-container *ngIf="webcamImage"> -->
+        <div class="w-full lg:w-[50%] m-auto mt-[40px]">
+          <p class="text-white text-[16px] font-bold pb-3">Valid ID</p>
+  
+          <div class="flex flex-col y-2 py-2">
+            <label class="font-normal text-[12px]">Choose ID Type*</label>
+            <select formControlName="id_type"
+              name="languages"
+              class="bg-[#2c3538] border border-gray-600 text-[#D9D9D9] rounded-lg py-3 px-1 text-[12px] w-full mt-2"
+            >
+              <option value="DRIVERS_LICENSE">DRIVERS LICENSE</option>
+              <option value="VOTER_ID">VOTER ID</option>
+              <option value="IDENTITY_CARD">NIN SLIP</option>
+            
+            </select>
+            <small class="text-xs italic text-red-500 mt-1" *ngIf="kycWithSelfieForm.get('id_type')?.hasError('required') && kycWithSelfieForm.get('id_type')?.touched">Please select Id type.</small>
+          </div>
+  
+          <div
+            class="hidden text-center lg:flex justify-center items-center my-10"
+          >
+            <p class="max-w-[360px] text-[12px] text-[#D9D9D9]">
+              Note: You have two attempts.
+              Please contact customer service if the KYC verification is unsuccessful.
+            </p>
+          </div>
+          <div
+        class="flex flex-col space-y-2 items-center mt-6 gap-[20px]"
+      >
+        <button [disabled]="this.kycWithSelfieForm.invalid"
+          (click)="submitKycWithSelfie()"
+          class="submitbtn uppercase bg-[#FFC600] w-full rounded-lg text-center py-3"
+        >
+        <div *ngIf="isLoading" class="button-spinner mx-auto"></div>
+        <span class="text-[#18242A] text-[16px] font-semibold" *ngIf="!isLoading">SUBMIT</span>
+        </button>
+        <button
+          (click)="displayKycMehtodsSelction()"
+          class="uppercase bg-[#4D585D] text-[#18242A] text-[16px] font-semibold w-full text-center  py-3 rounded-lg "
+        >
+          CANCEL
+        </button>
+      </div>
+        </div>
+      <!-- </ng-container> -->
+    </div>
+
+    </div>
+  </ng-container>
+  <!-- WITHOUT SELFIE METHOD ENDS -->
+
+  <!-- DOCUMENT CURRENTLY UNDER REVIEW -->
+  <!-- Show this part once the user has submitted the dicuments and the confirmation status from API is pending -->
+
+  <div
+    class="flex justify-center items-center mt-12"
+    *ngIf="activeScreen === kycScreens.KycDocsProcess"
+  >
+    <div>
+      <div class="flex justify-center items-center">
+        <svg
+          width="87"
+          height="87"
+          viewBox="0 0 87 87"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle
+            cx="43.5"
+            cy="43.5"
+            r="40"
+            stroke="#FFC600"
+            stroke-width="7"
+          />
+        </svg>
+      </div>
+
+      <p class="text-center w-[316px] mt-8">
+        Your KYC document is currently being processed. We appreciate your
+        patience, and we will notify you once it has been reviewed and approved.
+        Thank you for your cooperation.
+      </p>
+    </div>
+  </div>
+
+  <!-- RESULT OVERVIEW UI  -->
+  <!-- Show this section when the users KYC results are available -->
+
+  <div></div>
+  <ng-container *ngIf="activeScreen === kycScreens.kycResultOverview">
+    <div class="w-full lg:w-4/5">
+      <div class="flex justify-between items-center mb-[20px]">
+        <p class="text-[20px] font-semibold">Result Overview</p>
+        <button class="" (click)="routeToSports()">
+          <i class="cursor-pointer" (click)="isShowWebcam = false">
+            <svg xmlns="http://www.w3.org/2000/svg" width="33" height="33" viewBox="0 0 33 33" fill="none">
+              <circle cx="16.5" cy="16.5" r="16" fill="#2C3538" stroke="#4D585D"/>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M18.2884 17.2504L24 11.5387L22.9616 10.5002L17.25 16.2119L11.5384 10.5003L10.5 11.5388L16.2115 17.2504L10.5002 22.9617L11.5387 24.0002L17.25 18.2888L22.9613 24.0002L23.9998 22.9618L18.2884 17.2504Z" fill="#FFC600"/>
+            </svg>
+          </i>
+        </button>	
+      </div>
+      <div class="result p-[18px] flex gap-[32px] bg-[#2C3538] border-[#4D585D] border rounded-[10px] flex-col lg:flex-row">
+        <div class="" [ngClass]="kycRejectedStatus ? '':'flex-1'">
+          <p class="text-[#D9D9D9] text-[13px] mb-2">Results</p>
+          <ng-container *ngIf="!kycRejectedStatus">
+            <div class="bg-[#18242A] px-[10px] py-[16px] flex gap-3 rounded-[10px]">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M10.6 16.6L17.65 9.55L16.25 8.15L10.6 13.8L7.75 10.95L6.35 12.35L10.6 16.6ZM12 22C10.6167 22 9.31667 21.7375 8.1 21.2125C6.88333 20.6875 5.825 19.975 4.925 19.075C4.025 18.175 3.3125 17.1167 2.7875 15.9C2.2625 14.6833 2 13.3833 2 12C2 10.6167 2.2625 9.31667 2.7875 8.1C3.3125 6.88333 4.025 5.825 4.925 4.925C5.825 4.025 6.88333 3.3125 8.1 2.7875C9.31667 2.2625 10.6167 2 12 2C13.3833 2 14.6833 2.2625 15.9 2.7875C17.1167 3.3125 18.175 4.025 19.075 4.925C19.975 5.825 20.6875 6.88333 21.2125 8.1C21.7375 9.31667 22 10.6167 22 12C22 13.3833 21.7375 14.6833 21.2125 15.9C20.6875 17.1167 19.975 18.175 19.075 19.075C18.175 19.975 17.1167 20.6875 15.9 21.2125C14.6833 21.7375 13.3833 22 12 22ZM12 20C14.2333 20 16.125 19.225 17.675 17.675C19.225 16.125 20 14.2333 20 12C20 9.76667 19.225 7.875 17.675 6.325C16.125 4.775 14.2333 4 12 4C9.76667 4 7.875 4.775 6.325 6.325C4.775 7.875 4 9.76667 4 12C4 14.2333 4.775 16.125 6.325 17.675C7.875 19.225 9.76667 20 12 20Z" fill="#4CAF50"/>
+                </svg>
+              <span class="text-green-500 text-base font-medium">Approved</span>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="kycRejectedStatus">
+            <div class="bg-[#18242A] px-[10px] py-[16px] flex gap-3 rounded-[10px]">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M16.875 21.525L15.475 20.125L17.575 18L15.475 15.875L16.875 14.475L19 16.575L21.125 14.475L22.525 15.875L20.425 18L22.525 20.125L21.125 21.525L19 19.425L16.875 21.525ZM9 9V7H18V9H9ZM9 12V10H18V12H9ZM6 22C5.16667 22 4.45833 21.7083 3.875 21.125C3.29167 20.5417 3 19.8333 3 19V16H6V2H21V12.375C20.6833 12.2583 20.3583 12.1708 20.025 12.1125C19.6917 12.0542 19.35 12.025 19 12.025V4H8V16H13.35C13.2333 16.3333 13.1458 16.6667 13.0875 17C13.0292 17.3333 13 17.6667 13 18C13 18.7333 13.1292 19.4417 13.3875 20.125C13.6458 20.8083 14.0333 21.4333 14.55 22H6Z" fill="#BE202F"/>
+                </svg>
+              <span class="text-[#BE202F] text-base font-medium">Rejected</span>
+            </div>
+          </ng-container>
+        </div>
+        <div class="" [ngClass]="kycRejectedStatus ? '':'flex-1'">
+          <p class="text-[#D9D9D9] text-[13px] mb-2">Code</p>
+          <div class="flex gap-3 items-start justify-between">
+            <span class="text-[16px] text-[#FFC600]" >{{kycResultData?.result['SmileJobID']}}</span>
+            <i [cdkCopyToClipboard]="kycResultData?.result['SmileJobID']" (cdkCopyToClipboardCopied)="onCopied($event)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M9 18C8.45 18 7.97917 17.8042 7.5875 17.4125C7.19583 17.0208 7 16.55 7 16V4C7 3.45 7.19583 2.97917 7.5875 2.5875C7.97917 2.19583 8.45 2 9 2H18C18.55 2 19.0208 2.19583 19.4125 2.5875C19.8042 2.97917 20 3.45 20 4V16C20 16.55 19.8042 17.0208 19.4125 17.4125C19.0208 17.8042 18.55 18 18 18H9ZM5 22C4.45 22 3.97917 21.8042 3.5875 21.4125C3.19583 21.0208 3 20.55 3 20V6H5V20H16V22H5Z" fill="#FFC600"/>
+                </svg>
+            </i>
+          </div>
+        </div>
+        <ng-container *ngIf="kycRejectedStatus">
+          <hr class="my-3 border border-[#4D585D] lg:hidden block" >
+          <div class="flex-1 flex gap-3 sm:flex-row flex-col">
+            <div class="">
+              <p class="text-[#D9D9D9] text-[13px] mb-2">Why Rejected</p>
+              <p class="text-[#D9D9D9] text-[12px] mb-1">{{kycResultData?.result?.ResultText}}</p>
+              <p class="text-[#D9D9D9] text-[12px]">Note: You have two attempts. Please contact customer service if the KYC verification is unsuccessful</p>
+            </div>
+            <div class="flex gap-3 items-start justify-between m-auto">
+              <button class="rounded-[10px] bg-[#FFC600] text-[16px] font-semibold px-3 py-2 text-[#18242A] w-[164px]" (click)="resubmitKyc()">RE - SUBMIT</button>	
+            </div>
+          </div>
+        
+        </ng-container>
+      </div>
+    
+    </div>
+  </ng-container>
+</div>
+
+<ng-container *ngIf="isShowCardSample">
+  <div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+   
+    <div class="fixed inset-0 bg-[#000000cc] bg-opacity-75 transition-opacity"></div>
+  
+    <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+      <div class="flex min-h-[95%] lg:min-h-full items-end justify-center text-center sm:items-center">
+       
+        <div class="relative sm:bottom-[-265px] lg:bottom-0 transform overflow-hidden rounded-[20px] border-[#4D585D] bg-[#2C3538] text-left shadow-[-1px 4px 34px 9px rgba(0, 0, 0, 0.65)] transition-all sm:my-8 sm:w-full sm:max-w-[768px]">
+          <div class="px-4 pb-4 pt-5 sm:p-6 sm:pb-4 bg-[#2C3538] text-left">
+            <div class="header-back flex items-center justify-between mb-[32px] md:lg-[50px]">
+              <div class="left flex gap-3 items-center">
+                <i class="bg-[#18242A] p-1 rounded-full cursor-pointer" (click)="isShowCardSample = false">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
+                    <path d="M6.19297 11.3562H17.6992V10.0437H6.19297L11.618 4.6187L10.6992 3.69995L3.69922 10.7L10.6992 17.7L11.618 16.7812L6.19297 11.3562Z" fill="white"/>
+                    <path d="M6.19297 11.3562H17.6992V10.0437H6.19297L11.618 4.6187L10.6992 3.69995L3.69922 10.7L10.6992 17.7L11.618 16.7812L6.19297 11.3562Z" stroke="white"/>
+                  </svg>
+                </i>
+                <div class="text-[20px] font-semibold">See Card Sample</div>
+              </div>
+              <div class="right">
+                <i class="cursor-pointer" (click)="isShowCardSample = false">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="33" height="33" viewBox="0 0 33 33" fill="none">
+                    <circle cx="16.5" cy="16.5" r="16" fill="#2C3538" stroke="#4D585D"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M18.2884 17.2504L24 11.5387L22.9616 10.5002L17.25 16.2119L11.5384 10.5003L10.5 11.5388L16.2115 17.2504L10.5002 22.9617L11.5387 24.0002L17.25 18.2888L22.9613 24.0002L23.9998 22.9618L18.2884 17.2504Z" fill="#FFC600"/>
+                  </svg>
+                </i>
+              </div>
+            </div>
+            <div class="p-3">
+              <img src="../../../assets/img/sample-kyc-card.png" alt="" class="w-full">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+<ng-container *ngIf="isShowWebcam">
+  <div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+   
+    <div class="fixed inset-0 bg-[#000000cc] bg-opacity-75 transition-opacity"></div>
+  
+    <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+      <div class="flex min-h-[95%] lg:min-h-full justify-center text-center sm:items-center">
+       
+        <div class="sm:flex-none flex-1 relative top-[8rem] sm:top-0 transform overflow-hidden rounded-[20px] border-[#4D585D] bg-[#2C3538] text-left shadow-[-1px 4px 34px 9px rgba(0, 0, 0, 0.65)] transition-all sm:my-8 sm:w-full sm:max-w-[768px]">
+          <div class="px-4 pb-4 pt-5 sm:p-6 sm:pb-4 bg-[#2C3538] text-left">
+            <div class="header-back flex items-center justify-end">
+              <div class="right">
+                <i class="cursor-pointer" (click)="isShowWebcam = false">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="33" height="33" viewBox="0 0 33 33" fill="none">
+                    <circle cx="16.5" cy="16.5" r="16" fill="#2C3538" stroke="#4D585D"/>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M18.2884 17.2504L24 11.5387L22.9616 10.5002L17.25 16.2119L11.5384 10.5003L10.5 11.5388L16.2115 17.2504L10.5002 22.9617L11.5387 24.0002L17.25 18.2888L22.9613 24.0002L23.9998 22.9618L18.2884 17.2504Z" fill="#FFC600"/>
+                  </svg>
+                </i>
+              </div>
+            </div>
+            <div class="px-3 pb-3 smile-id-web">
+              <!-- <app-webcam-image (imageCaptured)="webcamImageCaptured($event)" (isCapturedImage)="webcamIsImageCaptured($event)"></app-webcam-image> -->
+              <smart-camera-web capture-id="back" document-capture-modes="camera,upload">
+              </smart-camera-web>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

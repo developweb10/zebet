@@ -1,0 +1,136 @@
+:host {
+    display: block;
+    background: #18242A;
+    border-radius: 8px;
+    padding: 8px 16px 16px;
+  }
+  .btn-Transaction{
+    width: 50%;
+  }
+ .heading {
+    margin: 9px;
+    display: flex;
+    justify-content: center;
+    align-items: center !important;
+    color:  #ffc600; 
+  }
+  .main-container{
+    position: relative;
+    overflow-y: auto;
+    /* height: calc(100vh - 400px); */
+
+  }
+  mat-expansion-panel-header{
+    border-bottom: 1px solid #4d585d !important;
+  }
+  .mat-expansion-panel{
+    margin: 5px 0;
+  }
+  .mat-expansion-panel-body{
+    height: 300px !important;
+    overflow-y: auto !important;
+  }
+  mat-expansion-panel-header{
+    border-bottom: 1px solid #4d585d !important;
+  }
+  .accordian_ol li{
+    list-style-type: auto !important;
+  }
+  .btn-withdraw {
+    border-radius: 10px;
+    background: var(--Primary-Red---Thunderbird, #ffc600);
+    color: var(--primary-black-mirage-primary-text, #18242a);
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 24px;
+    width: 100%;
+    text-transform: uppercase;
+    padding: 12px 16px;
+  }
+  .close-icon {
+    top:6px;
+    position:absolute;
+    right: 0;
+    cursor: pointer;
+    color: #ffc600;
+  }
+  .panel-content {
+    /* max-height: 750px !important; Set the maximum height as needed */
+    overflow-y: auto;
+  }
+  .main-section{
+    padding: 15px 0;
+  }
+  .cancel-btn{
+    display: flex;
+    gap: 10px;
+    background:#111827 ;
+    height: 37px;
+    /* width: 142px; */
+    padding: 5px;
+    /* text-align: center; */
+    align-items: center;
+    border-radius: 6px;
+  
+  }
+  .btn-wrapper-cancel{
+    display: flex;
+    justify-content: center;
+    margin: 39px;
+  }
+  .secured-text{
+    padding-bottom: 36px;
+    justify-content: center;
+    display: flex;
+  }
+  .secured-text p{
+    gap: 5px;
+    display: flex;
+    align-items: center;
+   
+  }
+@media screen and (max-width: 767px) {
+  :host {
+  margin: 0 auto;
+  width: 81%;
+  }
+ .btn-mobile{
+  flex-direction: column;
+ }
+ .btn-withdraw{
+  width: 100% !important;
+ }
+ .btn-Transaction{
+  width: 100%;
+}
+.cancel-btn{
+  display: flex;
+  gap: 10px;
+  background:#111827 ;
+  height: 37px;
+  /* width: 142px; */
+  padding: 5px;
+  /* text-align: center; */
+  align-items: center;
+  border-radius: 6px;
+
+}
+.btn-wrapper-cancel{
+  display: flex;
+  justify-content: center;
+  margin: 39px;
+}
+.secured-text{
+  padding-bottom: 36px;
+  justify-content: center;
+  display: flex;
+}
+.secured-text p{
+  gap: 5px;
+  display: flex;
+  align-items: center;
+ 
+}
+}
+
+  

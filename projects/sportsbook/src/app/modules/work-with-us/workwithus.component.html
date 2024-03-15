@@ -1,0 +1,57 @@
+<section class="workwithus mainWrapper">
+  <div class="custom-row">
+    <div class="col-w2"></div>
+    <div class="col-w8">
+      <div class="">
+        <h1 class="h1 mb-30px">{{ workwithus.title}}</h1>
+        <div class="banner-image mb-30px">
+          <img [src]="ASSETS_URL + 'assets/' + workwithus.banner" alt="Social Media Icon" />
+        </div>
+
+        <div class="workwithus-content custom-row">
+          <div class="col-w8">
+            <p [innerHTML]="workwithus.main_content"></p>
+          </div>
+          <div class="col-w4 workwithus-content-image">
+            <img [src]="ASSETS_URL + 'assets/' + workwithus.content_image" alt="Social Media Icon" />
+          </div>
+        </div>
+      </div>
+      <div class="custom-nav">
+        <ul class="custom-navList">
+          <li class="list-items" routerLinkActive="active"><a routerLink="/blog">All</a></li>
+          <li class="list-items" routerLinkActive="active"><a routerLink="/live-sports">Growth</a></li>
+          <li class="list-items" routerLinkActive="active"><a routerLink="/virtual">Leadership</a>
+          </li>
+          <li class="list-items" routerLinkActive="active"><a routerLink="/jackpot">Strategy</a></li>
+        </ul>
+
+        <div class="">
+          <div class="search-box input-group">
+            <input class="form-input" type="text" name="search" autocomplete="off" placeholder="Search">
+            <!-- placeholder="Start searching for a hero by id or name or country" -->
+            <button><img src="assets/img/search-icon.svg"></button>
+          </div>
+          <div class="custom-row">
+            <div class="col-w6 ">
+              <div class="workType-wrapper">
+                <ul *ngFor="let carrier of carriersData">
+                  <li class="h3">{{ carrier.title}} </li>
+                  <li class="p2">{{ carrier.short_content}}</li>
+                  <div class="workType-wrapper-links">
+                    <a href="/">Know More</a>
+
+                    <a href="/" class="btn btn-primary">APPLY</a>
+                  </div>
+                </ul>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-w2"></div>
+  </div>
+</section>

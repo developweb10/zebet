@@ -1,0 +1,13 @@
+<section class="terms-section">
+  <div class="terms-main-wrapper">
+    <h1 class="h1">{{ sportsBettingRuleServiceData?.primary_title }}</h1>
+    <div class="terms-wrapper">
+      <p class="sports-betting-rule" [innerHTML]="sportsBettingRuleServiceData?.primary_content" ></p>
+    </div>
+
+    <ul *ngFor="let link of sportsBettingRuleServiceData?.list">
+      <li class="h1 uppercase">{{ link.title }}</li>
+      <li class="terms-wrapper" [innerHTML]="link.content"></li>
+    </ul>
+  </div>
+</section>

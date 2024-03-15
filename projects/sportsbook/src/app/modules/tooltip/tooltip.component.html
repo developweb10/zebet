@@ -1,0 +1,9 @@
+<div class="tooltip bg-gray-800 w-[200px] h-[119px]"
+     [ngClass]="['tooltip--'+position, 'tooltip--'+theme]"
+     [class.tooltip--visible]="visible"
+     [style.left]="left + 'px'"
+     [style.top]="top + 'px'">
+     <div class="self-stretch text-white font-medium leading-none p-1">
+      {{title}}</div>
+  <div>{{tooltip}}</div>
+</div>

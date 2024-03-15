@@ -1,0 +1,36 @@
+<div class="bg-[#18242A] rounded-tl-xl rounded-tr-xl ">
+    <div class="flex items-center gap-2 py-2 lg:px-0 px-4">
+        <a (click)="closeDialog()">
+          <img alt="back arrow" src="./assets/img/back_arrow.png" />
+        </a>
+        <h1 class="text-[18px] text-[#fff] font-semibold">Edit Limit</h1>
+      </div>
+      <div class="terms-section">
+          <div class="flex flex-col">
+              <label class="fin_amount" for="">Amount<sup class="text-[#FFC600]">*</sup></label>
+              <div class="input-wrap">
+                  <span class="tag">&#x20A6;</span>
+                  <input
+                      type="number"
+                      value="{{ selectedAmount }}"
+                      (change)="enteredamount($event)"
+                  />
+                  <span class="number">.00</span>
+              </div>
+            </div>
+            <div class="flex mt-3 pt-2">
+              <button
+                  class="btn-cancel px-2 py-2 text-white w-full mr-2"
+                  (click)="closeDialog()">
+                  Cancel Update
+              </button>
+              <button
+                  class="btn-limit px-2 py-2 text-white w-full"
+                  [disabled]="isSubmitting"
+                  (click)="updateLimit()">
+                  <span *ngIf="!isSubmitting" class="text-[#18242A]">Update Limit</span>
+				          <span class="flex justify-center button-spinner mx-auto"  *ngIf="isSubmitting"></span>
+              </button>
+            </div>
+      </div>
+</div>

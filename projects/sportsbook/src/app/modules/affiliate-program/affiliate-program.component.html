@@ -1,0 +1,290 @@
+<div class="affilate_container">
+    <header class="text-white p-4 flex items-center">
+        <div class="flex items-center">
+            <img src="assets\img\header-logo.png" alt="Logo" class="h-8 mr-2" />
+
+        </div>
+        <button class="toggle_menu" (click)="toggleMenu()">
+            <svg width="30" height="27" viewBox="0 0 30 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="30" height="5" fill="#FFC600" />
+                <rect y="11" width="30" height="5" fill="#FFC600" />
+                <rect y="22" width="30" height="5" fill="#FFC600" />
+            </svg>
+        </button>
+        <nav class="" [class.toggleNav]="showMenu">
+            <!-- Your navigation links here -->
+            <ul class="header-nav">
+                <li>
+                    <a href="#home" [class.active]="activeSection === 'home'" (click)="setActive('home')" smoothScroll>HOME</a>
+                </li>
+                <li>
+                    <a href="#choose_us" [class.active]="activeSection === 'about'" (click)="setActive('about')" smoothScroll>ABOUT US</a>
+                </li>
+                <li>
+                    <a href="#commissions" [class.active]="activeSection === 'commissions'" (click)="setActive('commissions')" smoothScroll>COMMISSIONS</a>
+                </li>
+                <li>
+                    <a href="#become_affliate" [class.active]="activeSection === 'affiliate'" (click)="setActive('affiliate')" smoothScroll>HOW TO BECOME AN AFFILIATE</a>
+                </li>
+                <li>
+                    <a href="#contact" [class.active]="activeSection === 'contact'" (click)="setActive('contact')" smoothScroll>CONTACT</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="banner-section" style="background-image: url('assets/affiliate/bg-zebet 1.png');">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="banner_img">
+                        <img src="assets/affiliate/hero-1 1.png" alt="Menu" />
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="">
+                        <div class="banner-text">
+
+                            <img src="assets/affiliate/note-3 1.png" alt="" class="top-note">
+                            <h1 class="banner_heading">EARN <span class="text-yellow">MONEY</span> WITH <span
+                                    class="text-yellow"> ZEBET NIGERIA!</span></h1>
+                            <p> New online betting affiliate program with high commissions </p>
+                            <img src="assets/affiliate/note-1 1.png" alt="" class="banner-note-right">
+                        </div>
+                        <div class="banner_button">
+                            <img src="assets/affiliate/note-2 1.png" alt="" class="banner-note-left">
+                            <a (click)="handleLoginLinkClick($event)"
+                                class="yellow-btn affilate-btn">Login</a>
+                            <a (click)="handleRegisterLinkClick($event)"
+                                class="yellow-outline-btn affilate-btn">Register</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="choose_us">
+        <div class="container">
+            <h2>Why <span class="text-yellow">choose</span> Us</h2>
+            <div class="row">
+                <div class="col-md-3 col-6">
+                    <div class="chooseUs-card">
+                        <img src="assets/affiliate/high_comision.svg" alt="">
+                        <h3>HIGH COMMISION</h3>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="chooseUs-card">
+                        <img src="assets/affiliate/transparency_trust.svg" alt="">
+                        <h3>TRANSPARENCY <br> & TRUST</h3>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="chooseUs-card">
+                        <img src="assets/affiliate/stable_payment.svg" alt="">
+                        <h3>STABLE PAYMENT</h3>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="chooseUs-card">
+                        <img src="assets/affiliate/zero_risk.svg" alt="">
+                        <h3>ZERO RISK</h3>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="chooseUs-card">
+                        <img src="assets/affiliate/kpi.svg" alt="">
+                        <h3>FLEXIBLE KPI</h3>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6">
+                    <div class="chooseUs-card">
+                        <img src="assets/affiliate/personal_manager.svg" alt="">
+                        <h3>PERSONAL MANGER</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="commissions">
+        <img src="assets/affiliate/note-2 2.png" alt="" class="top-cash">
+        <div class="container">
+            <div class="">
+                <h2 class="text-yellow">COMMISSONS</h2>
+                <p>Partnering with ZEbet offers different options of commissions.</p>
+                <div class="commision-wrapper">
+                    <ul class="commisions_list">
+                        <li class="commission-card">
+                            <h3 class="">30%</h3>
+                            <p class="text-yellow">UP TO 10 FTDS PER MONTHS 30%</p>
+                        </li>
+
+                        <li class="commission-card">
+                            <h3 class="">35%</h3>
+                            <p class="text-yellow">UP TO 15 FTDS PER MONTHS 35%</p>
+                        </li>
+
+                        <li class="commission-card">
+                            <h3 class="">40%</h3>
+                            <p class="text-yellow">UP TO 20 FTDS PER MONTHS 40%</p>
+                        </li>
+                        <li class="commission-card">
+                            <h4 class="text-2xl font-medium">PERSONIZED <br /> OFFERS</h4>
+                            <p class="text-yellow">UP TO 50+ FTDS PER MONTHS %</p>
+                        </li>
+                    </ul>
+                    <div class="commissions-button text-center">
+                        <a class="affilate-btn yellow-btn" href="https://admin.zebetpartners.ng/partner/register"
+                            target="_blank">JOIN NOW</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <img src="assets/affiliate/note-1 2.png" alt="" class="bottom-cash">
+    </section>
+
+    <section id="become_affliate">
+
+        <div class="container">
+            <h2 class=""> <span class="text-yellow">HOW TO</span> BECOME AN <span class="text-yellow">AFFILIATE</span>
+            </h2>
+
+            <div class="row align-items-center">
+                <div class="col-md-5">
+                    <div class="steps-img">
+                        <img src="assets/affiliate/Stand-players 1.png" alt="Menu" />
+                    </div>
+                </div>
+
+                <div class="col-md-7">
+                    <div class="step_carousel">
+                        <owl-carousel-o [options]="customOptions">
+                            <ng-template carouselSlide>
+                                <div class="steps_wrapper">
+                                    <h3>Step 1</h3>
+                                    <p class="">Visit the ZEbet partner website and fill the registation
+                                        form
+                                        become an agent</p>
+                                    <div class="steps_btnWrapper">
+                                        <a (click)="handleRegisterLinkClick($event)"
+                                            class="affilate-btn yellow-outline-btn">Register</a>
+                                    </div>
+                                </div>
+                            </ng-template>
+                            <ng-template carouselSlide>
+                                <div class="steps_wrapper">
+                                    <h3>Step 2</h3>
+                                    <p class="">Fill in the required information on the registration form, click on submit and our contact person will get in touch in few minutes.
+                                    </p>
+                                </div>
+
+                            </ng-template>
+                        </owl-carousel-o>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h2 class="">Let's talk</h2>
+                    <p>Ask us anything or just say Hi!</p>
+
+                    <div class="contact-details">
+                        <div class="contact-details_info">
+                            <svg width="25" height="25" viewBox="0 0 25 25" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M24.2866 17.6656L18.8179 15.3218C18.5843 15.2223 18.3246 15.2013 18.078 15.262C17.8315 15.3228 17.6113 15.462 17.4507 15.6587L15.0288 18.6177C11.2279 16.8256 8.16904 13.7668 6.37695 9.96587L9.33594 7.54399C9.53305 7.38368 9.67256 7.16351 9.73335 6.91682C9.79414 6.67013 9.7729 6.41035 9.67285 6.1768L7.3291 0.708053C7.21929 0.4563 7.02508 0.250751 6.77996 0.126852C6.53483 0.00295173 6.25416 -0.0315334 5.98633 0.0293424L0.908203 1.20122C0.649985 1.26085 0.419602 1.40624 0.254656 1.61366C0.0897096 1.82109 -5.94829e-05 2.07829 2.95713e-08 2.34331C2.95713e-08 14.8677 10.1514 24.9996 22.6562 24.9996C22.9213 24.9997 23.1787 24.91 23.3862 24.7451C23.5937 24.5801 23.7392 24.3497 23.7988 24.0914L24.9707 19.0132C25.0312 18.7441 24.996 18.4623 24.8711 18.2163C24.7463 17.9704 24.5396 17.7756 24.2866 17.6656Z"
+                                    fill="#FFC600" />
+                            </svg>
+
+                            <p>(01-8887722)</p>
+                        </div>
+                        <div class="contact-details_info">
+                            <svg width="25" height="25" viewBox="0 0 25 25" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M12.1094 0C5.41704 0 0 5.41597 0 12.1094C0 18.8017 5.41597 24.2188 12.1094 24.2188C14.4606 24.2188 16.7647 23.5283 18.7211 22.2547C19.3073 21.8731 19.4352 21.0688 18.9922 20.5276L18.4953 19.9205C18.1207 19.4629 17.4611 19.3508 16.9634 19.6701C15.5234 20.5936 13.8337 21.0938 12.1094 21.0938C7.15537 21.0938 3.125 17.0634 3.125 12.1094C3.125 7.15537 7.15537 3.125 12.1094 3.125C16.999 3.125 21.0938 5.93843 21.0938 10.9375C21.0938 12.8313 20.0638 14.8312 18.2534 15.0241C17.4063 15.0019 17.4277 14.3963 17.5954 13.5581L18.7396 7.64448C18.8795 6.92139 18.3256 6.25 17.5891 6.25H15.3928C15.2306 6.25 15.0741 6.30969 14.9531 6.4177C14.8322 6.5257 14.7552 6.67446 14.7369 6.8356L14.7364 6.84009C14.0188 5.96602 12.7614 5.77686 11.8082 5.77686C8.16655 5.77686 5.07812 8.81562 5.07812 13.1724C5.07812 16.361 6.87427 18.3418 9.76562 18.3418C11.0832 18.3418 12.5668 17.5783 13.4273 16.4701C13.8922 18.1353 15.4104 18.1353 16.8799 18.1353C22.1977 18.1353 24.2188 14.6386 24.2188 10.9375C24.2188 4.27993 18.8488 0 12.1094 0ZM11.0508 14.8647C9.96441 14.8647 9.28955 14.1019 9.28955 12.874C9.28955 10.6771 10.7924 9.32275 12.1523 9.32275C13.2408 9.32275 13.8907 10.0669 13.8907 11.3135C13.8907 13.5137 12.2366 14.8647 11.0508 14.8647Z"
+                                    fill="#FFC600" />
+                            </svg>
+
+                            <p>affiliate@zebet.ng</p>
+                        </div>
+                    </div>
+                    <div class="contact-details_social">
+                        <ul class="contact-details_socialList">
+                            <li>
+                                <a href=""> <img src="assets/affiliate/tiwtter.png" alt=""></a>
+                            </li>
+                            <li>
+                                <a href=""><img src="assets/affiliate/face.svg" alt=""></a>
+                            </li>
+                            <li>
+                                <a href=""><img src="assets/affiliate/insta.svg" alt=""></a>
+                            </li>
+                            <li>
+                                <a href=""><img src="assets/affiliate/youtube.svg" alt=""></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="contact_form">
+                        <form [formGroup]="form" (ngSubmit)="send()">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="relative form-group">
+                                        <label for="name" class="text-yellow">Name</label>
+                                        <input formControlName="name" type="text" id="name" name="name"
+                                            placeholder="Enter your fullname" class="" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="relative form-group">
+                                        <label for="email" class="text-yellow">Email</label>
+                                        <input formControlName="email" type="email" id="email" name="email"
+                                            placeholder="Enter your email address" class="" />
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="relative form-group">
+                                <label for="message" class="text-yellow">Message</label>
+                                <textarea formControlName="message" id="message" name="message"
+                                    placeholder="Type your message here" class="" rows="5"></textarea>
+                            </div>
+                            <button type="submit" class="affiliate_submit_btn">
+                                <span class="mr-2 text-black">Send</span>
+                                <svg width="25" height="25" viewBox="0 0 25 25" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M10.8643 3.2666L11.9482 2.18262C12.4072 1.72363 13.1494 1.72363 13.6035 2.18262L23.0957 11.6699C23.5547 12.1289 23.5547 12.8711 23.0957 13.3252L13.6035 22.8174C13.1445 23.2764 12.4023 23.2764 11.9482 22.8174L10.8643 21.7334C10.4004 21.2695 10.4102 20.5127 10.8838 20.0586L16.7676 14.4531H2.73438C2.08496 14.4531 1.5625 13.9307 1.5625 13.2813V11.7188C1.5625 11.0693 2.08496 10.5469 2.73438 10.5469H16.7676L10.8838 4.94141C10.4053 4.4873 10.3955 3.73047 10.8643 3.2666Z"
+                                        fill="black" />
+                                </svg>
+
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="affiliate-footer">
+        <div class="container">
+            <div class="footer-age">18+</div>
+            <p>ZEbet is licensed and regulated by the National Lottery Regulatory Commission.</p>
+        </div>
+    </footer>
+</div>

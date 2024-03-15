@@ -1,0 +1,873 @@
+<div class="pb-4 ">
+  <div *ngIf="showBets" class="bets_area">
+    <div class="relative rounded-tl-xl rounded-tr-xl border-[#4D585D]" [ngClass]="{'priceChanged': priceChanged}">
+      <div class="px-4">
+        <div class="py-[12px]">
+          <h1 class="text-[16px] flex items-center text-[#fff] font-semibold text-base m-0">
+            <button class="title_arrow pr-3" type="button" (click)="onBetslipClick()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none"
+                class="remove_capture">
+                <path
+                  d="M2.73711 7.16223H12.5996V6.03723H2.73711L7.38711 1.38723L6.59961 0.599731L0.599609 6.59973L6.59961 12.5997L7.38711 11.8122L2.73711 7.16223Z"
+                  fill="white" />
+                <path
+                  d="M2.73711 7.16223H12.5996V6.03723H2.73711L7.38711 1.38723L6.59961 0.599731L0.599609 6.59973L6.59961 12.5997L7.38711 11.8122L2.73711 7.16223Z"
+                  stroke="white" />
+              </svg>
+            </button>
+            Betslip
+          </h1>
+        </div>
+        <!-- <app-underlined-tab [tabs]="['Single','ACCA','Combi']" (tabClick)="onTabClick($event)" [isUpper]="true"
+          [isJustify]="true" [isDarkBg]="true"></app-underlined-tab> -->
+        <div class="bg-gray-900">
+          <ul class="list-unstyled flex parent border-b border-[#4D585D] gap-[24px] overflow-y-auto justify-around">
+            <li>
+              <button class="text-zinc-400 uppercase h-[48px]" type="button" (click)="handleButtonClick('Single')"
+                [ngClass]="{'text-yellow-400 border-b-[5px] border-yellow-400 font-bold': activeButton === 'Single', 'text-zinc-400': activeButton !== 'Single'}">Single</button>
+            </li>
+            <li>
+              <button class="text-zinc-400 h-[48px]" type="button" (click)="handleButtonClick('ACCA')"
+                [ngClass]="{'text-yellow-400 border-b-[5px] border-yellow-400 font-bold': activeButton === 'ACCA', 'text-zinc-400': activeButton !== 'ACCA'}"
+                [disabled]="responseData.singles.length < 2 || accaTotalOdds === undefined">ACCA</button>
+            </li>
+            <li>
+              <button class="text-zinc-400 h-[48px]" type="button" (click)="handleButtonClick('COMBI')"
+                [ngClass]="{'text-yellow-400 border-b-[5px] border-yellow-400 font-bold': activeButton === 'COMBI', 'text-zinc-400': activeButton !== 'COMBI'}"
+                [disabled]="responseData.singles.length < 2 || combiBetsData.length == 0">COMBI</button>
+            </li>
+          </ul>
+        </div>
+        <div class="flex justify-between pt-[12px] pb-[18px] m-0">
+          <span class="text-[14px] text-[#D9D9D9]">{{ responseData.singles.length }} Selected</span>
+          <span (click)="removeAllGameBetbasket()"
+            class="uppercase text-[#FFC600] text-[14px] cursor-pointer hover:font-bold remove_capture">clear all</span>
+        </div>
+      </div>
+
+      <!-- single -->
+      <div [ngClass]="tab == 'Single' ? 'block' : 'hidden'">
+        <div class="px-4">
+          <div *ngFor="let game of responseData.singles;"
+            class="flex flex-col py-3 border-[#4D585D] border-b last:border-0 gap-2">
+            <div class="flex">
+              <div class="pr-2"
+                *ngIf="game.status == 'SUSPENDED' || game?.interrelated != null && game?.interrelated.length != 0">
+                <img src="./assets/svg/not_avail.svg" alt="">
+              </div>
+              <div *ngIf="game.sportName && game.eventName && game.eventId" class="flex-initial w-[75%] cursor-pointer" [routerLink]="'/sports-book/' + game.sportName + '/' + game.competitionName + '/' + game.eventId" (click)="marketClick()">
+                <div class="flex items-center pb-1">
+                  <h3 class="text-[#FFFFFF] text-[14px] font-medium">{{ game?.selections[0].name }}</h3>
+                </div>
+                <div class="flex py-1">
+                  <p class="text-[12px] text-[#A3A7AA]">
+                    {{ game.marketName }}
+                    <!-- {{ game?.selections[0].side === 'HOME' ? 1 : game?.selections[0].side === 'AWAY' ? 2 : game?.selections[0].side === 'DRAW' ? 3 : '' }} -->
+                  </p>
+                </div>
+                <div>
+                  <p class="text-[#D9D9D9] text-[12px]">
+                    {{ game.eventName }}
+                  </p>
+                </div>
+              </div>
+              <div class="flex-initial w-[25%]">
+                <div class="flex items-center justify-end">
+                  <div class="arrowDiv">
+                    <img alt="" class="w-[7px] h-[5px] mx-[5px] oddsArrow"
+                      [ngClass]="{'showArrow': game.priceIncreased}" src="./assets/img/up.png" />
+                    <img alt="" class="w-[7px] h-[5px] mx-[5px] oddsArrow"
+                      [ngClass]="{'showArrow': game.priceDecreased}" src="./assets/img/down.png" />
+                  </div>
+                  <p class="text-[14px] text-[#FFFFFF] font-semibold">
+                    {{ game.selections[0].price.dec | number : "0.2-2" }}</p>
+                  <a (click)="removeGameBetbasket(game.singleId,responseData.id)" class="remove_capture"><img alt=""
+                      class="w-[20px] h-[20px] " src="./assets/img/delete.png" /></a>
+                </div>
+              </div>
+            </div>
+            <div class="flex">
+              <div *ngIf="game.rewards && game.rewards.length > 0">
+                <button class="flex items-center text-[12px] freebetButton mb-2" *ngIf="game.rewards.length !== 1"
+                  [ngClass]="{'open': isFeebetvisible[game.singleId]}" (click)="toggleFreebetVisible(game.singleId)">
+                  <img class="w-[16px] h-[16px] mr-[5px]" src="./assets/svg/freebet_ic.svg" alt="">
+                  Free-bet options
+                  <span class="icon pl-[10px]">
+                    <img src="./assets/svg/freebet_arrow.svg" alt="">
+                  </span>
+                </button>
+                <ng-container *ngIf="isFeebetvisible[game.singleId] || game.rewards.length === 1">
+                  <div class="flex items-center pb-2" *ngFor="let reward of game.rewards">
+                    <ng-container>
+                      <img class="w-[16px] h-[16px]" src="./assets/svg/freebet_ic.svg" alt="">
+                      <div class="checkbox_div w-100">
+                        <label class="text-[12px] font-normal pl-[5px] w-100 flex justify-between"
+                          [for]="game.singleId + reward.id"
+                          [ngClass]="{'cursor-not-allowed opacity-65': reward.status === 'APPLICABLE', 'cursor-pointer': reward.status !== 'APPLICABLE'}">
+                          Free-Bet is worth NGN {{reward.amount}}
+                          <input type="checkbox" [id]="game.singleId + reward.id"
+                            [ngClass]="{'cursor-not-allowed': reward.status === 'APPLICABLE'}"
+                            (change)="freeBetCheckSingle(reward, game)" [checked]="reward.status === 'ACTIVE'"
+                            [disabled]="reward.status === 'APPLICABLE'" />
+                          <span class="custom_check"></span>
+                        </label>
+                      </div>
+                    </ng-container>
+                  </div>
+                </ng-container>
+              </div>
+
+              <div class="ml-auto remove_capture">
+                <input [value]="game.stake" (keyup)="onStakeChangeSingle(game.singleId,responseData.id, $event)"
+                  type="number"
+                  class="bg-transparent border border-gray-600 text-[#D9D9D9] md:py-2 py-[12px] px-[10px] md:px-[16px] rounded-lg w-[90px] h-[44px] text-right"
+                  placeholder="Stake" />
+              </div>
+            </div>
+            <div *ngIf="game.cappingLimit > 0" class="pt-2">
+              <p class="text-[#FFC600] text-center text-[12px] border border-[#FFC600]">The Maximum payout for this bet
+                is {{game.cappingLimit}}</p>
+            </div>
+          </div>
+          <div *ngIf="betSuspended">
+            <p class="text-[#FFC600] text-center text-[12px] border border-[#FFC600]">Some selections are not available
+            </p>
+          </div>
+          <div *ngIf="combiNotAvail" class="pt-2">
+            <p class="text-[#FFC600] text-center text-[12px] border border-[#FFC600]">Some selections can't be combined
+              in multiples</p>
+          </div>
+          <div *ngIf="minimumStake" class="pt-2">
+            <p class="text-[#FFC600] text-center text-[12px] border border-[#FFC600]">Minimum Stake amount is 100 NGN</p>
+          </div>
+        </div>
+        <div class="total_Stake px-4 pt-4 pb-3 remove_capture" *ngIf="responseData.singles && responseData.singles.length > 1">
+          <div class="flex items-center">
+            <h3 class="text-[#FFFFFF] text-[14px] font-medium">Total Stake</h3>
+            <input [value]="'NGN: ' + totalStakeSingle" readonly
+              class="bg-transparent border border-gray-600 text-[#fff] md:py-2 py-[12px] px-[10px] md:px-[16px] rounded-lg w-[150px] h-[44px] text-right ml-auto"
+              placeholder="Stake" />
+          </div>
+        </div>
+        <div class="border-[#4D585D] border-y px-4 gap-2 remove_capture">
+          <div class="py-2">
+            <p class="text-[#A3A7AA] text-[12px]">Potential Winning</p>
+            <p class="text-[#FFFFFF] text-[12px] uppercase font-bold">
+              {{ totalpotentialSingle | number : '1.2-2' }} NGN
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-white" [ngClass]="tab == 'ACCA' ? 'block' : 'hidden'" *ngIf="responseData.singles.length >= 2">
+        <div class="px-4 last:border-0 last:mb-0 selectedRate_area pt-3">
+          <div *ngFor="let game of responseData.singles"
+            class="flex flex-col py-[3px] m-0 border-[#4D585D] gap-2 border-b last:border-0 selectedRate">
+            <div class="flex m-0">
+              <div class="pr-2"
+                *ngIf="game.status == 'SUSPENDED' || game?.interrelated != null && game?.interrelated.length != 0">
+                <img src="./assets/svg/not_avail.svg" alt="">
+              </div>
+              <div class="flex-initial w-[75%] cursor-pointer" [routerLink]="'/sports-book/' + game.sportName + '/' + game.competitionName + '/' + game.eventId" (click)="marketClick()">
+                <div class="flex items-center pb-2">
+                  <h3 class="text-[#FFFFFF] text-[14px] font-medium">
+                    {{ game.selections[0].name }} <span class="text-[12px] text-[#A3A7AA]">|
+                      {{ game.marketName }}</span>
+                    <!-- {{ game?.side === 'HOME' ? 1 : game?.side === 'AWAY' ? 2 : game?.side === 'DRAW' ? 3 : '' }}</span> -->
+                  </h3>
+                </div>
+                <div class="flex items-center">
+                  <p class="text-[#D9D9D9] text-[12px]">{{ game.eventName }}</p>
+                </div>
+              </div>
+              <div class="flex-initial w-[25%]">
+                <div class="flex items-center justify-end">
+                  <div class="arrowDiv">
+                    <img alt="" class="w-[7px] h-[5px] mx-[5px] oddsArrow"
+                      [ngClass]="{'showArrow': game.priceIncreased}" src="./assets/img/up.png" />
+                    <img alt="" class="w-[7px] h-[5px] mx-[5px] oddsArrow"
+                      [ngClass]="{'showArrow': game.priceDecreased}" src="./assets/img/down.png" />
+                  </div>
+                  <p class="text-[14px] text-[#FFFFFF] font-semibold">
+                    {{ game.selections[0].price.dec | number : "0.2-2" }}
+                  </p>
+                  <a (click)="removeGameBetbasket(game.singleId,responseData.id)" class="remove_capture"><img alt=""
+                      class="w-[20px] h-[20px] " src="./assets/img/delete.png" /></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="betSuspended">
+            <p class="text-[#FFC600] text-center text-[12px] border border-[#FFC600]">Some
+              selections are not available</p>
+          </div>
+          <div *ngIf="combiNotAvail" class="pt-2">
+            <p class="text-[#FFC600] text-center text-[12px] border border-[#FFC600]">Some selections can't be combined
+              in multiples</p>
+          </div>
+        </div>
+        <div class="p-2 border-t border-[#4D585D] remove_capture" *ngIf="accaTotalOdds">
+          <div *ngIf="accaTotalOdds.rewards && accaTotalOdds.rewards.length > 0">
+            <button class="flex items-center text-[12px] freebetButton mb-2" *ngIf="accaTotalOdds.rewards.length !== 1"
+              [ngClass]="{'open': isFeebetvisible[0]}" (click)="toggleFreebetVisible(0)">
+              <img class="w-[16px] h-[16px] mr-[5px]" src="./assets/svg/freebet_ic.svg" alt="">
+              Free-bet options
+              <span class="icon pl-[10px]">
+                <img src="./assets/svg/freebet_arrow.svg" alt="">
+              </span>
+            </button>
+            <ng-container *ngIf="isFeebetvisible[0] || accaTotalOdds.rewards.length === 1">
+              <div class="flex items-center pb-2" *ngFor="let reward of accaTotalOdds.rewards">
+                <ng-container *ngIf="reward.type !== 'BONUS'">
+                  <img class="w-[16px] h-[16px]" src="./assets/svg/freebet_ic.svg" alt="">
+                  <div class="checkbox_div w-100">
+                    <label class="text-[12px] font-normal pl-[5px] w-100 flex justify-between"
+                      [for]="accaTotalOdds.betType + reward.id"
+                      [ngClass]="{'cursor-not-allowed opacity-65': reward.status === 'APPLICABLE', 'cursor-pointer': reward.status !== 'APPLICABLE'}">
+                      Free-Bet is worth NGN {{reward.amount}}
+                      <input type="checkbox" [id]="accaTotalOdds.betType + reward.id"
+                        [ngClass]="{'cursor-not-allowed': reward.status === 'APPLICABLE'}"
+                        (change)="freeBetCheckMulti(reward, accaTotalOdds)" [checked]="reward.status === 'ACTIVE'"
+                        [disabled]="reward.status === 'APPLICABLE'" />
+                      <span class="custom_check"></span>
+                    </label>
+                  </div>
+                </ng-container>
+              </div>
+            </ng-container>
+          </div>
+          <div class="flex justify-end pt-1 pb-2">
+            <div class="">
+              <div class="flex text-white justify-end pr-2">
+                <div class="pr-2 text-[14px]">{{ totalOddsCalculate | number : '1.2-2' }}</div>
+                <div class="text-[14px]">x</div>
+              </div>
+              <div class="text-zinc-400 text-[12px] mr-[8px]">Minimum Stake : 100 NGN</div>
+            </div>
+            <input #accStakeInput (keyup)="onStakeChangeAcca(responseData.id, accaTotalOdds.betType, $event)"
+              type="number" [(ngModel)]="accaTotalOdds.totalStake" id="accaInput"
+              class="bg-transparent border border-gray-600 text-[#D9D9D9] md:py-2 md:px-2 py-[12px] px-[16px] rounded-lg w-[101px] text-right" />
+          </div>
+          <div class="flex justify-end text-white text-sm font-medium gap-2">
+            <button (click)="setStakeAmount(100)" class="bg-[#4D585D] rounded-xl px-[14px] h-[33px]">
+              100
+            </button>
+            <button (click)="setStakeAmount(150)" class="bg-[#4D585D] rounded-xl px-[14px] h-[33px]">
+              150
+            </button>
+            <button (click)="setStakeAmount(200)" class="bg-[#4D585D] rounded-xl px-[14px] h-[33px]">
+              200
+            </button>
+            <button (click)="setStakeAmount(500)" class="bg-[#4D585D] rounded-xl px-[14px] h-[33px]">
+              500
+            </button>
+            <button (click)="setStakeAmount(1000)" class="bg-[#4D585D] rounded-xl px-[14px] h-[33px]">
+              1000
+            </button>
+          </div>
+          <div *ngIf="accaTotalOdds.cappingLimit > 0" class="pt-2">
+            <p class="text-[#FFC600] text-center text-[12px] border border-[#FFC600]">The Maximum payout for this bet is
+              {{accaTotalOdds.cappingLimit}}</p>
+          </div>
+          <div *ngIf="minimumStake" class="pt-2">
+            <p class="text-[#FFC600] text-center text-[12px] border border-[#FFC600]">Minimum Stake amount is 100 NGN</p>
+          </div>
+        </div>
+
+        <div class="pt-3 pb-1 remove_capture" *ngIf="accaTotalOdds">
+          <div class="border-[#4D585D] border-y flex px-4 gap-2">
+            <!-- <div class="w-[100px] py-1 border-[#4D585D] border-r">
+              <p class="text-[#A3A7AA] text-[12px]">Bonus</p>
+              <p class="text-[#FFFFFF] text-[12px] uppercase font-bold">0.00 ngn</p>
+            </div> -->
+            <div class="w-[40%] py-1 border-[#4D585D] border-r">
+              <p class="text-[#A3A7AA] text-[12px]">Total Odds</p>
+              <p class="text-[#FFFFFF] text-[12px] uppercase font-bold">
+                {{ totalOddsCalculate | number : '1.2-2' }}
+              </p>
+            </div>
+            <div class="py-1">
+              <p class="text-[#A3A7AA] text-[12px]">Potential Winning</p>
+              <p class="text-[#FFFFFF] text-[12px] uppercase font-bold">
+                {{ accaTotalOdds.potReturn | number : '1.2-2'}} ngn
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-white" [ngClass]="tab == 'COMBI' ? 'block' : 'hidden'">
+        <div class="px-4">
+          <div *ngFor="let game of responseData.singles;"
+            class="flex flex-col py-3 border-[#4D585D] border-b last:border-0 gap-2">
+            <div class="flex">
+              <div class="pr-2"
+                *ngIf="game.status == 'SUSPENDED' || game?.interrelated != null && game?.interrelated.length != 0">
+                <img src="./assets/svg/not_avail.svg" alt="">
+              </div>
+              <div class="flex-initial w-[75%] cursor-pointer" [routerLink]="'/sports-book/' + game.sportName + '/' + game.competitionName + '/' + game.eventId" (click)="marketClick()">
+                <div class="flex items-center pb-1">
+                  <h3 class="text-[#FFFFFF] text-[14px] font-medium">
+                    {{ game.selections[0].name }}
+                  </h3>
+                  <p class="text-[12px] text-[#A3A7AA] ps-2">
+                    | {{ game.marketName }}
+                  </p>
+                </div>
+                <div class="flex">
+                  <p class="text-[#D9D9D9] text-[12px]">{{ game.eventName }}</p>
+                </div>
+              </div>
+              <div class="flex-initial w-[25%]">
+                <div class="flex items-center justify-end">
+                  <div class="arrowDiv">
+                    <img alt="" class="w-[7px] h-[5px] mx-[5px] oddsArrow"
+                      [ngClass]="{'showArrow': game.priceIncreased}" src="./assets/img/up.png" />
+                    <img alt="" class="w-[7px] h-[5px] mx-[5px] oddsArrow"
+                      [ngClass]="{'showArrow': game.priceDecreased}" src="./assets/img/down.png" />
+                  </div>
+                  <p class="text-[14px] text-[#FFFFFF] font-semibold">
+                    {{ game.selections[0].price.dec | number : "0.2-2" }}
+                  </p>
+                  <a (click)="removeGameBetbasket(game.singleId,responseData.id)" class="remove_capture"><img alt=""
+                      class="w-[20px] h-[20px] " src="./assets/img/delete.png" /></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <table class="w-full Table1 text-zinc-300 mt-2 remove_capture" *ngIf="combiBetsData">
+          <thead class="bg-[#4D585D] text-left font-normal">
+            <tr>
+              <th class="px-3 text-[#D9D9D9] font-regular text-[12px] py-[3px]">Type</th>
+              <th class="px-3 text-[#D9D9D9] font-regular text-[12px] py-[3px]">No.</th>
+              <th class="px-3 text-[#D9D9D9] font-regular text-[12px] text-center py-[3px] pl-[35spx]">Stake (NGN)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let group of combiBetsData; let i = index">
+              <tr>
+                <td class="text-[12px] font-regular pt-[12px] pb-[0]">{{group.customBetType}}</td>
+                <td class="text-[12px] font-regular pt-[12px] pb-[0]">{{group.numberOfBets}}</td>
+                <td class="text-right pt-[12px] pb-[0]">
+                  <input type="number"
+                    class="bg-transparent border border-gray-600 text-[#D9D9D9] md:py-2 md:px-2 py-[12px] px-[16px] rounded-lg w-[100px] h-[44px] text-right"
+                    placeholder="Stake" [(ngModel)]="group.unitStake"
+                    (keyup)="onStakeChangeCombi(responseData.id, group.betType, $event)" />
+                </td>
+              </tr>
+              <tr>
+                <td colspan="4">
+                  <div *ngIf="group.rewards && group.rewards.length > 0">
+                    <button class="flex items-center text-[12px] freebetButton mb-2" *ngIf="group.rewards.length !== 1"
+                      [ngClass]="{'open': isFeebetvisible[group.betType]}"
+                      (click)="toggleFreebetVisible(group.betType)">
+                      <img class="w-[16px] h-[16px] mr-[5px]" src="./assets/svg/freebet_ic.svg" alt="">
+                      Free-bet options
+                      <span class="icon pl-[10px]">
+                        <img src="./assets/svg/freebet_arrow.svg" alt="">
+                      </span>
+                    </button>
+                    <ng-container *ngIf="isFeebetvisible[group.betType] || group.rewards.length === 1">
+                      <div class="flex items-center pb-2" *ngFor="let reward of group.rewards">
+                        <ng-container *ngIf="reward.type !== 'BONUS'">
+                          <img class="w-[16px] h-[16px]" src="./assets/svg/freebet_ic.svg" alt="">
+                          <div class="checkbox_div w-100">
+                            <label class="text-[12px] font-normal pl-[5px] w-100 flex justify-between"
+                              [for]="group.betType + reward.id"
+                              [ngClass]="{'cursor-not-allowed opacity-65': reward.status === 'APPLICABLE', 'cursor-pointer': reward.status !== 'APPLICABLE'}">
+                              Free-Bet is worth NGN {{reward.amount}}
+                              <input type="checkbox" [id]="group.betType + reward.id"
+                                [ngClass]="{'cursor-not-allowed': reward.status === 'APPLICABLE'}"
+                                (change)="freeBetCheckMulti(reward, group)" [checked]="reward.status === 'ACTIVE'"
+                                [disabled]="reward.status === 'APPLICABLE'" />
+                              <span class="custom_check"></span>
+                            </label>
+                          </div>
+                        </ng-container>
+                      </div>
+                    </ng-container>
+                  </div>
+                </td>
+              </tr>
+              <tr *ngIf="group.cappingLimit > 0">
+                <td colspan="4" class="pt-2">
+                  <p class="text-[#FFC600] text-center text-[12px] border border-[#FFC600]">The Maximum payout for this
+                    bet is {{group.cappingLimit}}</p>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+
+        <div class="p-4 pb-0 remove_capture">
+          <div *ngIf="betSuspended">
+            <p class="text-[#FFC600] text-center text-[12px] border border-[#FFC600]">Some
+              selections are not available</p>
+          </div>
+          <div *ngIf="combiNotAvail" class="pt-2">
+            <p class="text-[#FFC600] text-center text-[12px] border border-[#FFC600]">Some selections can't be combined
+              in multiples</p>
+          </div>
+          <div *ngIf="minimumStake" class="pt-2 mb-2">
+            <p class="text-[#FFC600] text-center text-[12px] border border-[#FFC600]">Minimum Stake amount is 100 NGN</p>
+          </div>
+        </div>
+
+        <hr class="mt-[12px] border-[#4D585D] remove_capture" />
+        <div class="total_Stake px-4 pt-3 pb-4 remove_capture">
+          <div class="flex items-center">
+            <h3 class="text-[#FFFFFF] text-[14px] font-medium">Total Stake</h3>
+            <input [value]="'NGN: ' + totalStakeCombi" readonly
+              class="bg-transparent border border-gray-600 text-[#fff] md:py-2 md:px-2 py-[12px] px-[16px] rounded-lg w-[150px] h-[44px] text-right ml-auto"
+              placeholder="Stake" />
+          </div>
+        </div>
+        <div class="border-[#4D585D] border-y flex px-4 gap-2 remove_capture">
+          <!-- <div class="flex-1 py-1 border-[#4D585D] border-r">
+            <p class="text-[#A3A7AA] text-[12px]">Bonus</p>
+            <p class="text-[#FFFFFF] text-[12px] uppercase font-bold">0.00 ngn</p>
+          </div> -->
+          <div class="flex-1 py-1">
+            <p class="text-[#A3A7AA] text-[12px]">Potential Winning</p>
+            <p class="text-[#FFFFFF] text-[12px] uppercase font-bold">{{ totalpotentialCombi | number : '1.2-2' }} ngn
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="px-4 pt-4 pb-[20px] lg:pb-[0] remove_capture">
+        <div class="flex gap-2 h-[48px] justify-center items-center">
+          <div class="flex-initial w-[35%] h-full cursor-pointer hover:scale-110">
+            <div (click)="generateBookingCode()"
+              class="bg-[#4D585D] flex items-center justify-center text-[#FFC600] text-[12px] rounded-md h-full">
+              <span class="flex-initial w-[30%]">
+                <img alt="back arrow" src="./assets/img/save.png" class="w-[15px]" />
+              </span>
+              <span class="flex-initial w-[50%] text-[#FFC600]">Book Betslip</span>
+            </div>
+          </div>
+          <ng-container *ngIf="!isLoggedIn">
+            <div class="flex-initial w-[75%] h-full">
+              <a (click)="loginRoute()" type="button"
+                class="bg-[#FFC600] text-[#18242A] text-[14px] rounded-md w-full text-center h-full font-semibold hover:bg-yellow-300 hover:scale-110 flex items-center justify-center">
+                Login
+              </a>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="this.betsPriceData && this.betsPriceData.length > 0 && isLoggedIn">
+            <div class="flex-initial w-[35%] h-full">
+              <button type="button" (click)="betAcceptChanges()"
+                class="bg-[#FFC600] px-2 text-[#18242A] text-[12px] rounded-md w-full text-center h-full font-semibold hover:bg-yellow-300 hover:scale-110 disabled:bg-[#ffc600b3] disabled:hover:scale-100 disabled:cursor-not-allowed">
+                Accept Changes
+              </button>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="isLoggedIn">
+            <div class="flex-initial w-[75%] h-full">
+              <button type="button" (click)="betPlace()" [disabled]="stakeNotAvailSingle && stakeNotAvail || minimumStake"
+                class="bg-[#FFC600] px-2 text-[#18242A] text-[12px] rounded-md w-full text-center h-full font-semibold hover:bg-yellow-300 hover:scale-110 disabled:bg-[#ffc600b3] disabled:hover:scale-100 disabled:cursor-not-allowed">
+                {{betSlipButtonText}}
+              </button>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+
+    </div>
+    <div class="betloader p-[20px] text-center remove_capture" *ngIf="betplaceinProcess">
+      <div class="bg-[#4D585D] p-[16px] rounded-[10px]">
+        <div class="icon">
+          <img src="./assets/img/loader.svg" alt="">
+        </div>
+        <h6 class="mb-0 text-[14px] text-[#FFC600]">Processing Bet</h6>
+      </div>
+    </div>
+  </div>
+
+  <!-- if betbasket is blank -->
+  <div *ngIf="!showBets">
+    <div class="relative">
+      <div class="px-4">
+        <div class="flex items-center m-0 py-[18px]">
+          <h1 class="text-[16px] flex items-center text-[#fff] font-semibold text-base m-0">
+            <button class="title_arrow pr-3" type="button" (click)="onBetslipClick()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
+                <path
+                  d="M2.73711 7.16223H12.5996V6.03723H2.73711L7.38711 1.38723L6.59961 0.599731L0.599609 6.59973L6.59961 12.5997L7.38711 11.8122L2.73711 7.16223Z"
+                  fill="white" />
+                <path
+                  d="M2.73711 7.16223H12.5996V6.03723H2.73711L7.38711 1.38723L6.59961 0.599731L0.599609 6.59973L6.59961 12.5997L7.38711 11.8122L2.73711 7.16223Z"
+                  stroke="white" />
+              </svg>
+            </button>
+            Betslip
+          </h1>
+        </div>
+        <div class="w-[80%] mx-auto betslipTabs">
+          <app-underlined-tab [tabs]="['Betslip', 'Cashout']" (tabClick)="onThirdTabClick($event)"></app-underlined-tab>
+        </div>
+      </div>
+      <ng-container *ngIf="betShow">
+        <div class="mt-3">
+          <div class="px-4 py-3 pt-[100px] flex justify-center border-b border-[#4D585D]">
+            <span class="text-[14px] text-[#D9D9D9] text-center block">To Place bet select odd or <br /> insert booking
+              code below</span>
+          </div>
+          <div class="px-4 pt-[40px]">
+            <!-- <div class="mt-4 relative customMainRightContainer__btnInputGroup">
+              <input type="text" name="" id="" placeholder="Betslip Code"
+                class="border rounded-lg w-full bg-transparent h-[44px] pl-[16px] pr-[80px]">
+              <button
+                class="absolute px-[16px] h-[100%] text-[14px] text-[#FFC600] uppercase end-0 flex m-0 top-0 align-center">Check</button>
+            </div> -->
+            <div class="mt-4 relative customMainRightContainer__btnInputGroup">
+              <input type="text" name="" id="" placeholder="Booking Code"
+                class="border rounded-lg w-full bg-transparent h-[44px] pl-[16px] pr-[80px]"
+                [(ngModel)]="bookingCodeInput">
+              <button
+                class="absolute px-[16px] h-[100%] text-[14px] text-[#FFC600] uppercase end-0 flex m-0 top-0 align-center"
+                (click)="getBetslipBookingCode()">Load</button>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!betShow">
+        <div class="mt-3">
+          <div class="px-4 py-3 pt-[100px] flex justify-center border-b border-[#4D585D]">
+            <span class="text-[14px] text-[#D9D9D9] text-center block">No Bets Available</span>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <!-- if betbasket is blank -->
+</div>
+
+<!-- bet status modal -->
+<div *ngIf="betplaceModal"
+  class="w-full h-full fixed top-0 left-0 z-[60] overflow-x-hidden overflow-y-auto betModal bg-black/80">
+  <div class="mt-7 opacity-100 duration-500 ease-out transition-all lg:max-w-[660px] lg:w-full m-3 lg:mx-auto">
+    <div class="flex flex-col bg-[#2C3538] rounded-[10px]">
+      <div class="pb-[50px] pt-[20px] px-[20px] dark:border-gray-700">
+        <div class="modal_header flex items-center">
+          <h4 class="flex items-center text-[20px] font-semibold">
+            <span class="pr-[12px] cursor-pointer" (click)="betPlaceDone()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
+                <path
+                  d="M5.73711 10.1621H15.5996V9.03711H5.73711L10.3871 4.38711L9.59961 3.59961L3.59961 9.59961L9.59961 15.5996L10.3871 14.8121L5.73711 10.1621Z"
+                  fill="white" />
+                <path
+                  d="M5.73711 10.1621H15.5996V9.03711H5.73711L10.3871 4.38711L9.59961 3.59961L3.59961 9.59961L9.59961 15.5996L10.3871 14.8121L5.73711 10.1621Z"
+                  stroke="white" />
+              </svg>
+            </span>
+            Betslip
+          </h4>
+          <div class="ml-auto">
+            <button
+              class="ml-auto border border-[#4D585D] rounded-full w-[32px] h-[32px] flex items-center justify-center"
+              (click)="betPlaceDone()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M8.28842 7.25012L14 1.53846L12.9616 0.5L7.24997 6.21166L1.53844 0.500051L0.5 1.53851L6.21153 7.25012L0.500231 12.9615L1.53868 13.9999L7.24997 8.28857L12.9613 14L13.9998 12.9615L8.28842 7.25012Z"
+                  fill="#FFC600" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="bg-[#18242A] p-[30px] mt-[50px] lg:max-w-[405px] w-100 mx-auto">
+          <!-- for single -->
+          <div class="placed_bets" *ngIf="placedBets.length >= 1">
+            <div class="flex items-center pb-[10px] text-[14px] font-bold">
+              <span class="ic mr-[10px]"><img src="/assets/svg/bet_placed.svg" alt=""></span>
+              <span class="relative top-[1px] text-[#5DE862]">Bets Placed Successfully</span>
+            </div>
+            <div *ngFor="let bets of placedBets">
+              <div class="event mb-3 pb-1">
+                <div class="flex items-center">
+                  <h5 class="flex items-center">
+                    <span class="txt font-medium">{{ bets.selections[0]?.name }}</span>
+                  </h5>
+                  <div class="ml-auto text-[16px] font-medium">
+                    <span>&#64;</span>{{bets.price.dec | number : '1.2-2'}}
+                  </div>
+                </div>
+                <p class="text-[12px] text-[#D9D9D9] py-[5px]">{{bets.eventName}}</p>
+                <ul class="list-none">
+                  <li class="pb-[4px]">
+                    <h6 class="text-[12px] font-medium text-[#A3A7AA] flex">Total Stake: <span
+                        class="font-[700] text-[#fff] pl-[44px]">NGN {{bets.stake}}</span></h6>
+                  </li>
+                  <li class="pb-[4px]">
+                    <h6 class="text-[12px] font-medium text-[#A3A7AA] flex">Potential Winning: <span
+                        class="font-[700] text-[#fff] pl-[8px]">NGN {{bets.potReturn | number : '1.2-2'}}</span></h6>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- for single -->
+
+          <!-- for REOFFER Single-->
+          <div class="placed_bets" *ngIf="betReOfferedSingle.length >= 1">
+            <div class="flex items-center pb-[10px] text-[14px] font-bold">
+              <span class="ic mr-[10px]"><img src="/assets/svg/re-offer_icon.svg" alt=""></span>
+              <span class="relative top-[1px] text-[#FFC600]">Bet Re-Offered</span>
+            </div>
+            <div *ngFor="let bets of betReOfferedSingle">
+              <div class="event mb-3 pb-1">
+                <div class="flex items-center">
+                  <h5 class="flex items-center">
+                    <span class="txt font-medium">{{ bets.selections[0]?.name }}</span>
+                  </h5>
+                  <div class="ml-auto text-[16px] font-medium">
+                    <span>&#64;</span>{{bets.price.dec | number : '1.2-2'}}
+                  </div>
+                </div>
+                <p class="text-[12px] text-[#D9D9D9] py-[5px]">{{bets.eventName}}</p>
+                <ul class="list-none">
+                  <li class="pb-[4px]">
+                    <h6 class="text-[12px] font-medium text-[#A3A7AA] flex">Total Stake: <span
+                        class="font-[700] text-[#fff] pl-[44px]">NGN {{bets.stake}}</span></h6>
+                  </li>
+                  <li class="pb-[4px]">
+                    <h6 class="text-[12px] font-medium text-[#A3A7AA] flex">Potential Winning: <span
+                        class="font-[700] text-[#fff] pl-[8px]">NGN {{bets.potReturn | number : '1.2-2'}}</span></h6>
+                  </li>
+                </ul>
+                <div class="p-2 border-[#FF5353] border rounded-[10px] mt-2">
+                  <p class="mb-0 text-[#FF5353] text-[12px] text-center">Your Original Stake was<br> above our limits,
+                    we can<br> offer you {{bets.reoffer.totalStake}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- for REOFFER Single-->
+
+          <!-- for multi -->
+          <div class="placed_bets" *ngIf="placedBetsMultiple.length >= 1">
+            <div class="flex items-center pb-[10px] text-[14px] font-bold">
+              <span class="ic mr-[10px]"><img src="/assets/svg/bet_placed.svg" alt=""></span>
+              <span class="relative top-[1px] text-[#5DE862]">Bets Placed Successfully</span>
+            </div>
+            <div *ngFor="let bets of placedBetsMultiple">
+              <div class="event mb-3">
+                <div class="flex items-center pb-1">
+                  <h5 class="flex items-center">
+                    <span class="txt font-medium">{{ bets.betType }}</span>
+                  </h5>
+                  <div class="ml-auto text-[16px] font-medium">
+                    <span>&#64;</span>{{bets.multiplier | number : '1.2-2'}}
+                  </div>
+                </div>
+                <!-- <p class="text-[12px] text-[#D9D9D9] py-[5px]">{{bets.eventName}}</p> -->
+                <ul class="list-none">
+                  <li class="pb-[4px]">
+                    <h6 class="text-[12px] font-medium text-[#A3A7AA] flex">Total Stake: <span
+                        class="font-[700] text-[#fff] pl-[44px]">NGN {{bets.unitStake}}</span></h6>
+                  </li>
+                  <li class="pb-[4px]">
+                    <h6 class="text-[12px] font-medium text-[#A3A7AA] flex">Potential Winning: <span
+                        class="font-[700] text-[#fff] pl-[8px]">NGN {{bets.potReturn | number : '1.2-2'}}</span></h6>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- for multi -->
+
+          <!-- for multi REOFFER -->
+          <div class="placed_bets" *ngIf="betReOfferedMultiple.length >= 1">
+            <div class="flex items-center pb-[10px] text-[14px] font-bold">
+              <span class="ic mr-[10px]"><img src="/assets/svg/re-offer_icon.svg" alt=""></span>
+              <span class="relative top-[1px] text-[#FFC600]">Bet Re-Offered</span>
+            </div>
+            <div *ngFor="let bets of betReOfferedMultiple">
+              <div class="event">
+                <div class="flex items-center pb-1">
+                  <h5 class="flex items-center">
+                    <span class="txt font-medium">{{ bets.betType }}</span>
+                  </h5>
+                  <div class="ml-auto text-[16px] font-medium">
+                    <span>&#64;</span>{{bets.reoffer.legs[0].price.dec | number : '1.2-2'}}
+                  </div>
+                </div>
+                <!-- <p class="text-[12px] text-[#D9D9D9] py-[5px]">{{bets.eventName}}</p> -->
+                <ul class="list-none">
+                  <li class="pb-[4px]">
+                    <h6 class="text-[12px] font-medium text-[#A3A7AA] flex">Total Stake: <span
+                        class="font-[700] text-[#fff] pl-[44px]">NGN {{bets.reoffer.totalStake}}</span></h6>
+                  </li>
+                  <li class="pb-[4px]">
+                    <h6 class="text-[12px] font-medium text-[#A3A7AA] flex">Potential Winning: <span
+                        class="font-[700] text-[#fff] pl-[8px]">NGN {{bets.reoffer.potReturn | number : '1.2-2'}}</span>
+                    </h6>
+                  </li>
+                </ul>
+                <div class="p-2 border-[#FF5353] border rounded-[10px] mt-2">
+                  <p class="mb-0 text-[#FF5353] text-[12px] text-center">Your Original Stake was<br> above our limits,
+                    we can<br> offer you {{bets.reoffer.totalStake}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- for multi REOFFER -->
+
+
+          <hr *ngIf="placedBets.length >= 1 && rejectedBets.length >= 1" class="my-[20px] border-[#4D585D]">
+          <!-- for single rejected -->
+          <div class="rejected_bets" *ngIf="rejectedBets.length >= 1">
+            <div class="flex items-center pb-[6px] text-[14px] font-bold">
+              <span class="ic mr-[10px]"><img src="/assets/svg/bet_rejected.svg" alt=""></span>
+              <span class="relative top-[1px] text-[#FF5353]">Rejected</span>
+            </div>
+            <div *ngFor="let bets of rejectedBets">
+              <p class="text-[#FF5353] text-[12px] pb-[6px]">{{ modifyStatusText(bets.statusText) }}</p>
+              <div class="event mb-3">
+                <div class="flex items-center pb-1">
+                  <h5 class="flex items-center">
+                    <span class="txt font-medium">{{bets.side}}</span>
+                  </h5>
+                  <div class="ml-auto text-[16px] font-medium">
+                    <span>&#64;</span>{{bets.price.dec | number : '1.2-2'}}
+                  </div>
+                </div>
+                <p class="text-[12px] text-[#D9D9D9] py-[5px]">{{bets.eventName}}</p>
+                <ul class="list-none">
+                  <li class="pb-[4px]">
+                    <h6 class="text-[12px] font-medium text-[#A3A7AA] flex">Total Stake: <span
+                        class="font-[700] text-[#fff] pl-[44px]">NGN {{bets.stake}}</span></h6>
+                  </li>
+                  <li class="pb-[4px]">
+                    <h6 class="text-[12px] font-medium text-[#A3A7AA] flex">Potential Winning: <span
+                        class="font-[700] text-[#fff] pl-[8px]">NGN {{bets.potReturn | number : '1.2-2'}}</span></h6>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- for single rejected -->
+
+          <!-- for multi rejected -->
+          <div class="rejected_bets" *ngIf="rejectedBetsMultiple.length >= 1">
+            <div class="flex items-center pb-[5px] text-[14px] font-bold">
+              <span class="ic mr-[10px]"><img src="/assets/svg/bet_rejected.svg" alt=""></span>
+              <span class="relative top-[1px] text-[#FF5353]">Rejected</span>
+            </div>
+            <div *ngFor="let bets of rejectedBetsMultiple">
+              <p class="text-[#FF5353] text-[12px] pb-[6px]">{{ modifyStatusText(bets.statusText) }}</p>
+              <div class="event mb-3">
+                <div class="flex items-center pb-1">
+                  <h5 class="flex items-center">
+                    <span class="txt font-medium">{{bets.betType}}</span>
+                  </h5>
+                  <div class="ml-auto text-[16px] font-medium">
+                    <span>&#64;</span>{{bets.multiplier | number : '1.2-2' }}
+                  </div>
+                </div>
+                <ul class="list-none">
+                  <li class="pb-[4px]">
+                    <h6 class="text-[12px] font-medium text-[#A3A7AA] flex">Total Stake: <span
+                        class="font-[700] text-[#fff] pl-[44px]">NGN {{bets.totalStake}}</span></h6>
+                  </li>
+                  <li class="pb-[4px]">
+                    <h6 class="text-[12px] font-medium text-[#A3A7AA] flex">Potential Winning: <span
+                        class="font-[700] text-[#fff] pl-[8px]">NGN {{bets.potReturn | number : '1.2-2'}}</span></h6>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- for multi rejected -->
+          <div class="flex pt-[16px]">
+            <div class="w-1/2 px-[5px]">
+              <button type="button"
+                class="w-100 uppercase h-[32px] text-[#FFC600] text-[12px] font-semibold border border-[#FFC600] rounded-lg"
+                (click)="reOpenBetBasket()">REBET</button>
+            </div>
+            <div class="w-1/2 px-[5px]">
+              <button type="button"
+                class="w-100 uppercase h-[32px] text-[#18242A] text-[12px] font-semibold bg-[#FFC600] rounded-lg"
+                (click)="betPlaceReOffer()" *ngIf="hideDoneButton || reofferMultiple && reofferMultiple.length != 0">Accept Bet Re-Offer</button>
+              <button type="button"
+                class="w-100 uppercase h-[32px] text-[#18242A] text-[12px] font-semibold bg-[#FFC600] rounded-lg"
+                [ngClass]="{'hidden': hideDoneButton || reofferMultiple && reofferMultiple.length !== 0}" (click)="betPlaceDone()">Done</button>
+            </div>
+          </div>
+          <div class="pt-3 text-center">
+            <a class="text-[#FFC600] text-[14px] font-[500] hidden lg:inline-block" *ngIf="placedBets.length >= 1 || placedBetsMultiple.length >= 1" (click)="openBetHistory()">Check in
+              Bet History &nbsp;&nbsp;></a>
+            <a class="text-[#FFC600] text-[14px] font-[500] lg:hidden" *ngIf="placedBets.length >= 1 || placedBetsMultiple.length >= 1" (click)="openBetHistoryMobile()">Check in Bet
+              History &nbsp;&nbsp;></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- bet status modal -->
+
+<!-- bet booking Code Modal -->
+<div class="w-full h-full fixed top-0 left-0 z-[60] overflow-x-hidden overflow-y-auto booking_modal bg-[#000]/[0.8]"
+  [ngClass]="{'hidden': !isModalVisible}">
+  <div
+    class="opacity-100 duration-500 ease-out transition-all min-h-[100%] lg:h-auto lg:max-w-xl lg:w-full lg:mx-auto lg:mt-7">
+    <div class="flex flex-col bg-[#2C3538] rounded-[10px] h-[100%] mt-7 lg:mt-0 pb-[100px] lg:pb-0 booking_modal_inner">
+      <div class="flex justify-between items-center py-3 px-4 dark:border-gray-700">
+        <div class="flex  justify-center items-center">
+          <span class=" h-[18px] min-w-[18px]"><a href="/promotion"> <img src="assets/img/arrow_white.svg"
+                alt=""></a></span>
+          <h3 class="text-white ml-[12.4px] dark:text-white text-[20px] font-[600] whitespace-nowrap">
+            Book Betslip
+          </h3>
+        </div>
+        <button type="button" (click)="closeModal()">
+          <img src="assets/img/closebet.svg" alt="" class="w-[33px] h-[33px]">
+        </button>
+      </div>
+      <div class="p-4 ">
+        <p class="mt-1 text-white text-center font-bold text-[18px] leading-[36px] mb-[3px]">
+          Booking Code
+        </p>
+        <div class="flex items-center justify-center ">
+          <div class="relative w-[200px]  bg-[#18242A] rounded-[6px]  border border-[#18242A]">
+            <input type="text"
+              class="w-full focus:outline-none pl-[15px] pt-[15px] pb-[14px] pr-[35px] bg-transparent  text-[20px] font-[600] text-yellow-400   "
+              #textInput [(ngModel)]="bookingCode" readonly />
+            <button
+              class="absolute inset-y-0 right-0 flex items-center pr-[18px] pt-[17px] pb-[13px]  text-gray-700 cursor-pointer"
+              (click)="copyText(textInput.value)">
+              <img src="assets/img/file_copy_.svg" alt="" class="w-[24px] h-[24px]">
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="flex justify-center">
+        <!-- <p>{{ formattedDate }}</p> -->
+      </div>
+      <div class="bet-slip_img flex justify-center">
+        <div class="img_area bg-[#18242A] p-4 rounded-[6px] w-[275px]">
+
+        </div>
+      </div>
+      <div class="flex justify-center mt-[20px] py-[40px]">
+        <ul class=" d-flex align-center splash-social-icons gap-[16px]  text-[10px]  font-[500] leading-[16px]">
+          <li class="cursor-pointer text-center" (click)="shareOnTwitter()"> <img src="assets/img/bet twiter.svg" alt=""
+              class="mb-[4.3px] flex justify-center mx-auto">Twitter</li>
+          <li class="cursor-pointer text-center" (click)="shareOnFacebook()"> <img src="assets/img/bet facebook.svg"
+              alt="" class="mb-[4.3px] flex justify-center mx-auto">Facebook
+          </li>
+          <li class="cursor-pointer text-center" (click)="shareOnWhatsApp()"> <img src="assets/img/bet whatsapp.svg"
+              alt="" class="mb-[4.3px] flex justify-center mx-auto">Whatsapp
+          </li>
+          <li class="cursor-pointer text-center" (click)="sharePage()"> <img src="assets/img/bet copy link.svg" alt=""
+              class="mb-[4.3px]">Copylink</li>
+          <li (click)="downloadDivContent()" class="cursor-pointer text-center"> <img src="assets/img/bet download.svg"
+              alt="" class="mb-[4.3px] flex justify-center mx-auto">Save</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- bet booking Code Modal -->

@@ -1,0 +1,7 @@
+.bg-color{
+    background-color: rgb(24, 36, 42);
+}
+
+.custom_transition{
+	transition: all 750ms cubic-bezier(0.075, 0.82, 0.165, 1);
+}

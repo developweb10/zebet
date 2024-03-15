@@ -1,0 +1,49 @@
+<section class="custom-row main-wrapper pt-[40px]">
+    <div class="col-w2">
+
+    </div>
+    <div class="middle-wrapper col-w8">
+  
+      <div class="d-flex gap-[60px] flex-wrap xl:flex-nowrap justify-between">
+        <div class="d-flex gap-[24px] items-start">
+           <span class="rounded-full h-[28px] bg-[#2C3538] d-flex align-center justify-center min-w-[28px]"><a href="promotion"> <img src="assets/img/lefftarrow.png" alt=""></a></span>
+        <div class="blog-article xl:min-w-[518px] max-w-[100%] xl:max-w-[518px] promotion-wrapper" *ngIf="promoContent">
+            <h2 class="h1 mb-[30px] font-bold ">{{ promoContent.title }}</h2>
+     
+          
+          <img [src]="iamge_URL +'assets/'+promoContent.banner+'?'" alt="Photo of a Shiba Inu" class="w-full mb-[24px]">
+          <div [innerHTML]="promoContent.main_content"></div>
+          <!-- <button class="list-items"><a class="btn btn-primary px-[8px] py-[8px]" [href]="buttonurlContent">REGISTER Now</a></button> -->
+        </div>
+        </div>
+        <div class="recent-blog grow xl:min-w-[294px] max-w-[100%] xl:max-w-[294px]">
+          <h2 class="h1 mb-[30px]">Recent </h2>
+          <div class="blog-wrapper " *ngIf="promoData">
+           
+              <div class="" *ngFor="let item of promoData">
+                <a (click)="navigateToPromoPost(item)">
+                <mat-card class="card mb-[20px]">
+                  <img mat-card-image 
+                       [src]="iamge_URL +'assets/'+item.banner+'?'" 
+                       alt="Photo of a Shiba Inu">
+                  <mat-card-content>
+                    
+                    <div class="meta-date">{{ item.date_created | date:'MMMM d, y' }}</div>
+                    <mat-card-title>{{ item.title }}</mat-card-title>
+                    <div [innerHTML]="item.short_content"></div>
+                  </mat-card-content>
+                  <mat-card-actions>
+                    <a [href]="item.facebook_link"><img src="assets/img/x.svg" alt=""></a>
+                    <a [href]="item.twitter_link"><img src="assets/img/face.svg" alt=""></a>
+                  </mat-card-actions>
+                </mat-card>
+                </a>
+              </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="right-aside col-w2 col-w2">
+     
+    </div>
+</section>

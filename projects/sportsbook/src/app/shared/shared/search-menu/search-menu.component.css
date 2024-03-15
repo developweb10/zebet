@@ -1,0 +1,50 @@
+.flex {
+  margin: 0;
+}
+
+/* Thumb: webkit */
+input[type="range"]::-webkit-slider-thumb {
+  /* removing default appearance */
+  -webkit-appearance: none;
+  appearance: none;
+  /* creating a custom design */
+  height: 15px;
+  width: 15px;
+  background-color: #FFC600;
+  border-radius: 50%;
+  border: 2px solid #FFC600;
+  /*  slider progress trick  */
+}
+
+
+/* Thumb: Firefox */
+input[type="range"]::-moz-range-thumb {
+  height: 15px;
+  width: 15px;
+  background-color: #FFC600;
+  border-radius: 50%;
+  border: 1px solid #FFC600;
+  /*  slider progress trick  */
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #2C3538;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #4D585D;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #4D585D;
+  ;
+}

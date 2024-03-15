@@ -1,0 +1,12 @@
+.wrapper-body input[type="text"] {
+  border: 1px solid #4d585d !important;
+  background: #2c3538 !important;
+}
+
+:host .rounded-lg {
+  border-radius: 10px;
+}
+
+.c-mb-20 {
+  margin-bottom: 8px !important;
+}

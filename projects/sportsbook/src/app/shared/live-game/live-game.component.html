@@ -1,0 +1,828 @@
+<div>
+       
+        
+    <div *ngIf="isDataLoaded">
+
+      <div *ngIf="betHistoryData.length > 0">
+
+        <div *ngFor="let item of betHistoryData; index as i" class="p-[6px]">
+          <div class="bg-[#18242A] rounded-xl">
+            <div class="flex justify-between items-center gap-2 px-3 pt-3 pb-2">
+              <div class="flex gap-1">
+                <div class="flex flex-row lg:flex-col">
+                  <div class="flex items-center">
+                    <h3 class="text-base text-white">{{ item.betType }} ({{ item.betLegs.length }})</h3>
+                    <div class="flex pb-2 ml-2">
+                     
+
+                      <div *ngIf="item.promoType === 'BONUS' && item.isOpen" class="pl-2" style="padding-top: 5px;">
+                        <img
+                          src="../../../assets/svg/bonus-big.svg"
+                          alt=""
+                        />
+                      </div>
+
+                      <div *ngIf="item.promoType === 'BONUS' && !item.isOpen" class="pl-2" style="padding-top: 5px;">
+                        <img
+                          src="../../../assets/svg/bonus-small.svg"
+                          alt=""
+                        />
+                      </div>
+
+                      <div *ngIf="item.promoType === 'FREE' && item.isOpen" class="pl-2" style="padding-top: 5px;">
+                        <img
+                          src="../../../assets/svg/freebet-big.svg"
+                          alt=""
+                        />
+                      </div>
+
+                      <div *ngIf="item.promoType === 'FREE' && !item.isOpen" class="pl-2" style="padding-top: 5px;">
+                        <img
+                          src="../../../assets/svg/freebet-small.svg"
+                          alt=""
+                        />
+                      </div>
+
+                    </div>
+                  </div>
+                  <span
+                    class="lg:hidden text-sm text-[#A3A7AA] font-bold"
+                    *ngIf="!item.isOpen"
+                    >| Stake : &#8358; {{ item.placeStake | number : "0.2-2" }}</span
+                  >
+                  <span class="lg:flex hidden text-xs text-grayDark"
+                    >Ticket ID: {{ item.betId }} | {{ item.formattedDate }}
+                    {{ item.formattedTime }}</span
+                  >
+                </div>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="hidden lg:flex">
+                  <!-- <p class="text-xs">
+                    <span class="text-[#A3A7AA]">Booking Code :</span> 34896549
+                  </p> -->
+                </span>
+                
+                
+                <div
+                  class="accordion-icon"
+                  (click)="swapOpen(i); cashOut = true; cashOut2 = true"
+                >
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M8.5625 9.79558L8 10.4536L7.4375 9.79558L2.7875 5L2 5.81215L8 12L14 5.81215L13.2125 5L8.5625 9.79558Z"
+                      fill="#FFC600"
+                    />
+                    <path
+                      d="M8.5625 9.79558L8 10.4536L7.4375 9.79558L2.7875 5L2 5.81215L8 12L14 5.81215L13.2125 5L8.5625 9.79558Z"
+                      stroke="white"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="md:hidden lg:flex">
+              <ng-container
+                *ngIf="item.isOpen"
+              >
+              <div class="accordion-content hidden lg:flex px-3 mx-2 w-full">
+                <table>
+                  <tr>
+                    <th class="text-[#A3A7AA] text-xs text-center">Match Code</th>
+                    <th class="text-[#A3A7AA] text-xs text-center">Time</th>
+                    <th class="text-[#A3A7AA] text-xs text-center">Date</th>
+                    <th></th>
+                    <th class="text-[#A3A7AA] text-xs text-center">Market</th>
+                    <th class="text-[#A3A7AA] text-xs text-center">odds</th>
+                    <th class="text-[#A3A7AA] text-xs text-center">Results</th>
+                    <th class="text-[#A3A7AA] text-xs text-center">Status</th>
+                  </tr>
+                  <tr *ngFor="let bet of item.betLegs; index as i; first as isFirst">
+                    <td
+                      class="text-[#A3A7AA] text-xs px-3 py-3 border-b border-[#4D585D] pl-0"
+                    >
+                    {{ bet.eventId }}
+                    </td>
+                    <td
+                      class="text-[#A3A7AA] text-xs px-3 py-3 border-b border-[#4D585D] lineAdd"
+                    >
+                    {{ bet.formattedTime }}
+                    </td>
+                    <td
+                      class="text-[#A3A7AA] text-xs px-3 py-3 border-b border-[#4D585D] lineAdd"
+                    >
+                    {{ bet.formattedDate }}
+                    </td>
+                    <td
+                      class="text-white text-xs px-3 py-3 border-b border-[#4D585D] lineAdd"
+                    >
+                      <!-- RAKOW II CZESTOCHOWA <span class="text-primary"> VS </span> MKP CARINA
+                      GUBIN -->
+                      {{ bet.events[0] }} <span class="text-[#FFC600]">VS</span>
+                      {{ bet.events[1] }}
+                    </td>
+                    <td
+                      class="text-[#A3A7AA] text-xs px-3 py-3 border-b border-[#4D585D] lineAdd"
+                    >
+                      
+                      {{ bet.selections[0].name }} : {{
+                        bet.price.decimal
+                      }}
+                    </td>
+                    <td
+                      *ngIf="!bet.currentlyLive"
+                      class="text-white text-xs px-3 py-3 border-b border-[#4D585D] lineAdd"
+                    >
+                    {{
+                      bet.price.decimal
+                    }}
+                    </td>
+            
+                    <td
+                      *ngIf="bet.currentlyLive"
+                      class="text-white text-xs px-3 py-3 border-b border-[#4D585D] lineAdd"
+                    >
+                      <button
+                        *ngIf="!(i === 1 && bet.currentlyLive)"
+                        class="bg-[#4CAF50] text-xs px-2 py-1 rounded-lg"
+                      >
+                        Live odds
+                      </button>
+                      <button
+                        *ngIf="i === 1 && bet.currentlyLive"
+                        class="bg-[#4D585D] text-black text-xs px-2 py-1 rounded-lg"
+                      >
+                        Live Odds Suspended
+                      </button>
+                    </td>
+                    <td
+                      class="text-[#A3A7AA] text-xs px-3 py-3 border-b border-[#4D585D] lineAdd"
+                    >
+                      {{ bet.fullResult }}
+                    </td>
+                    <td
+                      *ngIf="!bet.currentlyLive"
+                      class="text-[#A3A7AA] text-xs px-3 py-3 border-b border-[#4D585D]"
+                    >
+                      Not start
+                    </td>
+                    <td
+                      *ngIf="bet.currentlyLive"
+                      class="text-[#4CAF50] text-xs px-3 py-3 border-b border-[#4D585D]"
+                    >
+                      Ongoing
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </ng-container>
+              <ng-container
+                *ngIf="item.isOpen && !showAutoCashout"
+              >
+                <div class="accordion-content overflow-y-auto lg:hidden">
+                  <div>
+                    <div>
+
+                      <div  *ngFor="let bet of item.betLegs; index as i; first as isFirst" class="px-3 py-1 border-t border-[#2C3538]">
+                        <div class="flex justify-between mb-1">
+                          <div class="flex text-[#A3A7AA] text-[10px]">
+                            <span class="text-[#A3A7AA]">{{ bet.eventId }}</span> <span class="text-[#4D585D] px-1">|</span>
+                            <div><span>{{ bet.formattedTime }}</span> {{ bet.formattedDate }}</div>
+                            <span class="text-[#4D585D] px-1">|</span> <span>{{ bet.market }}</span>
+                          </div>
+                          <span *ngIf="!bet.currentlyLive" class="text-[#A3A7AA] text-xs">Not Start</span>
+                          <span *ngIf="bet.currentlyLive" class="text-[#4CAF50] text-xs">Ongoing</span>
+                        </div>
+                        <h4 class="text-xs text-white">
+                          {{ bet.events[0] }} <span class="text-[#FFC600]">VS</span>
+                        {{ bet.events[1] }} 
+                        </h4>
+                        <span
+                          *ngIf="bet.currentlyLive"
+                          class="bg-[#4CAF50] text-white text-xs px-2 rounded-lg"
+                          >Live odds</span
+                        >
+                        <span class="text-xs text-white"
+                          >{{ bet.price.decimal | number : "0.1-1" }} <span class="text-[#A3A7AA]"> | {{ bet.selections[0].name }}</span></span
+                        >
+                        
+                      </div>
+              
+                      
+              
+                      <div class="flex flex-col mb-3">
+                        <div class="grid grid-cols-2 border-t border-[#4D585D]">
+                          <div
+                            class="flex flex-col gap-1 p-1 justify-center items-center border-r border-[#4d585d]"
+                          >
+                            <h6 class="text-xs text-[#A3A7AA]">Total Stake</h6>
+                            <span class="text-xs text-white font-bold">&#8358; {{ item.placeStake | number : "0.2-2" }}</span>
+                          </div>
+                          <div class="flex flex-col gap-1 p-1 justify-center items-center">
+                            <h6 class="text-xs text-[#A3A7AA]">Total Odds</h6>
+                            <span class="text-xs text-white font-bold">{{ item.totalOdds | number : "0.1-1" }}</span>
+                          </div>
+                        </div>
+                        <div class="grid grid-cols-2 border-t border-b border-[#4D585D]">
+                          <div
+                            *ngIf="showBonus"
+                            class="flex flex-col gap-1 p-1 justify-center items-center border-r border-[#4d585d]"
+                          >
+                            <h6 class="text-xs text-[#A3A7AA]">Bonus</h6>
+                            <span class="text-xs text-white font-bold">&#8358; {{ item.bonusReturn | number : "0.2-2" }}</span>
+                          </div>
+                          <div class="flex flex-col gap-1 p-1 justify-center items-center">
+                            <h6 class="text-xs text-[#A3A7AA]">Potential Winning</h6>
+                            <span class="text-xs text-white font-bold">&#8358; {{ item.potentialReturn | number : "0.2-2" }}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+            <div
+              class="flex justify-between items-start gap-2 lg:mx-3 px-2 py-2 border-0 lg:border-t border-text_secondary"
+            >
+              <div class="items-center flex-1 hidden lg:flex">
+                <ng-container>
+
+                  <div class="flex-row flex-1 hidden lg:flex">
+                    <div class="flex-col flex-1">
+                      <p class="text-xs text-white">Total Stake (NGN)</p>
+                      <h3 class="text-xs text-white font-bold">&#8358; {{ item.placeStake | number : "0.2-2" }}</h3>
+                    </div>
+                
+                    <div class="flex flex-col flex-1">
+                      <p class="text-xs text-white">Total Return</p>
+                      <div *ngIf="item.betStatus === 'O'">
+                        <h3 *ngIf="item.availableCashoutAmount === 0" class="text-xs text-white font-bold">
+                          &#x20A6; {{ item.potentialReturn | number : "0.2-2" }}
+                        </h3>
+                        <h3 *ngIf="item.availableCashoutAmount > 0" class="text-xs text-white font-bold">
+                          &#x20A6; {{ item.availableCashoutAmount | number : "0.2-2" }}
+                        </h3>
+                      </div>
+                      <div *ngIf="item.betStatus !== 'O'">
+                        <h3 class="text-xs text-white font-bold">
+                          &#x20A6; {{ item.returnAmount | number : "0.2-2" }}
+                        </h3>
+                      </div>
+                    </div>
+                  </div>
+
+                </ng-container>
+                <ng-container
+                  *ngIf="item.isOpen"
+                >
+
+                  <div class="flex-row flex-1 hidden lg:flex">
+                    <div class="flex-col flex-[0.5]" *ngIf="showBonus">
+                      <p class="text-xs text-white">Bonus</p>
+                      <h3 class="text-xs text-white font-bold">&#8358; {{ item.bonusReturn | number : "0.2-2" }}</h3>
+                    </div>
+                    <div class="flex-col flex-[0.5]">
+                      <p class="text-xs text-white">Potential Winning</p>
+                      <h3 class="text-xs text-white font-bold">&#8358; {{ item.potentialReturn | number : "0.2-2" }}</h3>
+                    </div>
+                  </div>
+
+                </ng-container>
+              </div>
+              <div class="flex-1 flex justify-end w-full">
+                <div class="flex-col lg:flex gap-3 justify-end">
+                  <!-- <button
+                    class="border w-full border-primary border-solid rounded-lg px-6 py-2 text-[10px] font-bold uppercase text-primary"
+                    (click)="rebet(i)"
+                    *ngIf="item.isOpen"
+                  >
+                    REBET
+                  </button> -->
+
+                  
+  
+                  <div
+                  
+                    *ngIf="!item.confirmFullCashout && !item.confirmPartialCashout"
+                    class="hidden lg:flex gap-3 lg:my-0 my-2 items-center justify-between whitespace-nowrap"
+                  >
+
+                    <div class="flex justify-between w-full" *ngIf="item.autoCashoutRule === null">
+                        <button
+                        *ngIf="!item.autoCoClicked && !item.partialCoClicked"
+                        class="flex-1 rounded-lg bg-[#4D585D] px-6 py-2 mr-1 text-[10px] w-[120px] font-bold uppercase text-primary active-btn"
+                        [class.active-btn]="item.autoCoClicked === true"
+                        (click)="autoCo(i)"
+                        >
+                        Auto C/o
+                        </button>
+    
+                        <button
+                            *ngIf="!item.autoCoClicked && !item.partialCoClicked" 
+                            class="flex-1 rounded-lg bg-[#4D585D] px-6 py-2 mr-1 text-[10px] font-bold uppercase text-primary"
+                            [class.active-btn]="item.partialCoClicked === true"
+                            [disabled]="item.availableCashoutAmount === 0"
+                            (click)="partialCo(i)"
+                        >
+                        Partial C/o
+                        </button>
+                    </div>
+
+                    <div class="flex justify-between w-full" *ngIf="item.autoCashoutRule !== null">
+                        <button
+                            style="height: 50px;"
+                            class="rounded-lg bg-[#4D585D] py-2 px-6 mr-1 text-[10px] w-full font-bold uppercase text-primary"
+                            [class.active-btn]="item.autoCoClicked === true"
+                            (click)="autoCo(i)"
+                        >
+                            <div class="flex flex-col w-full px-3">
+                                <span class="w-full" [class.active-text]="item.autoCoClicked === true" [class.inactive-text]="item.autoCoClicked !== true">Auto</span> 
+                                <span class="w-full" [class.active-text]="item.autoCoClicked === true" [class.inactive-text]="item.autoCoClicked !== true" *ngIf="item.autoCashoutRule == null">C/o</span> 
+                                <span class="flex justify-center" [class.active-text]="item.autoCoClicked === true" [class.inactive-text]="item.autoCoClicked !== true" *ngIf="item.autoCashoutRule !== null">
+                                <!-- <img
+                                *ngIf="item.autoCoClicked === true"
+                                src="../../../assets/svg/auto-co-icon.svg"
+                                /> -->
+                                <svg
+                                *ngIf="item.autoCoClicked !== true"
+                                width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="5.5" cy="5.5" r="5.5" fill="#FFC600"/>
+                                <mask id="mask0_10277_15299" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="2" y="3" width="6" height="5">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M7.86785 4.02689C8.01228 4.17416 8.01015 4.41081 7.8631 4.55546L4.75171 7.61597L2.8617 5.75687C2.71465 5.61222 2.71252 5.37557 2.85694 5.22829C3.00137 5.08102 3.23765 5.07889 3.3847 5.22353L4.75171 6.56818L7.34009 4.02212C7.48714 3.87748 7.72343 3.87961 7.86785 4.02689Z" fill="white"/>
+                                </mask>
+                                <g mask="url(#mask0_10277_15299)">
+                                <rect x="2.75" y="3.025" width="5.2248" height="5.22488" fill="#18242A"/>
+                                </g>
+                                </svg>
+                                
+
+                                <!-- <svg 
+                                *ngIf="item.autoCoClicked === true"
+                                width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="5.5" cy="5.5" r="5.5" fill="#2C3538"/>
+                                <mask id="mask0_10277_15648" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="2" y="3" width="6" height="5">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M7.86785 4.02689C8.01228 4.17416 8.01015 4.41081 7.8631 4.55546L4.75171 7.61597L2.8617 5.75687C2.71465 5.61222 2.71252 5.37557 2.85694 5.22829C3.00137 5.08102 3.23765 5.07889 3.3847 5.22353L4.75171 6.56818L7.34009 4.02212C7.48714 3.87748 7.72343 3.87961 7.86785 4.02689Z" fill="white"/>
+                                </mask>
+                                <g mask="url(#mask0_10277_15648)">
+                                <rect x="2.75" y="3.025" width="5.2248" height="5.22488" fill="#FFC600"/>
+                                </g>
+                                </svg> -->
+                                
+                                <!-- <svg 
+                                    *ngIf="item.autoCoClicked === true"
+                                    width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="5.5" cy="5.5" r="5.5" fill="#2C3538"/>
+                                    <mask id="mask0_10277_15648" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="2" y="3" width="6" height="5">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M7.86785 4.02689C8.01228 4.17416 8.01015 4.41081 7.8631 4.55546L4.75171 7.61597L2.8617 5.75687C2.71465 5.61222 2.71252 5.37557 2.85694 5.22829C3.00137 5.08102 3.23765 5.07889 3.3847 5.22353L4.75171 6.56818L7.34009 4.02212C7.48714 3.87748 7.72343 3.87961 7.86785 4.02689Z" fill="white"/>
+                                    </mask>
+                                    <g mask="url(#mask0_10277_15648)">
+                                    <rect x="2.75" y="3.025" width="5.2248" height="5.22488" fill="#FFC600"/>
+                                    </g>
+                                </svg> -->
+
+                                
+                                <svg 
+                                    *ngIf="item.autoCoClicked === true"
+                                    width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="5.5" cy="5.5" r="5.5" fill="#2C3538"/>
+                                    <mask id="mask0_10277_15648" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="2" y="3" width="6" height="5">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M7.86785 4.02689C8.01228 4.17416 8.01015 4.41081 7.8631 4.55546L4.75171 7.61597L2.8617 5.75687C2.71465 5.61222 2.71252 5.37557 2.85694 5.22829C3.00137 5.08102 3.23765 5.07889 3.3847 5.22353L4.75171 6.56818L7.34009 4.02212C7.48714 3.87748 7.72343 3.87961 7.86785 4.02689Z" fill="white"/>
+                                    </mask>
+                                    <g mask="url(#mask0_10277_15648)">
+                                    <rect x="2.75" y="3.025" width="5.2248" height="5.22488" fill="#FFC600"/>
+                                    </g>
+                                </svg>
+                                    
+                                    
+                                
+                                <!-- <img
+                                *ngIf="item.autoCoClicked === true"
+                                src="../../../assets/svg/auto-co-icon-b.svg"
+                                /> -->
+                                <!-- <svg 
+                                *ngIf="item.autoCoClicked !== true"
+                                width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="5.5" cy="5.5" r="5.5" fill="#FFC600"/>
+                                <mask id="mask0_10277_15299" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="2" y="3" width="6" height="5">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M7.86785 4.02689C8.01228 4.17416 8.01015 4.41081 7.8631 4.55546L4.75171 7.61597L2.8617 5.75687C2.71465 5.61222 2.71252 5.37557 2.85694 5.22829C3.00137 5.08102 3.23765 5.07889 3.3847 5.22353L4.75171 6.56818L7.34009 4.02212C7.48714 3.87748 7.72343 3.87961 7.86785 4.02689Z" fill="white"/>
+                                </mask>
+                                <g mask="url(#mask0_10277_15299)">
+                                <rect x="2.75" y="3.025" width="5.2248" height="5.22488" fill="#18242A"/>
+                                </g>
+                                </svg> -->
+                                
+                                On</span>
+                            </div>
+                        
+                        </button>
+  
+                        <button
+                            style="height: 50px;"
+                            class="rounded-lg bg-[#4D585D] py-2 px-6 ml-1 text-[10px] w-full font-bold uppercase text-primary"
+                            [class.active-btn]="item.partialCoClicked === true"
+                            [disabled]="item.availableCashoutAmount <= 0"
+                            (click)="partialCo(i)"
+                        >
+                            <div class="flex flex-col w-full">
+                                <span class="w-full" 
+                                [class.active-text]="item.partialCoClicked === true  && item.availableCashoutAmount > 0" 
+                                [class.inactive-text]="item.partialCoClicked !== true && item.availableCashoutAmount > 0"
+                                [class.text-unavailable]="item.availableCashoutAmount === 0">Partial</span> 
+                                <span class="w-full" 
+                                [class.active-text]="item.partialCoClicked === true && item.availableCashoutAmount > 0" 
+                                [class.inactive-text]="item.partialCoClicked !== true && item.availableCashoutAmount > 0"
+                                [class.text-unavailable]="item.availableCashoutAmount === 0">C/o</span>
+                            </div>
+                        
+                        </button>
+                    </div>
+                    
+  
+                    
+                  </div>
+
+                  
+  
+                  <ng-container *ngIf="item.autoCoClicked">
+                    <div>
+                      <div class="w-full text-[10px] py-1">
+                        Cash out if the bet value reaches at leasts
+                      </div>
+                      <div class="flex justify-between w-full text-[10px] py-1">
+                        <mat-slider
+                          class="custom-slide"
+                          min="0"
+                          max="{{ item.autoCashoutValue }}"
+                          step="0.01"
+                          (input)="changeRangeAuto(i, $event)"
+                        >
+                          <input matSliderThumb value="{{ item.autoCashoutValueRange }}" />
+                        </mat-slider>
+                        <!-- <input id="range" type="range" min="0" max="{{ item.autoCashoutValue }}" value="{{ item.autoCashoutValueRange }}" step="0.1" (input)="changeRangeAuto(i, $event)" [disabled]="item.autoCashoutRule !== null" class="w-full"> -->
+                        <span class="ml-1 text-[11px] mt-4">&#x20A6;{{ item.autoCashoutValueRange }}</span>
+                      </div>
+                      
+                        
+                    </div>
+                    
+                    <div>
+
+                      <div class="flex w-full py-1">
+                        <label class="container">
+                          <input type="checkbox" (change)="onPartialCheckboxChange($event, i)" [disabled]="item.autoCashoutRule !== null">
+                          <span class="checkmark"></span>
+                          <span style="position: absolute; margin-left: 20px; ">I want to partially cash out</span>
+                        </label>
+                        
+                      </div>
+                      <div *ngIf="item.partialReturnChecked" class="flex w-full text-[10px] py-1">
+                        <!-- <input id="range" type="range" min="0" max="{{ item.partialCashoutValue }}"  value="{{ item.partialCashoutValueRange }}" step="0.1" (input)="changeRangePartial(i, $event)" class="w-full"> -->
+                        <mat-slider
+                          class="custom-slide"
+                          min="0"
+                          max="{{ item.partialCashoutValue }}"
+                          step="0.01"
+                          (input)="changeRangePartial(i, $event)"
+                        >
+                          <input matSliderThumb value="{{ item.partialCashoutValueRange }}" />
+                        </mat-slider>
+                        <span class="ml-1 text-[11px]">&#x20A6;{{ item.partialCashoutValueRange }}</span>
+                      </div>
+
+                      <div
+                        *ngIf="item.autoCoClicked && item.autoCashoutRule == null"
+                        class="flex gap-3 lg:my-0 my-2 items-center justify-end whitespace-nowrap"
+                        >
+                          <button
+                            class="flex-1 rounded-lg bg-[#4D585D] px-2 py-2 text-[10px] font-bold uppercase text-primary"
+                            (click)="cancelAutoCashout(i)"
+                          >
+                            Cancel
+                          </button>
+        
+                          <button
+                            style="width: 250px;"
+                            class="flex-1 rounded-lg bg-primary px-4 py-2 text-[10px] font-bold uppercase text-[#18242A]"
+                            [disabled]="item.isAutoLoading"
+                            (click)="doAutoCashout(i)"
+                          >
+                            <span *ngIf="!item.isAutoLoading" class="text-[#18242A] text-[11px]">Create rule</span>
+                            <span class="flex justify-center button-spinner mx-auto"  *ngIf="item.isAutoLoading"></span>
+                            
+                          </button>
+                      </div>
+
+                      <div
+                        *ngIf="item.autoCoClicked && item.autoCashoutRule !== null"
+                        class="flex gap-3 lg:my-0 my-2 items-center justify-end whitespace-nowrap"
+                        >
+                          <button
+                            class="flex-1 rounded-lg bg-[#4D585D] px-6 py-2 text-[10px] font-bold uppercase text-primary"
+                            (click)="cancelAutoCashout(i)"
+                          >
+                            Cancel
+                          </button>
+        
+                          <button
+                            class="flex-1 rounded-lg bg-[#FF5353] px-6 py-2 text-[10px] font-bold uppercase text-[#18242A]"
+                            [disabled]="item.isAutoLoading"
+                            (click)="removeAutoCashout(i)"
+                          >
+                          <span *ngIf="!item.isAutoLoading">Remove rule</span>
+                          <span class="flex justify-center button-spinner mx-auto"  *ngIf="item.isAutoLoading"></span>
+                            
+                          </button>
+                      </div>
+
+                    </div>
+                    
+                  </ng-container>
+
+                  <ng-container
+                    *ngIf="item.partialCo"
+                  >
+                
+                  <div class="flex flex-col items-center">
+                    <div class="flex flex-col justify-between w-full py-2 lg:py-0">
+                      <p
+                        class="text-[#D9D9D9] text-xs lg:flex-1 flex-none pr-2 mx-2 lg:pr-0 lg:mx-0 border-r border-[#2C3538]"
+                        
+                      >
+                      Cash out if the bet value reaches at least
+                      </p>
+                      <div class="flex w-full text-[10px] py-1">
+                        <!-- <input type="range" min="0" max="{{ item.partialCashoutValue }}" step="0.1" value="{{ item.partialCashoutValue }}"  (input)="changeRangePartial(i, $event)" class="w-full"> -->
+
+                        <mat-slider
+                          class="custom-slide"
+                          min="0"
+                          max="{{ item.partialCashoutValue }}"
+                          step="0.01"
+                          (input)="changeRangePartial(i, $event)"
+                        >
+                          <input matSliderThumb value="{{ item.partialCashoutValueRange }}" />
+                        </mat-slider>
+                        
+                        <span class="ml-1 mt-4 text-[11px]">&#x20A6;{{ item.partialCashoutValueRange }}</span>
+                      </div>
+                      
+                    </div>
+                    
+                  </div>
+                
+                  <div class="flex gap-2 items-center w-full">
+                     <button
+                      class="flex justify-center bg-text_secondary flex-[0.5] text-[10px] px-4 py-2 rounded-lg uppercase font-bold"
+                      (click)="cancelPartialCashout(i)"
+                      
+                    >
+                      CANCEL
+                    </button>
+                    <button
+                      *ngIf="item.partialCashoutValue > 0 && !item.confirmPartialCashout"
+                      class="bg-text_secondary flex-1 text-[10px] px-4 py-2 rounded-lg uppercase font-bold"
+                      (click)="confirmPartialCashout(i)"
+                    >
+                      CASH OUT RETURN
+                    </button>
+                    <button
+                        
+                      *ngIf="item.partialCashoutValue > 0 && item.confirmPartialCashout"
+                      style="width: 250px;"
+                      class="bg-primary text-[#18242A] flex-1 text-[10px] px-2 py-2 rounded-lg uppercase font-bold"
+                      [disabled]="item.isPartialLoading"
+                      (click)="doPartialCashout(i)"
+                    >
+                        <span *ngIf="!item.isPartialLoading" class="text-[#18242A] text-[11px]">Confirm CASH OUT RETURN</span>
+                        <span class="flex justify-center button-spinner mx-auto"  *ngIf="item.isPartialLoading"></span>
+                    </button>
+                    <button
+                    *ngIf="item.partialCashoutValue === 0"
+                    [disabled]="item.partialCashoutValue === 0"
+                      class="bg-text_secondary text-[#A3A7AA] flex-1 text-[10px] px-4 py-2 rounded-lg uppercase font-bold"
+                    >
+                      Cash out Unavailable
+                    </button>
+                  </div>
+
+                  </ng-container>
+  
+                  <div *ngIf="!item.partialCo && !item.autoCoClicked && !item.confirmFullCashout && !item.confirmPartialCashout" class="flex justify-center w-full" style="width: 100%;">
+
+                    
+                    
+                    <button
+                      (click)="confirmFullCashout(i)"
+                      [disabled]="item.availableCashoutAmount === 0"
+                      class="rounded-lg py-2 text-[10px] px-2 w-full font-bold uppercase"
+                      [ngClass]="item.availableCashoutAmount > 0 ? 'btn-cashout' : 'bg-[#2C3538] text-[#A3A7AA] text-[13px]'"
+                    >
+                      <span class="btn-cashout" *ngIf="item.availableCashoutAmount > 0">Cash out Return NGN {{ item.availableCashoutAmount }}</span>
+                      <span *ngIf="item.availableCashoutAmount === 0">Cash out Unavailable</span>
+                    </button>
+                    
+                  </div>
+  
+                  <ng-container  *ngIf="item.confirmFullCashout">
+                    <div class="flex flex-col">
+                        <div class="flex gap-2 justify-end w-full mt-2">
+                            <span class="text-[12px]">Auto Cashout</span><span class="text-[12px]">NGN {{ item.availableCashoutAmount }}</span>
+                        </div>
+                        <div class="flex gap-2 items-center w-full mt-2">
+                            <button
+                           
+                             class="bg-text_secondary flex-[0.5] text-[10px] px-4 py-2 rounded-lg uppercase font-bold"
+                             (click)="cancelFullCashout(i)"
+                             
+                           >
+                              <div class="flex flex-col justify-center">
+                                <span class="text-[#FFC600] text-[12px]">CANCEL </span>
+                              </div>
+                           </button>
+                           
+                           <button
+                            style="width: 250px;"
+                             *ngIf="item.availableCashoutAmount > 0 && item.confirmFullCashout"
+                             class="bg-primary text-[#18242A] flex-1 text-[10px] px-2 py-2 rounded-lg uppercase font-bold"
+                             [disabled]="item.isFullLoading"
+                             (click)="doFullCashout(i)"
+                           >
+  
+                              <span *ngIf="!item.isFullLoading" class="text-[#18242A] text-[12px]">Confirm CASH OUT RETURN</span>
+                          
+                           
+                              
+                              <span class="flex justify-center button-spinner mx-auto"  *ngIf="item.isFullLoading"></span>
+                           </button>
+                           <!-- <button
+                           *ngIf="item.partialCashoutValue === 0"
+                           [disabled]="item.partialCashoutValue === 0"
+                             class="bg-text_secondary text-[#A3A7AA] flex-1 text-[10px] px-4 py-2 rounded-lg uppercase font-bold"
+                           >
+                             Cash out Unavailable
+                           </button> -->
+                        </div>
+                    </div>
+                    
+                  </ng-container>
+                  
+  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="flex flex-col text-center" *ngIf="betHistoryData.length == 0">
+        <div class="pt-4 flex flex-col items-center justify-center">
+          <svg
+            width="202"
+            height="202"
+            viewBox="0 0 202 202"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect width="202" height="202" rx="100" fill="#2C3538" />
+            <rect
+              x="83.498"
+              y="95.708"
+              width="49.5833"
+              height="24.7917"
+              fill="#BE202F"
+            />
+            <path
+              d="M107.561 114.667C111.186 114.667 114.124 111.729 114.124 108.104C114.124 104.48 111.186 101.542 107.561 101.542C103.937 101.542 100.999 104.48 100.999 108.104C100.999 111.729 103.937 114.667 107.561 114.667Z"
+              fill="#FFC600"
+            />
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M135.999 95.3157V120.893C135.999 121.481 135.521 121.958 134.933 121.958H81.6477C81.0595 121.958 80.582 121.481 80.582 120.893V95.3157C80.582 94.7267 81.0595 94.25 81.6477 94.25H134.933C135.521 94.25 135.999 94.7267 135.999 95.3157ZM131.736 113.433C129.381 113.433 127.473 115.341 127.473 117.696H89.1077C89.1077 115.341 87.1994 113.433 84.8449 113.433V102.776C87.1994 102.776 89.1077 100.867 89.1077 98.5128H127.473C127.473 100.867 129.381 102.776 131.736 102.776V113.433Z"
+              fill="#FFC600"
+            />
+            <g filter="url(#filter0_f_9664_17691)">
+              <rect
+                x="82.041"
+                y="94.25"
+                width="48.125"
+                height="21.875"
+                rx="1"
+                fill="#BE202F"
+              />
+            </g>
+            <rect
+              x="76.209"
+              y="88.417"
+              width="49.5833"
+              height="24.7917"
+              fill="#BE202F"
+            />
+            <path
+              d="M100.272 107.376C103.897 107.376 106.835 104.438 106.835 100.813C106.835 97.1888 103.897 94.2507 100.272 94.2507C96.6478 94.2507 93.7096 97.1888 93.7096 100.813C93.7096 104.438 96.6478 107.376 100.272 107.376Z"
+              fill="#FFC600"
+            />
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M128.71 88.0247V113.602C128.71 114.19 128.232 114.667 127.644 114.667H74.3587C73.7704 114.667 73.293 114.19 73.293 113.602V88.0247C73.293 87.4357 73.7704 86.959 74.3587 86.959H127.644C128.232 86.959 128.71 87.4357 128.71 88.0247ZM124.447 106.142C122.092 106.142 120.184 108.05 120.184 110.404H81.8186C81.8186 108.05 79.9103 106.142 77.5558 106.142V95.4846C79.9103 95.4846 81.8186 93.5763 81.8186 91.2218H120.184C120.184 93.5763 122.092 95.4846 124.447 95.4846V106.142Z"
+              fill="#FFC600"
+            />
+            <g filter="url(#filter1_f_9664_17691)">
+              <rect
+                x="74.75"
+                y="86.958"
+                width="48.125"
+                height="21.875"
+                rx="1"
+                fill="#BE202F"
+              />
+            </g>
+            <rect
+              x="68.916"
+              y="81.124"
+              width="49.5833"
+              height="24.7917"
+              fill="#BE202F"
+            />
+            <path
+              d="M92.9792 100.083C96.6035 100.083 99.5417 97.1446 99.5417 93.5202C99.5417 89.8958 96.6035 86.9577 92.9792 86.9577C89.3548 86.9577 86.4167 89.8958 86.4167 93.5202C86.4167 97.1446 89.3548 100.083 92.9792 100.083Z"
+              fill="#FFC600"
+            />
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M121.417 80.7317V106.309C121.417 106.897 120.939 107.374 120.351 107.374H67.0657C66.4774 107.374 66 106.897 66 106.309V80.7317C66 80.1427 66.4774 79.666 67.0657 79.666H120.351C120.939 79.666 121.417 80.1427 121.417 80.7317ZM117.154 98.8487C114.799 98.8487 112.891 100.757 112.891 103.112H74.5256C74.5256 100.757 72.6173 98.8487 70.2628 98.8487V88.1917C72.6173 88.1917 74.5256 86.2833 74.5256 83.9288H112.891C112.891 86.2833 114.799 88.1917 117.154 88.1917V98.8487Z"
+              fill="#FFC600"
+            />
+            <path
+              d="M115.584 68L105.584 62.2265V73.7735L115.584 68ZM84.959 69H106.584V67H84.959V69Z"
+              fill="#FFC600"
+            />
+            <path
+              d="M84.959 133.625L94.959 127.851V139.399L84.959 133.625ZM115.584 134.625H93.959V132.625H115.584V134.625Z"
+              fill="#FFC600"
+            />
+            <defs>
+              <filter
+                id="filter0_f_9664_17691"
+                x="78.041"
+                y="90.25"
+                width="56.125"
+                height="29.875"
+                filterUnits="userSpaceOnUse"
+                color-interpolation-filters="sRGB"
+              >
+                <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                <feBlend
+                  mode="normal"
+                  in="SourceGraphic"
+                  in2="BackgroundImageFix"
+                  result="shape"
+                />
+                <feGaussianBlur
+                  stdDeviation="2"
+                  result="effect1_foregroundBlur_9664_17691"
+                />
+              </filter>
+              <filter
+                id="filter1_f_9664_17691"
+                x="70.75"
+                y="82.958"
+                width="56.125"
+                height="29.875"
+                filterUnits="userSpaceOnUse"
+                color-interpolation-filters="sRGB"
+              >
+                <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                <feBlend
+                  mode="normal"
+                  in="SourceGraphic"
+                  in2="BackgroundImageFix"
+                  result="shape"
+                />
+                <feGaussianBlur
+                  stdDeviation="2"
+                  result="effect1_foregroundBlur_9664_17691"
+                />
+              </filter>
+            </defs>
+          </svg>
+  
+          <p class="pt-2 flex justify-center items-center">{{ loaderMsg }}</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="flex justify-center spinner mx-auto" *ngIf="isLoading"></div>
+
+  </div>
+

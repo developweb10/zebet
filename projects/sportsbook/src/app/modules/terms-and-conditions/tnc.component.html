@@ -1,0 +1,14 @@
+<section class="terms-section">
+  <div class="terms-main-wrapper" N>
+    <h1 class="h1">{{ primaryTitle }}</h1>
+    <div class="terms-wrapper">
+      <p [innerHTML]="primaryContent"></p>
+    </div>
+
+    <div *ngFor="let term of terms_list">
+      <h1 class="h1 uppercase">{{ term.title }}</h1>
+      <p class="terms-wrapper" [innerHTML]="term.content"></p>
+    </div>
+  </div>
+</section>
+

@@ -1,0 +1,130 @@
+
+.search {
+  position: absolute;
+  top: 24px;
+  right: 0;
+  z-index: 10;
+}
+
+:host ::ng-deep.mat-mdc-tab-labels {
+  margin-left: 5rem;
+}
+
+@media (max-width: 576px) {
+  :host ::ng-deep.mat-mdc-tab-labels {
+    margin-left: 0 !important;
+  }
+  .search {
+    top: 80px;
+    left: 30px;
+  }
+  .search > div {
+    width: 90%;
+  }
+
+  :host ::ng-deep.mat-mdc-tab-header {
+    padding: 24px 0 !important;
+  }
+}
+
+:host ::ng-deep.mat-mdc-tab-header {
+  padding: 24px;
+}
+
+.content {
+  position: relative;
+  overflow: hidden;
+}
+.wrapper-top{
+  background: #18242A;
+
+}
+.content .content-overlay {
+  background: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  height: 73%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  opacity: 0;
+  -webkit-transition: all 0.4s ease-in-out 0s;
+  -moz-transition: all 0.4s ease-in-out 0s;
+  transition: all 0.4s ease-in-out 0s;
+}
+
+.content:hover .content-overlay {
+  opacity: 1;
+}
+
+.content-image {
+  width: 100%;
+}
+
+.content-details {
+  position: absolute;
+  text-align: center;
+  padding-left: 1em;
+  padding-right: 1em;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  opacity: 0;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  -webkit-transition: all 0.3s ease-in-out 0s;
+  -moz-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
+}
+
+.content:hover .content-details {
+  top: 50%;
+  left: 50%;
+  opacity: 1;
+}
+
+.content:hover .content-details-text {
+  color:  #FFC600
+}
+.fadeIn-bottom {
+  top: 80%;
+}
+
+.content-details button {
+  background: #FFC600
+}
+
+.sub-headers {
+  display: none;
+  background-color: #2c3538;
+  border: 1px solid;
+  border-color: #4d585d;
+}
+
+.sub-headers div{
+  padding: 4px 8px;
+}
+
+.header:hover + .sub-headers {
+  display: block;
+}
+
+.sub-headers:hover {
+  display: block;
+}
+
+.header:hover ~ .sub-headers {
+  display: block;
+}
+.mat-mdc-tab-group {
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+}
+::ng-deep .mat-tab-label {
+  /* Your custom label styles here */
+  font-weight: bold;
+  color: red;
+}

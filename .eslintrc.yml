@@ -1,0 +1,25 @@
+env:
+  browser: true
+  es2021: true
+extends:
+  - standard-with-typescript
+  - prettier
+parserOptions:
+  ecmaVersion: 2023
+  sourceType: module
+rules:
+  require-jsdoc:
+    - error
+    - {
+        require:
+          {
+            FunctionDeclaration: true,
+            MethodDefinition: true,
+            ClassDeclaration: true,
+          },
+      }
+  no-unused-vars: error
+  no-undef: error
+  no-unused-expressions: error
+  '@typescript-eslint/prefer-nullish-coalescing': 'off'
+  '@typescript-eslint/strict-boolean-expressions': 'off'

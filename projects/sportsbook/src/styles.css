@@ -1,0 +1,245 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+@import 'tailwindcss/screens'
+
+@layer base
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+}
+
+
+:root {
+  --mat-expansion-header-collapsed-state-height: 38px;
+  --mat-expansion-header-expanded-state-height: 38px;
+  --mat-expansion-container-background-color: #111827;
+  --mat-expansion-container-text-color: #fff;
+  --mat-expansion-header-text-color: #fff;
+}
+
+.page-bg {
+  background-color: #18242a;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  overflow-y: scroll;
+}
+
+.betslipTabs .flex,
+.market_typeTab .flex {
+  margin: 0;
+}
+
+.betslipTabs button,
+.market_typeTab button:first-child {
+  margin-left: 0 !important;
+}
+
+.betslipTabs button .text-sm {
+  font-size: 20px;
+}
+
+.betslipTabs .flex {
+  justify-content: space-between;
+}
+
+.scoreTab app-underlined-tab button:first-child {
+  margin-left: 0;
+}
+
+.scoreTab app-underlined-tab button .text-sm {
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.singleMarket .market_row {
+  display: none;
+}
+
+.singleMarket .market_row.showSingleMarket {
+  display: block;
+}
+
+.singleMarket .market_row.showSingleMarket .other_markets.showDiv {
+  display: block;
+}
+
+.singleMarket .market_row.showSingleMarket .more_marketBtn {
+  display: none;
+}
+
+.banner-carousel .owl-theme .owl-nav [class*='owl-'] {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--thunderbird);
+  opacity: 0.1;
+  height: 36px;
+  width: 36px;
+  border-radius: 50%;
+  margin: 0;
+}
+.mat-calendar-body-selected{
+  background-color: #ffc600 !important;
+  color: #000 !important;
+}
+.banner-carousel .owl-theme:hover .owl-nav [class*='owl-'] {
+  opacity: 0.6;
+}
+
+.banner-carousel .owl-theme .owl-nav [class*='owl-'].disabled {
+  background-color: var(--trout);
+  opacity: 0.5;
+}
+
+.banner-carousel .owl-theme .owl-nav [class*='owl-']:not(.disabled) img {
+  filter: invert(1);
+  max-width: 14px;
+}
+
+.banner-carousel .owl-theme .owl-nav [class*='owl-']:not(.disabled):hover {
+  background-color: var(--thunderbird);
+}
+
+.banner-carousel .owl-theme .owl-nav .owl-prev {
+  left: 0;
+}
+
+.banner-carousel .owl-theme .owl-nav .owl-next {
+  right: 0;
+}
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border-left-color: #ffc600;
+
+  animation: spin 1s ease infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.button-spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border-left-color: #111827;
+
+  animation: spin 1s ease infinite;
+}
+
+.logout-spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border-left-color: #be202f;
+
+  animation: spin 1s ease infinite;
+}
+
+
+app-footer{
+  .betslip_div{
+    display: none;
+  }
+}
+
+@media(min-width:1024px) {
+  .betslip_area {
+    background: linear-gradient(180deg, #4D585D 0%, #2C3538 14.17%, #2C3538 100%);
+  }
+}
+
+@media (max-width:1023px) {
+  .betslip_div {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    padding-bottom: 50px;
+    display: none;
+    align-items: end;
+  }
+
+  .betslip_div.betSlipShow {
+    /* display: block; */
+    display: flex;
+  }
+
+  .betslip_area {
+    /* align-items: end; */
+    height: calc(100vh - 140px);
+    overflow: auto;
+    display: flex;
+    background: linear-gradient(180deg, #4D585D 0%, #2C3538 14.17%, #2C3538 100%);
+  }
+
+  app-bet-slip-desktop {
+    width: 100%;
+    display: block;
+    background: linear-gradient(180deg, #4D585D 0%, #2C3538 14.17%, #2C3538 100%);
+    border-radius: 10px 10px 0 0;
+  }
+}
+
+.betslip_area {
+  width: 340px;
+}
+
+@media (max-width:575px) {
+  .betslip_area {
+    width: 100%;
+  }
+}
+
+
+.toast-success{
+  background-color: #0B6623 !important;
+}
+
+.toast-error{
+  background-color: #ff0000 !important;
+}
+
+.main-container .mat-expansion-panel-body{
+  height: 300px !important;
+  overflow-y: auto !important;
+}
+
+.font_small {
+  font-size: 12px;
+}
+
+.toast_p{
+  font-size: 14px;
+  line-height: 1.3;
+}

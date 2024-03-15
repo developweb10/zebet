@@ -1,0 +1,7 @@
+<div class="flex parent border-b border-[#4D585D] pl-3">    
+    <button *ngFor="let tab of tabs; index as i" class="mx-2 mt-2" 
+    [ngClass]="activeTab==tab ? 'text-yellow-400 border-b-2 border-yellow-400' : 'text-stone-300'"
+    (click)="toggleTab(tab);">
+        <div class="pb-2 text-sm font-bold leading-tight">{{tab}}</div>
+    </button>
+</div>

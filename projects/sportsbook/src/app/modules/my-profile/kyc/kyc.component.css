@@ -1,0 +1,245 @@
+.head-tag {
+  margin-bottom: 30px;
+}
+.head-tag h1 {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  line-height: normal;
+}
+.back-arrow {
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  border-radius: 50%;
+  background: #2c3538;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#file {
+  display: none;
+}
+.main-kyc-wrapper {
+  display: flex;
+  flex-direction: column;
+  background: #18242a;
+  min-height: calc(100vh - 32px);
+  padding: 50px 120px;
+}
+.main-kyc-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 455px;
+  margin: 0 auto;
+}
+.main-kyc-body h4 {
+  color: var(--White-Primary, #fff);
+  font-size: 16px;
+  font-weight: 700;
+  text-align: left;
+  line-height: normal;
+  margin-bottom: 13px;
+  width: 100%;
+  display: flex;
+}
+.main-kyc-body p {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+}
+.main-kyc-body .upload-document .svg_icon {
+  width: 89px;
+  height: 89px;
+  min-width: 89px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  border-radius: 50%;
+}
+.main-kyc-body .upload-document {
+  margin: 30px 0;
+  border-radius: 20px;
+  background: var(--Secondary---Other-Spaces, #2c3538);
+  padding: 16px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.main-kyc-body .upload-document p {
+  color: var(--Thunderbird, #ffc600);
+  text-align: center;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.6px;
+  margin-top: 5px;
+}
+.main-kyc-body .btn-doc {
+  border-radius: 10px;
+  background: var(--Primary-Red---Thunderbird, #ffc600);
+  color: var(--primary-black-mirage-primary-text, #18242a);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+  text-transform: uppercase;
+  padding: 12px 16px;
+  width: 100%;
+  border: 1px solid transparent;
+  transition: all 0.5s ease;
+  margin-top: 30px;
+}
+.main-kyc-body .btn-doc:hover,
+.main-kyc-body .btn-doc:active {
+  background: #ffc600;
+  opacity: 0.6;
+}
+.main-kyc-body .btn-upload {
+  border-radius: 10px;
+  background: var(--Secondary--2-Trout, #4d585d);
+  color: var(--primary-black-mirage-primary-text, #18242a);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+  padding: 12px 16px;
+  text-transform: uppercase;
+  transition: all 0.5s ease;
+  width: 100%;
+}
+.main-kyc-body .btn-upload:hover,
+.main-kyc-body .btn-upload:active {
+  background: #ffc600;
+  color: var(--primary-black-mirage-primary-text, #18242a);
+}
+
+.form-input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+.form-input-group {
+  margin-top: 20px;
+}
+.form-input-group label {
+  color: #fff;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: -0.36px;
+  margin-bottom: 8px;
+}
+.form-input-group input,
+.form-input-group select,
+.form-input-group textarea,
+.form-input-group .custom-input {
+  border-radius: 10px;
+  border: 1px solid var(--Secondary--2-Trout, #4d585d);
+  background: var(--Secondary---Other-Spaces, #2c3538);
+  padding: 12px 16px;
+  width: 100%;
+  color: #fff;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  outline: none;
+  height: 44px;
+}
+.form-input-group textarea {
+  height: auto;
+}
+.form-input-group .custom-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.form-input-group .custom-input label {
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 0;
+}
+.form-input-group .custom-input .select-tag label {
+  margin-bottom: 0;
+  color: var(--Primary-Red---Thunderbird, #ffc600);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.form-input-group .custom-input .select-tag label.selectFile {
+  color: #fff;
+}
+.form-input-group select {
+  appearance: none;
+}
+.form-input-group {
+  position: relative;
+}
+.form-input-group .angle-down {
+  position: absolute;
+  right: 10px;
+  bottom: 20px;
+}
+.form-input-group input::placeholder,
+.form-input-group select option,
+.form-input-group textarea::placeholder,
+.form-input-group .custom-input input::placeholder {
+  color: var(--Secondary--2-Trout, #4d585d);
+}
+.form-input-group .custom-input .select-tag {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
+  background: var(--primary-black-mirage-primary-text, #18242a);
+  padding: 6px 10px;
+  width: 100%;
+}
+.kyc-success {
+  color: #fff;
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+h3.kyc-success {
+  margin: 40px 0px 13px 0px;
+}
+@media screen and (max-width: 1024px) {
+  .main-kyc-wrapper {
+    padding: 50px;
+  }
+  .main-kyc-body {
+    max-width: 356px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .main-kyc-wrapper {
+    padding: 16px;
+  }
+
+  .main-kyc-body {
+    max-width: 100%;
+  }
+}
+@media screen and (max-width: 374px) {
+  .form-input-group .custom-input .select-tag label {
+    font-size: 14px;
+  }
+}

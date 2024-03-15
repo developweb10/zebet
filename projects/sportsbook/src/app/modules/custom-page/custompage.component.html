@@ -1,0 +1,11 @@
+<div *ngIf="customPageData && customPageData.data && customPageData.data.length > 0">
+  <div *ngFor="let item of customPageData.data">
+    <h1>{{ item.primary_title }}</h1>
+    <div [innerHTML]="item.primary_content"></div>
+
+    <div *ngFor="let listItem of item.list">
+      <h2>{{ listItem.title }}</h2>
+      <div [innerHTML]="listItem.content"></div>
+    </div>
+  </div>
+</div>

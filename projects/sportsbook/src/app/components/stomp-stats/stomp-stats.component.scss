@@ -1,0 +1,20 @@
+mat-dialog-actions {
+    justify-content: flex-end;
+}
+
+.stats-box {
+    display: grid;
+    grid-gap: 8px 32px;
+    justify-content: center;
+
+    @media (max-width: 200px) {
+        grid-template-columns: 1fr;
+        & > *:nth-child(even) {
+            justify-self: right;
+        }
+    }
+
+    @media (min-width: 201px) {
+        grid-template-columns: repeat(2, max-content);
+    }
+}

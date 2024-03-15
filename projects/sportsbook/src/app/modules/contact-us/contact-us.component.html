@@ -1,0 +1,71 @@
+<section class="contact-section md:px-[0px] px-[20px]">
+  <div class="contact-main-wrapper pt-[46px]">
+    <div class="custom-row items-end">
+      <div class="col-w2"></div>
+      <div class="col-w5">
+        <h1 class="h1 mb-[28px]">{{contactUsData?.main_title}}</h1>
+        <div *ngFor="let link of cards" class="contact-wrapper mb-[28px]">
+          <div class="d-flex align-center p-[22px] gap-[20px]">
+            <img [src]="ASSETS_URL + 'assets/' + link.contact_us_card_id.icon" alt="splash_card_image" />
+            <div>
+              <p>{{link.contact_us_card_id.title}}</p>
+              <p>{{link.contact_us_card_id.content}}</p>
+            </div>
+          </div>
+        </div>
+        <hr class="border-[#4D585D] h-[1px] mt-[48px] mb-[35px]">
+        <h1 class="h1 mb-[9px]">Leave a message</h1>
+        <p>Enter your personal details in this section.</p>
+        <div class="mt-[46px]">
+          <form (ngSubmit)="submitForm(form)" #form="ngForm">
+            <div class="mb-4">
+              <label class="block text-White text-sm font-bold mb-2" for="first-name">First Name <span class="text-[#FFC600] text-[12px]">*</span></label>
+              <input
+                class="shadow appearance-none border border-[#4D585D] rounded-[10px] bg-[#2C3538] w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline"
+                id="first-name" type="text" name="first_name" [(ngModel)]="formData.first_name" placeholder="First Name"
+                [ngModelOptions]="{standalone: true}" required>
+            </div>
+          
+            <div class="mb-4">
+              <label class="block text-white text-sm font-bold mb-2" for="last-name">Last Name <span class="text-[#FFC600] text-[12px]">*</span></label>
+              <input
+                class="shadow appearance-none border border-[#4D585D] rounded-[10px] bg-[#2C3538] w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline"
+                id="last-name" type="text" name="last_name" placeholder="Last Name" [(ngModel)]="formData.last_name"
+                [ngModelOptions]="{standalone: true}" required>
+            </div>
+          
+            <div class="mb-4">
+              <label class="block text-white text-sm font-bold mb-2" for="email">Email Address <span class="text-[#FFC600] text-[12px]">*</span></label>
+              <input
+                class="shadow appearance-none border border-[#4D585D] rounded-[10px] bg-[#2C3538] w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline"
+                id="email" type="email" name="email" placeholder="Email" [(ngModel)]="formData.email"
+                [ngModelOptions]="{standalone: true}" required email>
+                <!-- <div *ngIf="form.controls['email'].hasError('required')" class="text-red-500">Email is required</div>
+                <div *ngIf="form.controls['email'].hasError('email')" class="text-red-500">Invalid email format</div> -->
+                
+            </div>
+          
+            <div class="mb-6">
+              <label class="block text-white text-sm font-bold mb-2" for="message">Message <span class="text-[#FFC600] text-[12px]">*</span></label>
+              <textarea
+                class="shadow appearance-none border-[#4D585D] rounded-[10px] bg-[#2C3538]  w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline"
+                id="message" name="message" rows="4" placeholder="Message" [(ngModel)]="formData.message"
+                [ngModelOptions]="{standalone: true}" required></textarea>
+            </div>
+          
+            <div class="flex items-center justify-between">
+              <button type="submit"
+                class="btn btn-primary d-block w-100">Submit</button>
+            </div>
+          </form>
+          
+        </div>
+
+      </div>
+      <div class="col-w2">
+        <img src="assets/img/help-image.png" alt="" class="mb-[-50px] mx-auto lg:mx-0">
+      </div>
+      <div class="col-w3"></div>
+    </div>
+  </div>
+</section>

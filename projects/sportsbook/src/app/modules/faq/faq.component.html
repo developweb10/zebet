@@ -1,0 +1,20 @@
+<section>
+  <div class="search-box input-group">
+    <input type="text" placeholder="Search" id="searchTerm" [(ngModel)]="searchTerm" class="form-input" />
+    <button (click)="searchFAQ(searchTerm)"><img src="assets/img/search-icon.svg"></button>
+
+  </div>
+  <section class="terms-section">
+    <div class="terms-main-wrapper" *ngFor="let link of faqData?.data">
+      <h1 class="h1">{{ link.title }}</h1>
+      <!-- <div class="terms-wrapper">
+      <p [innerHTML]="faqData.primary_content"></p>
+    </div> -->
+      <ul *ngFor="let listItem of lists">
+        <li class="h1 uppercase">{{ listItem.title }}</li>
+        <li class="terms-wrapper" [innerHTML]="listItem.content"></li>
+      </ul>
+    </div>
+  </section>
+
+</section>

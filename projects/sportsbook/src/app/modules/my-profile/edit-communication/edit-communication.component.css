@@ -1,0 +1,27 @@
+label {
+  font-size: 12px;
+  color: #fff;
+}
+.editCommunication__phoneNumberGroup {
+  position: relative;
+}
+.editCommunication__phoneNumberGroup input {
+  width: 100%;
+  padding-left: 90px;
+  outline: none;
+}
+.editCommunication__phoneNumberGroup input.form-input.editCommunication__phoneNumberGroup__code {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  width: 80px;
+  background: aliceblue;
+  padding: 0 18px;
+  padding-right: 18px;
+  top: 10px;
+  bottom: 0;
+  background: none;
+  height: calc(100% - 10px);
+  padding-right: 0;
+  outline: none;
+}

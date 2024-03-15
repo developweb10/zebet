@@ -1,0 +1,16 @@
+export enum ShowComponentEnum {
+	HOME = 'HOME',
+	ACCOUNT = 'ACCOUNT',
+	BET_HISTORY = 'BET_HISTORY',
+	TRANSACTION_HISTORY = 'TRANSACTION_HISTORY',
+	DEPOSIT = 'DEPOSIT',
+	BONUSES = 'BONUSES',
+	RG = 'RG',
+	WITHDRAWAL = 'WITHDRAWAL',
+}
+
+export enum ScreenEnum {
+	SMALL,
+	MEDIUM,
+	LARGE,
+}

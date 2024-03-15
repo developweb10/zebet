@@ -1,0 +1,82 @@
+{
+  "id": "B-9057114",
+  "version": 21,
+  "sportId": "FBL",
+  "eventId": "B-212359",
+  "name": "3 - Way",
+  "status": "OFFERED",
+  "tradeStatus": "TRADABLE",
+  "marketType": {
+    "legType": "SIMPLE",
+    "picks": 1,
+    "orderImportant": false
+  },
+  "taxonomy": {
+    "type": "WINNER2D",
+    "period": "FLGM",
+    "scoreType": "GL"
+  },
+  "selections": [
+    [
+      {
+        "id": "W2-1",
+        "participantId": "B-33115",
+        "name": "Olympique Marseille",
+        "status": "OFFERED",
+        "tradestatus": "TRADABLE",
+        "price": {
+          "up": 9,
+          "down": 20,
+          "dec": "1.45"
+        },
+        "side": "HOME",
+        "line": 0,
+        "pushHonored": false,
+        "homeScore": 0,
+        "awayScore": 0,
+        "selTemplate": "HOME"
+      },
+      {
+        "id": "W2-D",
+        "name": "Draw",
+        "status": "OFFERED",
+        "tradestatus": "TRADABLE",
+        "price": {
+          "up": 15,
+          "down": 4,
+          "dec": "4.75"
+        },
+        "side": "DRAW",
+        "line": 0,
+        "pushHonored": false,
+        "homeScore": 0,
+        "awayScore": 0,
+        "selTemplate": "DRAW"
+      },
+      {
+        "id": "W2-2",
+        "participantId": "B-45199",
+        "name": "Toulouse FC",
+        "status": "OFFERED",
+        "tradestatus": "TRADABLE",
+        "price": {
+          "up": 19,
+          "down": 4,
+          "dec": "5.75"
+        },
+        "side": "AWAY",
+        "line": 0,
+        "pushHonored": false,
+        "homeScore": 0,
+        "awayScore": 0,
+        "selTemplate": "AWAY"
+      }
+    ]
+  ],
+  "betting": {
+    "startTime": null,
+    "endTime": "2023-09-17T15:05:00Z"
+  },
+  "coDisabled": false,
+  "createdAt": "2023-09-08T19:46:31.37644Z"
+}

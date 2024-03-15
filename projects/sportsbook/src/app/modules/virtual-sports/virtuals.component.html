@@ -1,0 +1,78 @@
+<!-- <div class="header text-center w-48">
+  <div class="header text-base font-semibold leading-6 uppercase cursor-pointer ">VIRTUAL</div>
+  <div class="sub-headers absolute left-4 top-5 w-[150px] z-50 hidden">
+    <div class="cursor-pointer">ZEBET LEAGUE</div>
+    <div class="cursor-pointer">VIRTUAL GAMES</div>
+  </div>
+</div> -->
+
+<div class="wrapper-top relative">
+  
+  <!-- <div class="tabs relative md:mx-[57px] absolute"> -->
+  <div class="tabs relative md:mx-[57px] z-10 pb-[3rem]">
+    <mat-tab-group  class="mat-mdc-tab-group" mat-stretch-tabs="false" mat-align-tabs="start"
+    style="--mat-tab-animation-duration: 500ms;">
+      <!-- <mat-tab></mat-tab> -->
+      <mat-tab  label="TOP-VIRTUALS" >
+        <div class="card-wrappers flex flex-wrap gap-[36px] mt-[45px] justify-center">
+          <ng-container *ngFor="let card of topVirtuals">
+            <div class="content rounded-xl overflow-hidden bg-inherit border border-gray-400 md:w-[240px] w-[165px] relative">
+              <div class="content-overlay"></div>
+              <img class="w-full " [src]="card.image" alt="Placeholder Image">
+              <div class="content-details fadeIn-bottom">
+                <button class="text-base font-semibold px-[16px] py-[12px] uppercase text-black rounded-lg">Play Now</button>
+              </div>
+              <div class="px-6 py-4">
+                <div class="text-center mb-2 text-gray-400 text-xs md:text-base font-bold uppercase content-details-text">{{card.name}}</div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </mat-tab>
+      <mat-tab label="All VIRTUALS"> 
+        <div class="card-wrappers flex flex-wrap gap-[36px] mt-[45px] justify-center">
+          <ng-container *ngFor="let card of topVirtuals1">
+            <div class="content rounded-xl overflow-hidden bg-inherit border border-gray-400 md:w-[240px] w-[165px] relative">
+              <div class="content-overlay"></div>
+              <img class="w-full " [src]="card.image" alt="Placeholder Image">
+              <div class="content-details fadeIn-bottom">
+                <button class="text-base font-semibold px-[16px] py-[12px] uppercase text-black rounded-lg">Play Now</button>
+              </div>
+              <div class="px-6 py-4">
+                <div class="text-center mb-2 text-gray-400 text-xs md:text-base font-bold uppercase content-details-text">{{card.name}}</div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          SORT
+          <mat-icon svgIcon="sort" aria-hidden="false" class="ml-5"></mat-icon>
+        </ng-template>
+        Content 3
+      </mat-tab>
+    </mat-tab-group>
+    <div class="search">
+      <div class="flex justify-end items-center relative w-[200px]">
+        <!-- (input)="searchEvent($event)" -->
+        <input
+          placeholder="Search"
+          class="border border-solid border-gray-700 rounded-md bg-gray-900 p-3 w-full text-white text-xs outline-[0px] focus:border focus:border-[#4D585D]"
+        />
+        <img
+          src="../../../assets/img/search.png"
+          class="absolute mr-2 w-5"
+          alt="Search Icon"
+        />
+      </div>
+    </div>
+
+  </div>
+  <div class="inset-0 bg-[#000000cc] bg-opacity-75 transition-opacity absolute top-0 z-20">
+    <div class="text-center h-full flex items-center justify-center flex-col">
+      <p class="text-[#FFC600] text-[48px] font-medium mb-[50px]">COMING SOON</p>
+      <button class="bg-[#FFC600] uppercase py-[9px] px-[12px] rounded-lg text-[12px] font-bold text-[#18242A] leading-3" (click)="backToHome()">Back to Home</button>
+    </div>
+   </div>
+</div>

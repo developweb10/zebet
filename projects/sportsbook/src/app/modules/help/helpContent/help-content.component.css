@@ -1,0 +1,55 @@
+.loading {
+  height: 110vh;
+}
+
+
+/* For the dropbtn container */
+.dropbtn {
+/* Add your styles for the container here */
+}
+
+/* For the active state */
+.bg-active {
+/* background-color: #ffc600;  */
+/* or any other color you want */
+}
+
+.font-active {
+font-weight: 800; /* or any other font weight you want */
+color: black; /* or any other color you want */
+}
+
+/* For the inactive state */
+.bg-inactive {
+background-color: #2c3538; /* or any other color you want */
+}
+
+.font-normal {
+font-weight: normal; /* or any other font weight you want */
+color: white; /* or any other color you want */
+}
+
+/* For the dropdown-content */
+.dropdown-content  {
+/* Add your styles for the dropdown content here */
+background: #18242A;
+border:1px solid #4D585D;
+margin: 8px -10px 0;
+padding: 10px;
+}
+.dropdown-content .dropdownItem > div{
+border-radius: 10px;
+background-color: #2C3538;
+margin-bottom: 10px;
+padding: 15px;
+}
+.dropdown-content .dropdownItem > div.active{
+  background-color: #FFC600;
+}
+
+.dropbtn img.faqArrow{
+transition: 0.3s all ease;
+}
+.dropbtn.bg-active img.faqArrow {
+transform: rotate(90deg);
+}

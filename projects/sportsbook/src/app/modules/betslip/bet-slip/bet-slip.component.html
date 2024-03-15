@@ -1,0 +1,1280 @@
+<div
+  class="w-[100vw] h-[100vh] bg-[#000000CC] fixed z-[9999] top-0"
+  *ngIf="betSlip.length > 0"
+>
+  <div
+    class="relative h-[90vh] top-[10vh] bg-[#2C3538] rounded-tl-xl rounded-tr-xl border-[#4D585D] border-t"
+  >
+    <div class="px-4">
+      <div class="flex items-center gap-2 py-2">
+        <img
+          (click)="display()"
+          alt="back arrow"
+          src="./assets/img/back_arrow.png"
+        />
+        <h1 class="text-[20px] text-[#fff] font-semibold">Betslip</h1>
+      </div>
+
+      <app-underlined-tab
+        [tabs]="['ACCA', 'Single', 'Combi']"
+        (tabClick)="onTabClick($event)"
+        [isUpper]="true"
+        [isJustify]="true"
+        [isDarkBg]="true"
+      ></app-underlined-tab>
+
+      <div class="flex justify-between py-2">
+        <span class="text-[14px] text-[#D9D9D9]">2 selected</span>
+        <span
+          (click)="clearBetSlip()"
+          class="uppercase text-[#ffc600] text-[14px] cursor-pointer hover:font-bold"
+          >clear all</span
+        >
+      </div>
+    </div>
+    <div
+      class="overflow-y-auto h-[67vh] text-white"
+      [ngClass]="tab == 'ACCA' ? 'block' : 'hidden'"
+    >
+      <div class="bg-[#4D585D] px-4">
+        <h4 class="text-[#FFC600] text-[12px] py-[5px]">
+          UEFA - Europe Conference League
+        </h4>
+      </div>
+      <div class="px-4">
+        <div
+          *ngFor="let game of betSlip"
+          class="flex flex-col py-3 border-[#4D585D] border-t gap-2"
+        >
+          <div class="flex">
+            <div class="flex-initial w-[80%]">
+              <div class="flex items-center pb-1">
+                <img
+                  alt=""
+                  class="w-[16px] h-[16px]"
+                  src="./assets/img/rack.png"
+                />
+                <h3 class="text-[#FFFFFF] text-[14px] font-medium">
+                  {{ game?.name }}
+                </h3>
+              </div>
+              <div class="flex">
+                <p
+                  class="bg-[#A3A7AA] rounded px-1 text-[12px] text-[#2C3538] me-2"
+                >
+                  {{ game?.eventId }}
+                </p>
+                <p
+                  class="text-[12px] text-[#A3A7AA] border-l border-[#A3A7AA] ps-2"
+                >
+                  {{ game?.marketType }}: X
+                </p>
+              </div>
+              <div>
+                <p class="text-[#D9D9D9] text-[12px]">{{ game?.eventName }}</p>
+              </div>
+            </div>
+            <div class="flex-initial w-[20%]">
+              <div class="flex items-center justify-end">
+                <p class="text-[16px] text-[#FFFFFF] font-semibold">
+                  {{ game?.price.dec }}
+                </p>
+                <img
+                  alt=""
+                  class="w-[7px] h-[5px]"
+                  src="./assets/img/down.png"
+                />
+                <img
+                  alt=""
+                  class="w-[20px] h-[20px] mt-3"
+                  src="./assets/img/delete.png"
+                />
+              </div>
+            </div>
+          </div>
+          <!-- <div class="flex justify-end">
+                        <button
+                            class="border-[#4D585D] border text-[#D9D9D9] py-2 px-2 rounded-lg w-[101px] text-right">Stake</button>
+                    </div> -->
+        </div>
+
+        <!-- <div class="flex flex-col py-3 border-[#4D585D] border-t gap-2">
+                    <div class="flex">
+                        <div class="flex-initial w-[80%]">
+                            <div class="flex items-center pb-1">
+                                <img alt="" class="w-[16px] h-[16px]" src="./assets/img/hands.png" />
+                                <h3 class="text-[#FFFFFF] text-[14px] font-medium">Draw</h3>
+                            </div>
+                            <div class="flex">
+                                <p class="bg-[#A3A7AA] rounded px-1 text-[12px] text-[#2C3538] me-2">5480</p>
+                                <p class="text-[12px] text-[#A3A7AA] border-l border-[#A3A7AA] ps-2">1X2: X</p>
+                            </div>
+                            <div>
+                                <p class="text-[#D9D9D9] text-[12px]">Liverpool FC vs AFC Bournemouth</p>
+                            </div>
+                        </div>
+                        <div class="flex-initial w-[20%]">
+                            <div class="flex items-center justify-end">
+                                <p class="text-[16px] text-[#FFFFFF] font-semibold">1.90</p>
+                                <img alt="" class="w-[7px] h-[5px]" src="./assets/img/up.png" />
+                                <img alt="" class="w-[20px] h-[20px] mt-3" src="./assets/img/delete.png" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-end">
+                        <button
+                            class="border-[#4D585D] border text-[#D9D9D9] py-2 px-2 rounded-lg w-[101px] text-right">Stake</button>
+                    </div>
+                </div> -->
+      </div>
+      <!-- <div class="bg-[#4D585D] px-4">
+                <h4 class="text-[#FFC600] text-[12px] py-[5px]">UEFA - Europe Conference League</h4>
+            </div>
+            <div class="px-4">
+                <div class="flex flex-col py-3 border-[#4D585D] border-t gap-2">
+                    <div class="flex">
+                        <div class="flex-initial w-[80%]">
+                            <div class="flex items-center pb-1">
+                                <img alt="" class="w-[16px] h-[16px]" src="./assets/img/rack.png" />
+                                <h3 class="text-[#FFFFFF] text-[14px] font-medium">Nottingham Forest</h3>
+                            </div>
+                            <div class="flex">
+                                <p class="bg-[#A3A7AA] rounded px-1 text-[12px] text-[#2C3538] me-2">5480</p>
+                                <p class="text-[12px] text-[#A3A7AA] border-l border-[#A3A7AA] ps-2">1X2: X</p>
+                            </div>
+                            <div>
+                                <p class="text-[#D9D9D9] text-[12px]">Nottingham Forest vs Sheffield United</p>
+                            </div>
+                        </div>
+                        <div class="flex-initial w-[20%]">
+                            <div class="flex items-center justify-end">
+                                <p class="text-[16px] text-[#FFFFFF] font-semibold">1.90</p>
+                                <img alt="" class="w-[7px] h-[5px]" src="./assets/img/down.png" />
+                                <img alt="" class="w-[20px] h-[20px] mt-3" src="./assets/img/delete.png" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-end">
+                        <button
+                            class="border-[#4D585D] border text-[#D9D9D9] py-2 px-2 rounded-lg w-[101px] text-right">Stake</button>
+                    </div>
+                </div>
+
+                <div class="flex flex-col py-3 border-[#4D585D] border-t gap-2">
+                    <div class="flex">
+                        <div class="flex-initial w-[80%]">
+                            <div class="flex items-center pb-1">
+                                <img alt="" class="w-[16px] h-[16px]" src="./assets/img/hands.png" />
+                                <h3 class="text-[#FFFFFF] text-[14px] font-medium">Draw</h3>
+                            </div>
+                            <div class="flex">
+                                <p class="bg-[#A3A7AA] rounded px-1 text-[12px] text-[#2C3538] me-2">5480</p>
+                                <p class="text-[12px] text-[#A3A7AA] border-l border-[#A3A7AA] ps-2">1X2: X</p>
+                            </div>
+                            <div>
+                                <p class="text-[#D9D9D9] text-[12px]">Liverpool FC vs AFC Bournemouth</p>
+                            </div>
+                        </div>
+                        <div class="flex-initial w-[20%]">
+                            <div class="flex items-center justify-end">
+                                <p class="text-[16px] text-[#FFFFFF] font-semibold">1.90</p>
+                                <img alt="" class="w-[7px] h-[5px]" src="./assets/img/up.png" />
+                                <img alt="" class="w-[20px] h-[20px] mt-3" src="./assets/img/delete.png" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-end">
+                        <button
+                            class="border-[#4D585D] border text-[#D9D9D9] py-2 px-2 rounded-lg w-[101px] text-right">Stake</button>
+                    </div>
+                </div>
+            </div> -->
+      <hr />
+      <div class="p-2">
+        <div class="flex justify-end p-3">
+          <div class="pr-2">
+            <div class="flex text-white justify-end">
+              <div class="pr-2">{{ totalOdds }}</div>
+              <div class="pr-2">x</div>
+            </div>
+            <div class="text-zinc-400">Minimum Stake : 100 NGN</div>
+          </div>
+          <input
+            [(ngModel)]="stakeAmount"
+            (keyup)="onKeyUp($event)"
+            onlyNumber
+            class="bg-transparent border border-gray-600 text-[#D9D9D9] py-2 px-2 rounded-lg w-[101px] text-right"
+          />
+        </div>
+        <div class="flex justify-end text-white text-sm font-medium gap-2 pr-3">
+          <button
+            (click)="setStakeAmount(100)"
+            class="bg-gray-600 rounded-xl p-3 w-[60px]"
+          >
+            100
+          </button>
+          <button
+            (click)="setStakeAmount(150)"
+            class="bg-gray-600 rounded-xl p-3 w-[60px]"
+          >
+            150
+          </button>
+          <button
+            (click)="setStakeAmount(200)"
+            class="bg-gray-600 rounded-xl p-3 w-[60px]"
+          >
+            200
+          </button>
+          <button
+            (click)="setStakeAmount(500)"
+            class="bg-gray-600 rounded-xl p-3 w-[60px]"
+          >
+            500
+          </button>
+          <button
+            (click)="setStakeAmount(1000)"
+            class="bg-gray-600 rounded-xl p-3 w-[60px]"
+          >
+            1000
+          </button>
+        </div>
+      </div>
+      <div class="border-[#4D585D] border-y flex gap-3 px-4 py-3">
+        <input type="checkbox" />
+        <label for="" class="text-[#D9D9D9] text-[14px]"
+          >Allow Odd Changes</label
+        >
+      </div>
+      <div class="border-[#4D585D] border-b flex px-4 gap-2">
+        <div class="flex-1 py-1 border-[#4D585D] border-r">
+          <p class="text-[#A3A7AA] text-[12px]">Total Stake</p>
+          <p class="text-[#FFFFFF] text-[12px] uppercase font-bold">
+            {{ stakeAmount }} NGN
+          </p>
+        </div>
+        <div class="flex-1 py-1">
+          <p class="text-[#A3A7AA] text-[12px]">Total Odds</p>
+          <p class="text-[#FFFFFF] text-[12px] uppercase font-bold">
+            {{ totalOdds }}
+          </p>
+        </div>
+      </div>
+      <div class="border-[#4D585D] border-b flex px-4 gap-2">
+        <div class="flex-1 py-1 border-[#4D585D] border-r">
+          <p class="text-[#A3A7AA] text-[12px]">Bonus</p>
+          <p class="text-[#FFFFFF] text-[12px] uppercase font-bold">0.00 ngn</p>
+        </div>
+        <div class="flex-1 py-1">
+          <p class="text-[#A3A7AA] text-[12px]">Potential Winnings</p>
+          <p class="text-[#FFFFFF] text-[12px] uppercase font-bold">
+            {{ potentialWinning }} ngn
+          </p>
+        </div>
+      </div>
+    </div>
+    <div
+      class="overflow-y-auto h-[67vh]"
+      [ngClass]="tab == 'Single' ? 'block' : 'hidden'"
+    >
+      <div class="bg-[#4D585D] px-4">
+        <h4 class="text-[#FFC600] text-[12px] py-[5px]">
+          UEFA - Europe Conference League
+        </h4>
+      </div>
+      <div class="px-4">
+        <form [formGroup]="singleBetslipForm">
+          <div formArrayName="betslipItems">
+            <div
+              *ngFor="let game of betslips.controls; let i = index"
+              class="flex flex-col py-3 border-[#4D585D] border-t gap-2"
+            >
+              <div class="flex">
+                <div class="flex-initial w-[80%]">
+                  <div class="flex items-center pb-1">
+                    <img
+                      alt=""
+                      class="w-[16px] h-[16px]"
+                      src="./assets/img/rack.png"
+                    />
+                    <h3 class="text-[#FFFFFF] text-[14px] font-medium">
+                      {{ betSlip[i]?.name }}
+                    </h3>
+                  </div>
+                  <div class="flex">
+                    <p
+                      class="bg-[#A3A7AA] rounded px-1 text-[12px] text-[#2C3538] me-2"
+                    >
+                      {{ betSlip[i]?.eventId }}
+                    </p>
+                    <p
+                      class="text-[12px] text-[#A3A7AA] border-l border-[#A3A7AA] ps-2"
+                    >
+                      {{ betSlip[i]?.marketType }}: X
+                    </p>
+                  </div>
+                  <div>
+                    <p class="text-[#D9D9D9] text-[12px]"></p>
+                  </div>
+                </div>
+                <div class="flex-initial w-[20%]">
+                  <div class="flex items-center justify-end">
+                    <p class="text-[16px] text-[#FFFFFF] font-semibold">
+                      {{ betSlip[i]?.price.dec }}
+                    </p>
+                    <img
+                      alt=""
+                      class="w-[7px] h-[5px]"
+                      src="./assets/img/down.png"
+                    />
+                    <a (click)="removeGame(i)"
+                      ><img
+                        alt=""
+                        class="w-[20px] h-[20px] mt-3"
+                        src="./assets/img/delete.png"
+                    /></a>
+                  </div>
+                </div>
+              </div>
+              <div class="flex justify-end">
+                <input
+                  class="input"
+                  placeholder="Place stake"
+                  formControlName="{{ i }}"
+                  (keyup)="onKeyUpSingle($event)"
+                  onlyNumber
+                  class="border-gray-600 border bg-transparent text-[#D9D9D9] py-2 px-2 rounded-lg w-[101px] text-right"
+                />
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="border-[#4D585D] border-y flex gap-3 px-4 py-3">
+        <input type="checkbox" />
+        <label for="" class="text-[#D9D9D9] text-[14px]"
+          >Allow Odd Changes</label
+        >
+      </div>
+      <div class="border-[#4D585D] border-b flex px-4 gap-2">
+        <div class="flex-1 py-1 border-[#4D585D] border-r">
+          <p class="text-[#A3A7AA] text-[12px]">Total Stake</p>
+          <p class="text-[#FFFFFF] text-[12px] uppercase font-bold">
+            {{ stakeAmount }} ngn
+          </p>
+        </div>
+        <div class="flex-1 py-1">
+          <p class="text-[#A3A7AA] text-[12px]">Total Odds</p>
+          <p class="text-[#FFFFFF] text-[12px] uppercase font-bold">
+            {{ totalOdds }}
+          </p>
+        </div>
+      </div>
+      <div class="border-[#4D585D] border-b flex px-4 gap-2">
+        <div class="flex-1 py-1 border-[#4D585D] border-r">
+          <p class="text-[#A3A7AA] text-[12px]">Bonus</p>
+          <p class="text-[#FFFFFF] text-[12px] uppercase font-bold">0.00 ngn</p>
+        </div>
+        <div class="flex-1 py-1">
+          <p class="text-[#A3A7AA] text-[12px]">Potential Winnings</p>
+          <p class="text-[#FFFFFF] text-[12px] uppercase font-bold">
+            {{ potentialWinning }} ngn
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="overflow-y-auto h-[67vh] text-white"
+      [ngClass]="tab == 'Combi' ? 'block' : 'hidden'"
+    >
+      <div class="bg-[#4D585D] px-4">
+        <h4 class="text-[#FFC600] text-[12px] py-[5px]">
+          UEFA - Europe Conference League
+        </h4>
+      </div>
+      <div class="px-4">
+        <div
+          *ngFor="let game of betSlip"
+          class="flex flex-col py-3 border-[#4D585D] border-t gap-2"
+        >
+          <div class="flex">
+            <div class="flex-initial w-[80%]">
+              <div class="flex items-center pb-1">
+                <img
+                  alt=""
+                  class="w-[16px] h-[16px]"
+                  src="./assets/img/rack.png"
+                />
+                <h3 class="text-[#FFFFFF] text-[14px] font-medium">
+                  {{ game?.name }}
+                </h3>
+              </div>
+              <div class="flex">
+                <p
+                  class="bg-[#A3A7AA] rounded px-1 text-[12px] text-[#2C3538] me-2"
+                >
+                  {{ game?.eventId }}
+                </p>
+                <p
+                  class="text-[12px] text-[#A3A7AA] border-l border-[#A3A7AA] ps-2"
+                >
+                  {{ game?.marketType }}: X
+                </p>
+              </div>
+              <div>
+                <p class="text-[#D9D9D9] text-[12px]">{{ game?.eventName }}</p>
+              </div>
+            </div>
+            <div class="flex-initial w-[20%]">
+              <div class="flex items-center justify-end">
+                <p class="text-[16px] text-[#FFFFFF] font-semibold">
+                  {{ game?.price.dec }}
+                </p>
+                <img
+                  alt=""
+                  class="w-[7px] h-[5px]"
+                  src="./assets/img/down.png"
+                />
+                <img
+                  alt=""
+                  class="w-[20px] h-[20px] mt-3"
+                  src="./assets/img/delete.png"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="flex justify-end">
+            <input
+              class="bg-transparent border border-gray-600 text-[#D9D9D9] py-2 px-2 rounded-lg w-[101px] text-right"
+              placeholder="Stake"
+            />
+          </div>
+        </div>
+      </div>
+      <table class="w-full Table1 text-zinc-300">
+        <thead class="bg-gray-600 text-left font-normal">
+          <tr>
+            <th class="pl-5">Type</th>
+            <th class="pl-5">No.</th>
+            <th class="pl-5 text-center">Stake (NGN)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Single</td>
+            <td>5</td>
+            <td class="text-right">
+              <input
+                class="bg-transparent border border-gray-600 text-[#D9D9D9] py-2 px-2 rounded-lg w-[101px] text-right"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Doubles</td>
+            <td>10</td>
+            <td class="text-right">
+              <input
+                class="bg-transparent border border-gray-600 text-[#D9D9D9] py-2 px-2 rounded-lg w-[101px] text-right"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Trebles</td>
+            <td>10</td>
+            <td class="text-right">
+              <input
+                class="bg-transparent border border-gray-600 text-[#D9D9D9] py-2 px-2 rounded-lg w-[101px] text-right"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>4 Folds</td>
+            <td>5</td>
+            <td class="text-right">
+              <input
+                class="bg-transparent border border-gray-600 text-[#D9D9D9] py-2 px-2 rounded-lg w-[101px] text-right"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>5 Folds</td>
+            <td>1</td>
+            <td class="text-right">
+              <input
+                class="bg-transparent border border-gray-600 text-[#D9D9D9] py-2 px-2 rounded-lg w-[101px] text-right"
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <hr />
+
+      <div class="p-2">
+        <div class="flex justify-end p-3">
+          <div class="pr-2">
+            <div class="flex text-white justify-end">
+              <div class="pr-2">160.49</div>
+              <div class="pr-2">x</div>
+            </div>
+            <div class="text-zinc-400">Minimum Stake : 100 NGN</div>
+          </div>
+          <input
+            class="bg-transparent border border-gray-600 text-[#D9D9D9] py-2 px-2 rounded-lg w-[101px] text-right"
+          />
+        </div>
+        <div class="flex justify-end text-white text-sm font-medium gap-2 pr-3">
+          <button class="bg-gray-600 rounded-xl p-3 w-[60px]">100</button>
+          <button class="bg-gray-600 rounded-xl p-3 w-[60px]">150</button>
+          <button class="bg-gray-600 rounded-xl p-3 w-[60px]">200</button>
+          <button class="bg-gray-600 rounded-xl p-3 w-[60px]">500</button>
+          <button class="bg-gray-600 rounded-xl p-3 w-[60px]">1000</button>
+        </div>
+      </div>
+      <div class="border-[#4D585D] border-y flex gap-3 px-4 py-3">
+        <input type="checkbox" />
+        <label for="" class="text-[#D9D9D9] text-[14px]"
+          >Allow Odd Changes</label
+        >
+      </div>
+      <div class="border-[#4D585D] border-b flex px-4 gap-2">
+        <div class="flex-1 py-1 border-[#4D585D] border-r">
+          <p class="text-[#A3A7AA] text-[12px]">Total Stake</p>
+          <p class="text-[#FFFFFF] text-[12px] uppercase font-bold">0.00 ngn</p>
+        </div>
+        <div class="flex-1 py-1">
+          <p class="text-[#A3A7AA] text-[12px]">Total Odds</p>
+          <p class="text-[#FFFFFF] text-[12px] uppercase font-bold">
+            {{ totalOdds }} ngn
+          </p>
+        </div>
+      </div>
+      <div class="border-[#4D585D] border-b flex px-4 gap-2">
+        <div class="flex-1 py-1 border-[#4D585D] border-r">
+          <p class="text-[#A3A7AA] text-[12px]">Total Odds</p>
+          <p class="text-[#FFFFFF] text-[12px] uppercase font-bold">0.00 ngn</p>
+        </div>
+        <div class="flex-1 py-1">
+          <p class="text-[#A3A7AA] text-[12px]">Total Odds</p>
+          <p class="text-[#FFFFFF] text-[12px] uppercase font-bold">0.00 ngn</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="px-4 mt-6">
+      <div class="flex gap-4 h-[48px] justify-center items-center">
+        <div class="flex-initial w-[25%] h-full">
+          <div
+            class="bg-[#4D585D] flex items-center justify-center text-[#FFC600] text-[14px] rounded-md h-full"
+          >
+            <span class="flex-initial w-[30%]">
+              <img
+                alt="back arrow"
+                src="./assets/img/save.png"
+                class="w-[15px]"
+              />
+            </span>
+            <span class="flex-initial w-[50%]"  data-hs-overlay="#hs-large-modal">Book Betslip</span>
+          </div>
+        </div>
+        <div id="hs-large-modal" >
+          <div
+            class="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all lg:max-w-4xl lg:w-full m-3 lg:mx-auto">
+            <div
+              class="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7]">
+              <div class="flex justify-between items-center py-3 px-4  dark:border-gray-700">
+                <div class="flex  justify-center item-center">
+                  <span class=" h-[28px]   min-w-[28px]"><a href="/promotion"> <img src="assets/img/lefftarrow.png"
+                        alt=""></a></span>
+                  <h3 class="font-bold text-gray-800 dark:text-white">
+                    Book Betslip
+                  </h3>
+                </div>
+  
+                <button type="button"
+                  class="hs-dropdown-toggle inline-flex flex-shrink-0 justify-center items-center h-8 w-8  "
+                  data-hs-overlay="#hs-large-modal">
+                  <!-- <span class="sr-only">Close</span> -->
+                  <svg class="w-3.5 h-3.5  " width="8" height="8" viewBox="0 0 8 8" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M0.258206 1.00652C0.351976 0.912791 0.479126 0.860131 0.611706 0.860131C0.744296 0.860131 0.871447 0.912791 0.965207 1.00652L3.61171 3.65302L6.25822 1.00652C6.30432 0.958771 6.35952 0.920671 6.42052 0.894471C6.48152 0.868271 6.54712 0.854471 6.61352 0.853901C6.67992 0.853321 6.74572 0.865971 6.80722 0.891111C6.86862 0.916251 6.92442 0.953381 6.97142 1.00032C7.01832 1.04727 7.05552 1.1031 7.08062 1.16454C7.10572 1.22599 7.11842 1.29183 7.11782 1.35822C7.11722 1.42461 7.10342 1.49022 7.07722 1.55122C7.05102 1.61222 7.01292 1.6674 6.96522 1.71352L4.31871 4.36002L6.96522 7.00648C7.05632 7.10078 7.10672 7.22708 7.10552 7.35818C7.10442 7.48928 7.05182 7.61468 6.95912 7.70738C6.86642 7.80018 6.74102 7.85268 6.60992 7.85388C6.47882 7.85498 6.35252 7.80458 6.25822 7.71348L3.61171 5.06702L0.965207 7.71348C0.870907 7.80458 0.744606 7.85498 0.613506 7.85388C0.482406 7.85268 0.357007 7.80018 0.264297 7.70738C0.171597 7.61468 0.119017 7.48928 0.117877 7.35818C0.116737 7.22708 0.167126 7.10078 0.258206 7.00648L2.90471 4.36002L0.258206 1.71352C0.164476 1.61976 0.111816 1.4926 0.111816 1.36002C0.111816 1.22744 0.164476 1.10028 0.258206 1.00652Z"
+                      fill="currentColor" />
+                  </svg>
+                </button>
+              </div>
+              <div class="p-4 overflow-y-auto ">
+                <p class="mt-1 text-white text-center">
+                  Booking Code
+                </p>
+                <div class="flex items-center justify-center ">
+                  <div class="relative w-36">
+                    <input type="text"
+                      class="w-full py-2 pl-3 pr-10 text-gray-700 placeholder-gray-400 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                      placeholder="Copy text here" #textInput />
+                    <button class="absolute inset-y-0 right-0 flex items-center pl-3 pr-1 text-gray-700 cursor-pointer"
+                      (click)="copyText(textInput.value)">
+                      <svg version="1.1" id="IconChangeColor"
+                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                        viewBox="0 0 115.77 122.88" style="enable-background:new 0 0 115.77 122.88" xml:space="preserve"
+                        height="16" width="16">
+                        <style type="text/css">
+                          .st0 {
+                            fill-rule: evenodd;
+                            clip-rule: evenodd;
+                          }
+                        </style>
+                        <g>
+                          <path class="st0"
+                            d="M89.62,13.96v7.73h12.19h0.01v0.02c3.85,0.01,7.34,1.57,9.86,4.1c2.5,2.51,4.06,5.98,4.07,9.82h0.02v0.02 v73.27v0.01h-0.02c-0.01,3.84-1.57,7.33-4.1,9.86c-2.51,2.5-5.98,4.06-9.82,4.07v0.02h-0.02h-61.7H40.1v-0.02 c-3.84-0.01-7.34-1.57-9.86-4.1c-2.5-2.51-4.06-5.98-4.07-9.82h-0.02v-0.02V92.51H13.96h-0.01v-0.02c-3.84-0.01-7.34-1.57-9.86-4.1 c-2.5-2.51-4.06-5.98-4.07-9.82H0v-0.02V13.96v-0.01h0.02c0.01-3.85,1.58-7.34,4.1-9.86c2.51-2.5,5.98-4.06,9.82-4.07V0h0.02h61.7 h0.01v0.02c3.85,0.01,7.34,1.57,9.86,4.1c2.5,2.51,4.06,5.98,4.07,9.82h0.02V13.96L89.62,13.96z M79.04,21.69v-7.73v-0.02h0.02 c0-0.91-0.39-1.75-1.01-2.37c-0.61-0.61-1.46-1-2.37-1v0.02h-0.01h-61.7h-0.02v-0.02c-0.91,0-1.75,0.39-2.37,1.01 c-0.61,0.61-1,1.46-1,2.37h0.02v0.01v64.59v0.02h-0.02c0,0.91,0.39,1.75,1.01,2.37c0.61,0.61,1.46,1,2.37,1v-0.02h0.01h12.19V35.65 v-0.01h0.02c0.01-3.85,1.58-7.34,4.1-9.86c2.51-2.5,5.98-4.06,9.82-4.07v-0.02h0.02H79.04L79.04,21.69z M105.18,108.92V35.65v-0.02 h0.02c0-0.91-0.39-1.75-1.01-2.37c-0.61-0.61-1.46-1-2.37-1v0.02h-0.01h-61.7h-0.02v-0.02c-0.91,0-1.75,0.39-2.37,1.01 c-0.61,0.61-1,1.46-1,2.37h0.02v0.01v73.27v0.02h-0.02c0,0.91,0.39,1.75,1.01,2.37c0.61,0.61,1.46,1,2.37,1v-0.02h0.01h61.7h0.02 v0.02c0.91,0,1.75-0.39,2.37-1.01c0.61-0.61,1-1.46,1-2.37h-0.02V108.92L105.18,108.92z"
+                            id="mainIconPathAttribute"></path>
+                        </g>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="flex justify-center">
+                <ul class=" d-flex align-center splash-social-icons gap-[16px]  text-[10px]">
+                  <li > <img src="assets/img/twitter-circle.svg" alt="">Twitter</li>
+                  <li> <img src="assets/img/facebook-circle.svg" alt="">Facebook</li>
+                  <li> <img src="assets/img/whatsappwhite.svg" alt="">WhatsApp</li>
+                  <li> <img src="assets/img/copylinkwhite.svg" alt="">Copy Link</li>
+                  <li> <img src="assets/img/downloadwhite.svg" alt="">Download</li>
+                </ul>
+              </div>
+  
+            </div>
+          </div>
+        </div>
+        <div class="flex-initial w-[75%] h-full">
+          <button 
+          type="button"
+            class="uppercase bg-[#FFC600] text-[#18242A] text-[14px] rounded-md w-full text-center h-full font-semibold hover:bg-yellow-300 hover:scale-110"
+           >
+            Place Bet
+          </button>
+        </div>
+     
+       
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="w-[100vw] h-[100vh] bg-[#000000CC] fixed z-[9999] top-0"
+  *ngIf="betSlip.length === 0"
+>
+  <div
+    class="relative h-[90vh] top-[10vh] bg-[#2C3538] rounded-tl-xl rounded-tr-xl border-[#4D585D] border-t"
+  >
+    <div class="px-4">
+      <div class="flex items-center gap-2 py-2">
+        <img
+          (click)="display()"
+          alt="back arrow"
+          src="./assets/img/back_arrow.png"
+        />
+        <h1 class="text-[18px] text-[#fff]">My Bets</h1>
+      </div>
+
+      <app-underlined-tab
+        [tabs]="['Open Bets(0)', 'Bet History']"
+        (tabClick)="onFirstTabClick($event)"
+      ></app-underlined-tab>
+      <app-underlined-tab
+        [tabs]="['All', 'CASHOUT AVAILABLE', 'LIVE GAMES']"
+        (tabClick)="onTabClick($event)"
+        [isUpper]="true"
+        [isJustify]="true"
+        [isDarkBg]="true"
+      ></app-underlined-tab>
+      <div class="bg-[#18242a] mt-3 h-[30vh] rounded-md">
+        <div class="px-4 flex justify-between py-2">
+          <span class="text-[16px] text-[#A3A7AA]"
+            >To pleace a bet,click on the odds.Or insert a booking
+            code</span
+          >
+        </div>
+        <div class="px-4 py-3 flex justify-between py-2">
+          <!-- <span class="text-[14px] text-[#D9D9D9]">To pleace a bet,click on the odds.<br>Or insert a booking code</span> -->
+          <span class="text-white text-[15px] cursor-pointer"
+            >Please insert booking code</span
+          >
+        </div>
+
+        <div
+          class="overflow-y-auto h-[67vh] text-white"
+          [ngClass]="tab == 'All' ? 'CASHOUT AVAILABLE' : 'LIVE'"
+          *ngif="false"
+        >
+          <div class="bg-[#4D585D] px-4">
+            <h4 class="text-[#FFC600] text-[12px] py-[5px]">
+              UEFA - Europe Conference League
+            </h4>
+          </div>
+          <div class="px-4">
+            <div
+              *ngFor="let game of betSlip"
+              class="flex flex-col py-3 border-[#4D585D] border-t gap-2"
+            >
+              <div class="flex">
+                <div class="flex-initial w-[80%]">
+                  <div class="flex items-center pb-1">
+                    <img
+                      alt=""
+                      class="w-[16px] h-[16px]"
+                      src="./assets/img/rack.png"
+                    />
+                    <h3 class="text-[#FFFFFF] text-[14px] font-medium">
+                      {{ game?.name }}
+                    </h3>
+                  </div>
+                  <div class="flex">
+                    <p
+                      class="bg-[#A3A7AA] rounded px-1 text-[12px] text-[#2C3538] me-2"
+                    >
+                      {{ game?.eventId }}
+                    </p>
+                    <p
+                      class="text-[12px] text-[#A3A7AA] border-l border-[#A3A7AA] ps-2"
+                    >
+                      {{ game?.marketType }}: X
+                    </p>
+                  </div>
+                  <div>
+                    <p class="text-[#D9D9D9] text-[12px]">
+                      {{ game?.eventName }}
+                    </p>
+                  </div>
+                </div>
+                <div class="flex-initial w-[20%]">
+                  <div class="flex items-center justify-end">
+                    <p class="text-[16px] text-[#FFFFFF] font-semibold">
+                      {{ game?.price.dec }}
+                    </p>
+                    <img
+                      alt=""
+                      class="w-[7px] h-[5px]"
+                      src="./assets/img/down.png"
+                    />
+                    <img
+                      alt=""
+                      class="w-[20px] h-[20px] mt-3"
+                      src="./assets/img/delete.png"
+                    />
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="flex justify-end">
+                        <button
+                            class="border-[#4D585D] border text-[#D9D9D9] py-2 px-2 rounded-lg w-[101px] text-right">Stake</button>
+                    </div> -->
+            </div>
+
+            <!-- <div class="flex flex-col py-3 border-[#4D585D] border-t gap-2">
+                    <div class="flex">
+                        <div class="flex-initial w-[80%]">
+                            <div class="flex items-center pb-1">
+                                <img alt="" class="w-[16px] h-[16px]" src="./assets/img/hands.png" />
+                                <h3 class="text-[#FFFFFF] text-[14px] font-medium">Draw</h3>
+                            </div>
+                            <div class="flex">
+                                <p class="bg-[#A3A7AA] rounded px-1 text-[12px] text-[#2C3538] me-2">5480</p>
+                                <p class="text-[12px] text-[#A3A7AA] border-l border-[#A3A7AA] ps-2">1X2: X</p>
+                            </div>
+                            <div>
+                                <p class="text-[#D9D9D9] text-[12px]">Liverpool FC vs AFC Bournemouth</p>
+                            </div>
+                        </div>
+                        <div class="flex-initial w-[20%]">
+                            <div class="flex items-center justify-end">
+                                <p class="text-[16px] text-[#FFFFFF] font-semibold">1.90</p>
+                                <img alt="" class="w-[7px] h-[5px]" src="./assets/img/up.png" />
+                                <img alt="" class="w-[20px] h-[20px] mt-3" src="./assets/img/delete.png" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-end">
+                        <button
+                            class="border-[#4D585D] border text-[#D9D9D9] py-2 px-2 rounded-lg w-[101px] text-right">Stake</button>
+                    </div>
+                </div> -->
+          </div>
+          <!-- <div class="bg-[#4D585D] px-4">
+                <h4 class="text-[#FFC600] text-[12px] py-[5px]">UEFA - Europe Conference League</h4>
+            </div>
+            <div class="px-4">
+                <div class="flex flex-col py-3 border-[#4D585D] border-t gap-2">
+                    <div class="flex">
+                        <div class="flex-initial w-[80%]">
+                            <div class="flex items-center pb-1">
+                                <img alt="" class="w-[16px] h-[16px]" src="./assets/img/rack.png" />
+                                <h3 class="text-[#FFFFFF] text-[14px] font-medium">Nottingham Forest</h3>
+                            </div>
+                            <div class="flex">
+                                <p class="bg-[#A3A7AA] rounded px-1 text-[12px] text-[#2C3538] me-2">5480</p>
+                                <p class="text-[12px] text-[#A3A7AA] border-l border-[#A3A7AA] ps-2">1X2: X</p>
+                            </div>
+                            <div>
+                                <p class="text-[#D9D9D9] text-[12px]">Nottingham Forest vs Sheffield United</p>
+                            </div>
+                        </div>
+                        <div class="flex-initial w-[20%]">
+                            <div class="flex items-center justify-end">
+                                <p class="text-[16px] text-[#FFFFFF] font-semibold">1.90</p>
+                                <img alt="" class="w-[7px] h-[5px]" src="./assets/img/down.png" />
+                                <img alt="" class="w-[20px] h-[20px] mt-3" src="./assets/img/delete.png" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-end">
+                        <button
+                            class="border-[#4D585D] border text-[#D9D9D9] py-2 px-2 rounded-lg w-[101px] text-right">Stake</button>
+                    </div>
+                </div>
+
+                <div class="flex flex-col py-3 border-[#4D585D] border-t gap-2">
+                    <div class="flex">
+                        <div class="flex-initial w-[80%]">
+                            <div class="flex items-center pb-1">
+                                <img alt="" class="w-[16px] h-[16px]" src="./assets/img/hands.png" />
+                                <h3 class="text-[#FFFFFF] text-[14px] font-medium">Draw</h3>
+                            </div>
+                            <div class="flex">
+                                <p class="bg-[#A3A7AA] rounded px-1 text-[12px] text-[#2C3538] me-2">5480</p>
+                                <p class="text-[12px] text-[#A3A7AA] border-l border-[#A3A7AA] ps-2">1X2: X</p>
+                            </div>
+                            <div>
+                                <p class="text-[#D9D9D9] text-[12px]">Liverpool FC vs AFC Bournemouth</p>
+                            </div>
+                        </div>
+                        <div class="flex-initial w-[20%]">
+                            <div class="flex items-center justify-end">
+                                <p class="text-[16px] text-[#FFFFFF] font-semibold">1.90</p>
+                                <img alt="" class="w-[7px] h-[5px]" src="./assets/img/up.png" />
+                                <img alt="" class="w-[20px] h-[20px] mt-3" src="./assets/img/delete.png" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-end">
+                        <button
+                            class="border-[#4D585D] border text-[#D9D9D9] py-2 px-2 rounded-lg w-[101px] text-right">Stake</button>
+                    </div>
+                </div>
+            </div> -->
+          <hr />
+          <div class="p-2">
+            <div class="flex justify-end p-3">
+              <div class="pr-2">
+                <div class="flex text-white justify-end">
+                  <div class="pr-2">{{ totalOdds }}</div>
+                  <div class="pr-2">x</div>
+                </div>
+                <div class="text-zinc-400">Minimum Stake : 100 NGN</div>
+              </div>
+              <input
+                [(ngModel)]="stakeAmount"
+                (keyup)="onKeyUp($event)"
+                onlyNumber
+                class="bg-transparent border border-gray-600 text-[#D9D9D9] py-2 px-2 rounded-lg w-[101px] text-right"
+              />
+            </div>
+            <div
+              class="flex justify-end text-white text-sm font-medium gap-2 pr-3"
+            >
+              <button
+                (click)="setStakeAmount(100)"
+                class="bg-gray-600 rounded-xl p-3 w-[60px]"
+              >
+                100
+              </button>
+              <button
+                (click)="setStakeAmount(150)"
+                class="bg-gray-600 rounded-xl p-3 w-[60px]"
+              >
+                150
+              </button>
+              <button
+                (click)="setStakeAmount(200)"
+                class="bg-gray-600 rounded-xl p-3 w-[60px]"
+              >
+                200
+              </button>
+              <button
+                (click)="setStakeAmount(500)"
+                class="bg-gray-600 rounded-xl p-3 w-[60px]"
+              >
+                500
+              </button>
+              <button
+                (click)="setStakeAmount(1000)"
+                class="bg-gray-600 rounded-xl p-3 w-[60px]"
+              >
+                1000
+              </button>
+            </div>
+          </div>
+          <div class="border-[#4D585D] border-y flex gap-3 px-4 py-3">
+            <input type="checkbox" />
+            <label for="" class="text-[#D9D9D9] text-[14px]"
+              >Allow Odd Changes</label
+            >
+          </div>
+          <div class="border-[#4D585D] border-b flex px-4 gap-2">
+            <div class="flex-1 py-1 border-[#4D585D] border-r">
+              <p class="text-[#A3A7AA] text-[12px]">Total Stake</p>
+              <p class="text-[#FFFFFF] text-[12px] uppercase font-bold">
+                {{ stakeAmount }} NGN
+              </p>
+            </div>
+            <div class="flex-1 py-1">
+              <p class="text-[#A3A7AA] text-[12px]">Total Odds</p>
+              <p class="text-[#FFFFFF] text-[12px] uppercase font-bold">
+                {{ totalOdds }}
+              </p>
+            </div>
+          </div>
+          <div class="border-[#4D585D] border-b flex px-4 gap-2">
+            <div class="flex-1 py-1 border-[#4D585D] border-r">
+              <p class="text-[#A3A7AA] text-[12px]">Bonus</p>
+              <p class="text-[#FFFFFF] text-[12px] uppercase font-bold">
+                0.00 ngn
+              </p>
+            </div>
+            <div class="flex-1 py-1">
+              <p class="text-[#A3A7AA] text-[12px]">Potential Winnings</p>
+              <p class="text-[#FFFFFF] text-[12px] uppercase font-bold">
+                {{ potentialWinning }} ngn
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="overflow-y-auto h-[67vh]"
+          [ngClass]="tab == 'Single' ? 'block' : 'hidden'"
+          *ngif="false"
+        >
+          <div class="bg-[#4D585D] px-4">
+            <h4 class="text-[#FFC600] text-[12px] py-[5px]">
+              UEFA - Europe Conference League
+            </h4>
+          </div>
+          <div class="px-4">
+            <form [formGroup]="singleBetslipForm">
+              <div formArrayName="betslipItems">
+                <div
+                  *ngFor="let game of betslips.controls; let i = index"
+                  class="flex flex-col py-3 border-[#4D585D] border-t gap-2"
+                >
+                  <div class="flex">
+                    <div class="flex-initial w-[80%]">
+                      <div class="flex items-center pb-1">
+                        <img
+                          alt=""
+                          class="w-[16px] h-[16px]"
+                          src="./assets/img/rack.png"
+                        />
+                        <h3 class="text-[#FFFFFF] text-[14px] font-medium"></h3>
+                      </div>
+                      <div class="flex">
+                        <p
+                          class="bg-[#A3A7AA] rounded px-1 text-[12px] text-[#2C3538] me-2"
+                        >
+                          222344
+                        </p>
+                        <p
+                          class="text-[12px] text-[#A3A7AA] border-l border-[#A3A7AA] ps-2"
+                        >
+                          over 2.5: X
+                        </p>
+                      </div>
+                      <div>
+                        <p class="text-[#D9D9D9] text-[12px]"></p>
+                      </div>
+                    </div>
+                    <div class="flex-initial w-[20%]">
+                      <div class="flex items-center justify-end">
+                        <p class="text-[16px] text-[#FFFFFF] font-semibold"></p>
+                        <img
+                          alt=""
+                          class="w-[7px] h-[5px]"
+                          src="./assets/img/down.png"
+                        />
+                        <a (click)="removeGame(i)"
+                          ><img
+                            alt=""
+                            class="w-[20px] h-[20px] mt-3"
+                            src="./assets/img/delete.png"
+                        /></a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flex justify-end">
+                    <input
+                      class="input"
+                      placeholder="Type user..."
+                      formControlName="{{ i }}"
+                      class="border-gray-600 border bg-transparent text-[#D9D9D9] py-2 px-2 rounded-lg w-[101px] text-right"
+                    />
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="border-[#4D585D] border-y flex gap-3 px-4 py-3">
+            <input type="checkbox" />
+            <label for="" class="text-[#D9D9D9] text-[14px]"
+              >Allow Odd Changes</label
+            >
+          </div>
+          <div class="border-[#4D585D] border-b flex px-4 gap-2">
+            <div class="flex-1 py-1 border-[#4D585D] border-r">
+              <p class="text-[#A3A7AA] text-[12px]">Total Stake</p>
+              <p class="text-[#FFFFFF] text-[12px] uppercase font-bold">
+                0.00 ngn
+              </p>
+            </div>
+            <div class="flex-1 py-1">
+              <p class="text-[#A3A7AA] text-[12px]">Total Odds</p>
+              <p class="text-[#FFFFFF] text-[12px] uppercase font-bold">
+                {{ totalOdds }}
+              </p>
+            </div>
+          </div>
+          <div class="border-[#4D585D] border-b flex px-4 gap-2">
+            <div class="flex-1 py-1 border-[#4D585D] border-r">
+              <p class="text-[#A3A7AA] text-[12px]">Total Odds</p>
+              <p class="text-[#FFFFFF] text-[12px] uppercase font-bold">
+                0.00 ngn
+              </p>
+            </div>
+            <div class="flex-1 py-1">
+              <p class="text-[#A3A7AA] text-[12px]">Total Odds</p>
+              <p class="text-[#FFFFFF] text-[12px] uppercase font-bold">
+                0.00 ngn
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="overflow-y-auto h-[67vh] text-white"
+          [ngClass]="tab == 'Combi' ? 'block' : 'hidden'"
+          *ngif="false"
+        >
+          <div class="bg-[#4D585D] px-4">
+            <h4 class="text-[#FFC600] text-[12px] py-[5px]">
+              UEFA - Europe Conference League
+            </h4>
+          </div>
+          <div class="px-4">
+            <div
+              *ngFor="let game of betSlip"
+              class="flex flex-col py-3 border-[#4D585D] border-t gap-2"
+            >
+              <div class="flex">
+                <div class="flex-initial w-[80%]">
+                  <div class="flex items-center pb-1">
+                    <img
+                      alt=""
+                      class="w-[16px] h-[16px]"
+                      src="./assets/img/rack.png"
+                    />
+                    <h3 class="text-[#FFFFFF] text-[14px] font-medium">
+                      {{ game?.name }}
+                    </h3>
+                  </div>
+                  <div class="flex">
+                    <p
+                      class="bg-[#A3A7AA] rounded px-1 text-[12px] text-[#2C3538] me-2"
+                    >
+                      {{ game?.eventId }}
+                    </p>
+                    <p
+                      class="text-[12px] text-[#A3A7AA] border-l border-[#A3A7AA] ps-2"
+                    >
+                      {{ game?.marketType }}: X
+                    </p>
+                  </div>
+                  <div>
+                    <p class="text-[#D9D9D9] text-[12px]">
+                      {{ game?.eventName }}
+                    </p>
+                  </div>
+                </div>
+                <div class="flex-initial w-[20%]">
+                  <div class="flex items-center justify-end">
+                    <p class="text-[16px] text-[#FFFFFF] font-semibold">
+                      {{ game?.price.dec }}
+                    </p>
+                    <img
+                      alt=""
+                      class="w-[7px] h-[5px]"
+                      src="./assets/img/down.png"
+                    />
+                    <img
+                      alt=""
+                      class="w-[20px] h-[20px] mt-3"
+                      src="./assets/img/delete.png"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="flex justify-end">
+                <input
+                  class="bg-transparent border border-gray-600 text-[#D9D9D9] py-2 px-2 rounded-lg w-[101px] text-right"
+                  placeholder="Stake"
+                />
+              </div>
+            </div>
+          </div>
+          <table class="w-full Table1 text-zinc-300">
+            <thead class="bg-gray-600 text-left font-normal">
+              <tr>
+                <th class="pl-5">Type</th>
+                <th class="pl-5">No.</th>
+                <th class="pl-5 text-center">Stake (NGN)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Single</td>
+                <td>5</td>
+                <td class="text-right">
+                  <input
+                    class="bg-transparent border border-gray-600 text-[#D9D9D9] py-2 px-2 rounded-lg w-[101px] text-right"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>Doubles</td>
+                <td>10</td>
+                <td class="text-right">
+                  <input
+                    class="bg-transparent border border-gray-600 text-[#D9D9D9] py-2 px-2 rounded-lg w-[101px] text-right"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>Trebles</td>
+                <td>10</td>
+                <td class="text-right">
+                  <input
+                    class="bg-transparent border border-gray-600 text-[#D9D9D9] py-2 px-2 rounded-lg w-[101px] text-right"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>4 Folds</td>
+                <td>5</td>
+                <td class="text-right">
+                  <input
+                    class="bg-transparent border border-gray-600 text-[#D9D9D9] py-2 px-2 rounded-lg w-[101px] text-right"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>5 Folds</td>
+                <td>1</td>
+                <td class="text-right">
+                  <input
+                    class="bg-transparent border border-gray-600 text-[#D9D9D9] py-2 px-2 rounded-lg w-[101px] text-right"
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <hr />
+
+          <div class="p-2">
+            <div class="flex justify-end p-3">
+              <div class="pr-2">
+                <div class="flex text-white justify-end">
+                  <div class="pr-2">160.49</div>
+                  <div class="pr-2">x</div>
+                </div>
+                <div class="text-zinc-400">Minimum Stake : 100 NGN</div>
+              </div>
+              <input
+                class="bg-transparent border border-gray-600 text-[#D9D9D9] py-2 px-2 rounded-lg w-[101px] text-right"
+              />
+            </div>
+            <div
+              class="flex justify-end text-white text-sm font-medium gap-2 pr-3"
+            >
+              <button class="bg-gray-600 rounded-xl p-3 w-[60px]">100</button>
+              <button class="bg-gray-600 rounded-xl p-3 w-[60px]">150</button>
+              <button class="bg-gray-600 rounded-xl p-3 w-[60px]">200</button>
+              <button class="bg-gray-600 rounded-xl p-3 w-[60px]">500</button>
+              <button class="bg-gray-600 rounded-xl p-3 w-[60px]">1000</button>
+            </div>
+          </div>
+          <div class="border-[#4D585D] border-y flex gap-3 px-4 py-3">
+            <input type="checkbox" />
+            <label for="" class="text-[#D9D9D9] text-[14px]"
+              >Allow Odd Changes</label
+            >
+          </div>
+          <div class="border-[#4D585D] border-b flex px-4 gap-2">
+            <div class="flex-1 py-1 border-[#4D585D] border-r">
+              <p class="text-[#A3A7AA] text-[12px]">Total Stake</p>
+              <p class="text-[#FFFFFF] text-[12px] uppercase font-bold">
+                0.00 ngn
+              </p>
+            </div>
+            <div class="flex-1 py-1">
+              <p class="text-[#A3A7AA] text-[12px]">Total Odds</p>
+              <p class="text-[#FFFFFF] text-[12px] uppercase font-bold">
+                {{ totalOdds }} ngn
+              </p>
+            </div>
+          </div>
+          <div class="border-[#4D585D] border-b flex px-4 gap-2">
+            <div class="flex-1 py-1 border-[#4D585D] border-r">
+              <p class="text-[#A3A7AA] text-[12px]">Total Odds</p>
+              <p class="text-[#FFFFFF] text-[12px] uppercase font-bold">
+                0.00 ngn
+              </p>
+            </div>
+            <div class="flex-1 py-1">
+              <p class="text-[#A3A7AA] text-[12px]">Total Odds</p>
+              <p class="text-[#FFFFFF] text-[12px] uppercase font-bold">
+                0.00 ngn
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="px-4">
+          <div class="flex gap-4 h-[48px] justify-center items-center">
+            <div class="flex-initial w-full h-full">
+              <div
+                class="h-11 px-4 py-2 rounded-lg border border-white-600 text-center text-[#A3A7AA] text-[18px] rounded-md h-full"
+              >
+                <span class="flex-initial w-[50%] text-center font-semibold"
+                  >BOOKING CODE</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="flex gap-4 h-[48px] justify-center items-center mt-3">
+            <div class="flex-initial w-full h-full font-semibold">
+              <button
+            type="button"
+              class="uppercase bg-[#FFC600] text-[#18242A] text-[14px] rounded-md w-full text-center h-full hover:bg-yellow-200 hover:transition-shadow"
+              
+              >
+              lOAD
+            </button>
+            </div>
+          </div>
+          <!-- Add this modal code after the button code -->
+        
+          
+        
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,113 @@
+
+<div class="">
+  <div
+    class="  bg-[#18242A] rounded-tl-xl rounded-tr-xl  pt-[0] md:pt-[35px]"
+  >
+
+    <div class="max-w-full pb-6 md:pb-9 mx-auto  h-full w-[926px]  ">
+      <div class="flex justify-between items-center">
+        <div class="flex items-center gap-2 py-2 lg:px-0 ">
+          <a (click)="closeDialog()">
+            <img alt="back arrow" src="./assets/img/back_arrow.png" class="modal-backArrow" />
+          </a>
+          <h1 class="text-[18px] text-[#fff] font-semibold">
+            Edit Address
+          </h1>
+        </div>
+
+        <a (click)="closeDialog()">
+          <img src="assets/img/close-round.png" alt="" class="modal-backArrow">
+        </a>
+
+      </div>
+      <div class="flex lg:flex-row flex-col  y-2 py-2">
+        <div class="w-full lg:w-1/2 lg:pr-2 flex flex-col">
+          <label class="text-[12px] font-medium">Address Line 1</label>
+          <input
+            type="text"
+            name="addressLine1"
+            [(ngModel)]="addressLine1"
+            required
+            placeholder="Address Line 1"
+            class="placeholder-[#4D585D]  leading-none bg-[#2C3538] px-[16px] py-[10px] mt-2 border border-gray-600 text-[#D9D9D9] rounded-lg text-[16px]"
+          />
+        </div>
+        <div class="w-full lg:w-1/2 lg:pl-2 flex flex-col lg:mt-0 mt-[13px]">
+          <label class="text-[12px] font-medium">City <span class="text-[11px]"> (Optional)</span></label>
+          <input
+            type="text"
+            required
+            placeholder="city"
+            [(ngModel)]="city"
+            name="city"
+            class="placeholder-[#4D585D]  leading-none bg-[#2C3538] px-[16px] py-[10px] mt-2 border border-gray-600 text-[#D9D9D9] rounded-lg text-[16px]"
+          />
+        </div>
+      </div>
+      <div class="flex lg:flex-row flex-col y-2 py-2">
+        <div class="w-full lg:w-1/2 lg:pr-2 flex flex-col lg:mt-0 mt-[13px]">
+          <label class="text-[12px] font-medium">Address Line 2 </label>
+          <input
+            type="text"
+            required
+            placeholder="Address Line "
+            [(ngModel)]="addressLine2"
+            name="addressLine2"
+            class="placeholder-[#4D585D]  leading-none bg-[#2C3538] px-[16px] py-[10px] mt-2 border border-gray-600 text-[#D9D9D9] rounded-lg text-[16px]"
+          />
+        </div>
+        <div class="w-full lg:w-1/2 lg:pl-2 flex flex-col lg:mt-0 mt-[25px]">
+          <!-- <label class="text-[12px] font-medium">Zip <span class="text-[11px]"> (Optional)</span></label>
+          <input
+            type="text"
+            name="zip"
+            required
+            [(ngModel)]="zip"
+            class="placeholder-[#4D585D]  leading-none bg-[#2C3538] px-[16px] py-[10px] mt-2 border border-gray-600 text-[#D9D9D9] rounded-lg text-[16px]"
+          /> -->
+          <label class="text-[12px] font-medium">Country</label>
+          <select  required [(ngModel)]="savecountries"
+            class="placeholder-[#4D585D]  leading-none bg-[#2C3538] px-[16px] py-[10px] mt-2 border border-gray-600 text-[#D9D9D9] rounded-lg text-[16px]">
+            <!-- <option value="" selected disabled>Preferred Currency</option> -->
+            <option *ngIf="savecountries">{{savecountries}}</option>
+            <option *ngFor="let country of countries" >
+              {{ country.name  }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <!-- <div class="flex lg:flex-row flex-col  y-2 py-2">
+        <div class="w-full lg:w-1/2 pr-2 flex flex-col">
+          <label class="text-[12px] font-medium">Country</label>
+          <select  required [(ngModel)]="savecountries"
+            class="placeholder-[#4D585D]  leading-none bg-[#2C3538] px-[16px] py-[10px] mt-2 border border-gray-600 text-[#D9D9D9] rounded-lg text-[16px]">
+            <option *ngIf="savecountries">{{savecountries}}</option>
+            <option *ngFor="let country of countries" >
+              {{ country.name  }}
+            </option>
+          </select>
+        </div>
+      </div> -->
+    
+      <div
+        class="flex items-center   justify-between gap-2 py-2 mt-4  bottom-0 left-0 right-0 m-auto  max-b-80"
+      >
+      <a (click)="closeDialog()">
+        <button
+          class="uppercase bg-[#2C3538] text-[#FFC600] text-[12px] rounded-md w-[165px] font-medium text-center h-full py-[12px] px-[16px]"
+        >
+          Cancel
+        </button>
+        </a>
+        <button (click)="updateAddress()"
+          class="uppercase bg-[#FFC600] text-[#18242A] text-[12px] rounded-md w-[165px] font-medium text-center h-full py-[12px] px-[16px]"
+        >
+          Save
+        </button>
+      </div>
+    
+    </div>
+    
+  </div>
+</div>
+

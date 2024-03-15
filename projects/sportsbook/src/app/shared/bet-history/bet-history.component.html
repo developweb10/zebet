@@ -1,0 +1,2465 @@
+<div class="desktop-view">
+  <div class="main-history-wrapper">
+    <div class="flex justify-between items-center">
+      <div class="head-tag lg:hidden block">
+        <h1>
+          <a (click)="goHome()">
+            <span class="back-arrow">
+              <svg
+                (click)="showFilterModal = false"
+                xmlns="http://www.w3.org/2000/svg"
+                width="19"
+                height="19"
+                viewBox="0 0 19 19"
+                fill="none"
+              >
+                <path
+                  d="M5.73711 10.1621H15.5996V9.03711H5.73711L10.3871 4.38711L9.59961 3.59961L3.59961 9.59961L9.59961 15.5996L10.3871 14.8121L5.73711 10.1621Z"
+                  fill="white"
+                />
+                <path
+                  d="M5.73711 10.1621H15.5996V9.03711H5.73711L10.3871 4.38711L9.59961 3.59961L3.59961 9.59961L9.59961 15.5996L10.3871 14.8121L5.73711 10.1621Z"
+                  stroke="white"
+                />
+              </svg>
+            </span>
+          </a>
+          
+          Bet History
+        </h1>
+      </div>
+    </div>
+    <div
+      class="bg-secondary rounded-t-lg navbar px-4 pt-3 flex justify-between items-center border-text_secondary"
+    >
+      <div class="custom-mob-dev flex items-center gap-2">
+        <a class="text-[#A3A7AA] md:px-3 px-3 py-1 text-sm active">All</a>
+        <a class="text-[#A3A7AA] md:px-10 px-3 py-1 text-sm">Settled</a>
+        <a class="text-[#A3A7AA] md:px-10 px-3 py-1 text-sm">Unsettled</a>
+      </div>
+      <div class="flex gap-3 items-center">
+        <div
+          class="bg-text_primary w-5 h-5 rounded-full flex justify-center items-center"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="15"
+            height="15"
+            viewBox="0 0 15 15"
+            fill="none"
+          >
+            <path
+              d="M8.03484 10.3407L8.03484 2.82104L7.17708 2.82104L7.17709 10.3407L3.63168 6.79533L3.03125 7.39576L7.60597 11.9705L12.1807 7.39576L11.5802 6.79533L8.03484 10.3407Z"
+              fill="white"
+            />
+            <path
+              d="M8.03484 10.3407L8.03484 2.82104L7.17708 2.82104L7.17709 10.3407L3.63168 6.79533L3.03125 7.39576L7.60597 11.9705L12.1807 7.39576L11.5802 6.79533L8.03484 10.3407Z"
+              stroke="white"
+            />
+          </svg>
+        </div>
+        <div
+          class="bg-text_primary w-5 h-5 rounded-full flex justify-center items-center"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="15"
+            viewBox="0 0 14 15"
+            fill="none"
+          >
+            <path
+              d="M7.52508 4.65927L7.52508 12.179L6.66732 12.179L6.66732 4.65927L3.12192 8.20467L2.52148 7.60424L7.0962 3.02953L11.6709 7.60424L11.0705 8.20467L7.52508 4.65927Z"
+              fill="white"
+            />
+            <path
+              d="M7.52508 4.65927L7.52508 12.179L6.66732 12.179L6.66732 4.65927L3.12192 8.20467L2.52148 7.60424L7.0962 3.02953L11.6709 7.60424L11.0705 8.20467L7.52508 4.65927Z"
+              stroke="white"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-[#2C3538] lg:rounded-lg md:rounded-b-lg p-5">
+      <div class="flex-col lg:flex md:flex hidden">
+        <div
+          class="custom-date-wrap flex gap-2 items-start justify-between bg-[#18242A] p-[10px] rounded-lg"
+        >
+          <div class="flex justify-start mt-2">
+            <a
+              class="show-all rounded-lg lg:px-3 md:px-1 lg:mx-2 md:mx-1 py-1 text-sm text-center flex"
+              [ngClass]="{
+                'bg-[#FFC600]': currentTab === 'ALL',
+                'text-[#2C3538]': currentTab === 'ALL',
+                'text-[#A3A7AA]': currentTab !== 'ALL'
+              }"
+              (click)="swapTab('ALL')"
+              >ALL</a
+            >
+            <a
+              class="show-all rounded-lg lg:px-3 md:px-1 lg:mx-2 md:mx-1 py-1 text-sm text-center flex"
+              [ngClass]="{
+                'bg-[#FFC600]': currentTab === 'SETTLED',
+                'text-[#2C3538]': currentTab === 'SETTLED',
+                'text-[#A3A7AA]': currentTab !== 'SETTLED'
+              }"
+              (click)="swapTab('SETTLED')"
+              >Settled</a
+            >
+            <a
+              class="show-all rounded-lg lg:px-3 md:px-1 lg:mx-2 md:mx-1 text-[#A3A7AA] py-1 text-sm text-center flex"
+              [ngClass]="{
+                'bg-[#FFC600]': currentTab === 'UNSETTLED',
+                'text-[#2C3538]': currentTab === 'UNSETTLED',
+                'text-[#A3A7AA]': currentTab !== 'UNSETTLED'
+              }"
+              (click)="swapTab('UNSETTLED')"
+              >Unsettled</a
+            >
+            <a
+              class="show-all rounded-lg lg:px-3 md:px-1 lg:mx-2 md:mx-1 text-[#A3A7AA] py-1 text-sm text-center flex bg-[#FFC600]"
+              [ngClass]="{
+                'bg-[#FFC600]': currentTab === 'IN-PLAY',
+                'text-[#2C3538]': currentTab === 'IN-PLAY',
+                'text-[#A3A7AA]': currentTab !== 'IN-PLAY'
+              }"
+              (click)="swapTab('IN-PLAY')"
+              >In-Play</a
+            >
+            <a
+              class="show-all rounded-lg lg:px-3 md:px-1 lg:mx-2 md:mx-1 text-[#A3A7AA] py-1 text-sm text-center flex"
+              [ngClass]="{
+                'bg-[#FFC600]': currentTab === 'CASHOUT',
+                'text-[#2C3538]': currentTab === 'CASHOUT',
+                'text-[#A3A7AA]': currentTab !== 'CASHOUT'
+              }"
+              (click)="swapTab('CASHOUT')"
+              >Cashout</a
+            >
+          </div>
+          <div class="flex custom-date-wrap-datepicker">
+            <div class="lg:flex md:flex flex-col relative w-full hidden lg:gap-3 lg:mx-2 md:mx-1 customBitDate__group">
+              <label for="pickerStartDate" class="hidden md:block lg:hidden text-[12px] text-[#4D585D] font-medium" > From</label>
+              <mat-form-field class="bg-[#2C3538]  border border-gray-600 text-[#D9D9D9] customMatform customTabCalaner rounded-[10px]">
+                <input matInput [matDatepicker]="pickerStartDate" (dateChange)="handleStartDateChange($event)" [max]="getToday()" [(ngModel)]="startDate"
+                  [readonly]="true">
+                <mat-datepicker-toggle matSuffix [for]="pickerStartDate"></mat-datepicker-toggle>
+                <mat-datepicker #pickerStartDate></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="lg:flex md:flex flex-col relative w-full hidden">
+              <label for="pickerEndDate" class="hidden md:block lg:hidden text-[12px] text-[#4D585D] font-medium" > To</label>
+              <mat-form-field class="bg-[#2C3538]  border border-gray-600 text-[#D9D9D9] customMatform customTabCalaner rounded-[10px]">
+                <input matInput [matDatepicker]="pickerEndDate" (dateChange)="handleEndDateChange($event)" [max]="getToday()" [(ngModel)]="endDate"
+                  [readonly]="true">
+                <mat-datepicker-toggle matSuffix [for]="pickerEndDate"></mat-datepicker-toggle>
+                <mat-datepicker #pickerEndDate></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="relative px-2 md:ml-[10px]" style="margin-top: 2px;">
+              <button
+                (click)="Filter()"
+                class="flex justify-center text-xs lg:text-[14px] text-code text-[#000000] bg-[#FFC600] rounded-lg py-3 px-2 w-[93px]"
+              >
+                Filter
+              </button>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      <div *ngIf="isBetHistory" class="flex flex-col gap-2 mb-2 mt-3">
+        <div class="flex-col" *ngIf="isDataLoaded">
+          <div *ngIf="betHistoryData.length > 0">
+            <div
+              *ngFor="let item of visibleTransactions; index as i"
+              class="bg-[#18242A] rounded-lg px-2 lg:px-5 py-3 flex flex-col md:flex-row gap-3 my-2"
+            >
+              <div class="flex flex-col flex-1">
+                <div
+                  class="flex justify-between items-start pb-3 mb-3 border-b border-[#4D585D]"
+                >
+                  <div class="flex flex-col lg:w-1/4 md:w-2/5">
+                    <div class="flex items-center justify-between">
+                      <h3 class="text-sm text-white font-bold">
+                        {{ item.betType }} ({{ item.betLegs.length }})
+                      </h3>
+                      <span
+                        class="flex border-l border-white pl-2"
+                        [ngSwitch]="item.betStatus"
+                      >
+                        <div *ngSwitchCase="'L'" class="text-[#FF5353]">
+                          Lost
+                        </div>
+                        <div *ngSwitchCase="'W'" class="text-[#4CAF50]">
+                          WON
+                        </div>
+                        <div *ngSwitchCase="'O'">
+                          <span *ngIf="!item.isRunning" class="text-[#FFC600]">OPEN</span>
+                          <span *ngIf="item.isRunning" class="text-[#3498E2]">RUNNING</span>
+                        </div>
+                        <div *ngSwitchCase="'X'" class="text-[#A3A7AA]">
+                          VOID
+                        </div>
+                        <div class="flex">
+                          <div *ngIf="item.cashoutLogs !== null" class="pl-2" style="padding-top: 5px;">
+                            <img
+                              src="../../../assets/svg/CO.svg"
+                              alt=""
+                            />
+                          </div>
+
+                          <div *ngIf="item.promoType === 'BONUS' && item.isOpen" class="pl-2" style="padding-top: 5px;">
+                            <img
+                              src="../../../assets/svg/bonus-big.svg"
+                              alt=""
+                            />
+                          </div>
+
+                          <div *ngIf="item.promoType === 'BONUS' && !item.isOpen" class="pl-2" style="padding-top: 5px;">
+                            <img
+                              src="../../../assets/svg/bonus-small.svg"
+                              alt=""
+                            />
+                          </div>
+
+                          <div *ngIf="item.promoType === 'FREE' && item.isOpen" class="pl-2" style="padding-top: 5px;">
+                            <img
+                              src="../../../assets/svg/freebet-big.svg"
+                              alt=""
+                            />
+                          </div>
+
+                          <div *ngIf="item.promoType === 'FREE' && !item.isOpen" class="pl-2" style="padding-top: 5px;">
+                            <img
+                              src="../../../assets/svg/freebet-small.svg"
+                              alt=""
+                            />
+                          </div>
+
+                        </div>
+                        
+                      </span>
+                    </div>
+                    <p class="text-xs text-[#868686] lg:flex md:flex hidden">
+                      Ticket ID: {{ item.betId }} | {{ item.formattedDate }}
+                      {{ item.formattedTime }}
+                    </p>
+                  </div>
+                  <div
+                    class="flex gap-3 items-center flex-[0.2] justify-center"
+                  >
+                    <!-- <h5 class="text-xs text-white hidden lg:flex">
+                      <span class="text-[#A3A7AA]">Booking Code:</span>35896549
+                    </h5> -->
+                    <svg
+                      class="hidden lg:flex"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      *ngIf="canShare"
+                    >
+                      <path
+                        d="M10.8777 6.11781C11.3315 6.11869 11.7734 5.97611 12.1376 5.71131C12.5018 5.44652 12.7688 5.0737 12.8987 4.64842C13.0286 4.22314 13.0146 3.76818 12.8586 3.35135C12.7027 2.93452 12.4132 2.57814 12.0333 2.33534C11.6535 2.09255 11.2035 1.97633 10.7506 2.00401C10.2977 2.03169 9.86611 2.2018 9.5201 2.48896C9.17408 2.77613 8.93221 3.16499 8.83053 3.59756C8.72885 4.03014 8.77281 4.48328 8.95585 4.88942L6.41369 6.49411C6.10497 6.25189 5.73254 6.09994 5.33936 6.05579C4.94618 6.01163 4.54824 6.07705 4.19142 6.24452C3.83461 6.41199 3.53344 6.67469 3.32264 7.00232C3.11185 7.32996 3 7.70919 3 8.09631C3 8.48342 3.11185 8.86266 3.32264 9.19029C3.53344 9.51793 3.83461 9.78062 4.19142 9.94809C4.54824 10.1156 4.94618 10.181 5.33936 10.1368C5.73254 10.0927 6.10497 9.94072 6.41369 9.69851L8.90162 11.2684C8.73654 11.7372 8.74981 12.2485 8.93899 12.7085C9.12816 13.1684 9.48057 13.5463 9.93154 13.7727C10.3825 13.9991 10.9018 14.0588 11.3942 13.9409C11.8866 13.8231 12.319 13.5355 12.6121 13.131C12.9052 12.7265 13.0394 12.2321 12.99 11.7387C12.9406 11.2452 12.7109 10.7857 12.3432 10.4445C11.9754 10.1033 11.4942 9.90317 10.9878 9.88095C10.4814 9.85872 9.98384 10.0158 9.58631 10.3235L7.08652 8.74697C7.23245 8.32551 7.23245 7.86877 7.08652 7.44731L9.73037 5.78957C10.0719 6.00611 10.4707 6.12021 10.8777 6.11781Z"
+                        fill="#FFC600"
+                      />
+                    </svg>
+                    <div class="flex relative gap-3 pr-3 pt-3">
+                      <div
+                        class="absolute -bottom-4 lg:-bottom-1 right-0 flex items-center justify-center"
+                      >
+                        <a
+                        (click)="swapOpen(item.index)"
+                        *ngIf="!item.isOpen">
+                          <svg
+                          class="tab-icon"
+                          width="12"
+                          height="7"
+                          viewBox="0 0 12 7"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M6.5625 4.79558L6 5.45364L5.4375 4.79558L0.7875 -4.09865e-08L2.98152e-08 0.812154L6 7L12 0.812153L11.2125 -5.8357e-07L6.5625 4.79558Z"
+                            fill="#FFC600"
+                          />
+                          <path
+                            d="M6.5625 4.79558L6 5.45364L5.4375 4.79558L0.7875 -4.09865e-08L2.98152e-08 0.812154L6 7L12 0.812153L11.2125 -5.8357e-07L6.5625 4.79558Z"
+                            stroke="white"
+                          />
+                          </svg>
+                        </a>
+                        
+                        <a
+                        *ngIf="item.isOpen"
+                          (click)="swapOpen(item.index)">
+                          <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="14"
+                          viewBox="0 0 16 14"
+                          fill="none"
+                        >
+                          <path
+                            d="M7.12781 6.20442L6.58465 5.54636L6.0415 6.20442L1.55143 11L0.791016 10.1878L6.58465 4L12.3783 10.1878L11.6179 11L7.12781 6.20442Z"
+                            fill="#FFC600"
+                          />
+                          <path
+                            d="M7.12781 6.20442L6.58465 5.54636L6.0415 6.20442L1.55143 11L0.791016 10.1878L6.58465 4L12.3783 10.1878L11.6179 11L7.12781 6.20442Z"
+                            stroke="white"
+                          />
+                        </svg>
+                        </a>
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  class="hidden lg:flex md:flex w-full"
+                  *ngIf="!item.isOpen"
+                >
+                  <div class="flex flex-row w-[3/4]" style="width: 75%;">
+                    <div class="flex-col flex-[0.2]">
+                      <p class="text-xs text-white">Total Stake (NGN)</p>
+                       
+                     
+                      <h3 class="text-xs text-white font-bold">
+                        &#x20A6; {{ item.placeStake | number : "0.2-2" }}
+                      </h3>
+                    </div>
+
+                    <div class="flex flex-col flex-1">
+                      <p class="text-xs text-white">Total Return</p>
+                      <!-- <div *ngIf="item.betStatus === 'O'">
+                        <h3 *ngIf="item.availableCashoutAmount === 0" class="text-xs text-white font-bold">
+                          &#x20A6; {{ item.potentialReturn | number : "0.2-2" }}
+                        </h3>
+                        <h3 *ngIf="item.availableCashoutAmount > 0" class="text-xs text-white font-bold">
+                          &#x20A6; {{ item.availableCashoutAmount | number : "0.2-2" }}
+                        </h3>
+                      </div> -->
+                      <div>
+                        <h3 class="text-xs text-white font-bold">
+                          &#x20A6; {{ item.potentialReturn | number : "0.2-2" }}
+                        </h3>
+                      </div>
+                      
+                      
+                    </div>
+                  </div>
+
+                  <!-- <div class="flex justify-end w-auto px-2 mb-1" style="width: 25%;" *ngIf="item.betStatus == 'O' && item.isHistory === false"><app-cashout-widget [item]="item" (removeItemEvent)="removeItem($event)"></app-cashout-widget></div> -->
+                  
+                </div>
+
+                
+
+                <div *ngIf="item.isOpen">
+                  <div
+                    class="bg-darked flex justify-between items-center w-full px-5"
+                    [ngClass]="getClassOf(item)"
+                  >
+                    <h3 class="text-sm font-bold m-0 text-white">
+                      Ticket Details
+                    </h3>
+                    <p class="text-xs m-0 text-white">
+                      Ticket ID : {{ item.betId }} | {{ item.formattedDate }}
+                      {{ item.formattedTime }}
+                    </p>
+                  </div>
+                  <div class="flex flex-row flex-1 my-3">
+                    <div class="flex flex-col flex-[0.2]">
+                      <p class="text-xs text-white">Total Stake</p>
+                      <h3 class="text-xs text-white font-bold">
+                        &#x20A6; {{ item.placeStake | number : "0.2-2" }}
+                      </h3>
+                    </div>
+                    <div class="flex flex-col flex-[0.2]">
+                      <p class="text-xs text-white">Total Odds</p>
+                      <h3 class="text-xs text-white font-bold">
+                        {{ item.totalOdds | number : "0.2-2" }}
+                      </h3>
+                    </div>
+                    <div class="flex flex-col flex-1">
+                      <p class="text-xs text-white">Total Return</p>
+                      <!-- <div *ngIf="item.betStatus === 'O'">
+                        <h3 *ngIf="item.availableCashoutAmount === 0" class="text-xs text-white font-bold">
+                          &#x20A6; {{ item.potentialReturn | number : "0.2-2" }}
+                        </h3>
+                        <h3 *ngIf="item.availableCashoutAmount > 0" class="text-xs text-white font-bold">
+                          &#x20A6; {{ item.availableCashoutAmount | number : "0.2-2" }}
+                        </h3>
+                      </div> -->
+                      <div>
+                        <h3 class="text-xs text-white font-bold">
+                          &#x20A6; {{ item.potentialReturn | number : "0.2-2" }}
+                        </h3>
+                      </div>
+                      
+                      
+                    </div>
+                  </div>
+                  <table>
+                    <tr>
+                      <th></th>
+                      <th class="text-[#A3A7AA] text-xs text-left px-3 py-3">
+                        Time
+                      </th>
+                      <th class="text-[#A3A7AA] text-xs text-left px-3 py-3">
+                        Date
+                      </th>
+                      <th class="text-[#A3A7AA] text-xs text-left px-3 py-3">
+                        FT Score:
+                      </th>
+                      <th></th>
+                      <th class="text-[#A3A7AA] text-xs text-left px-3 py-3">
+                        Market
+                      </th>
+                      <th class="text-[#A3A7AA] text-xs text-left px-3 py-3">
+                        Pick
+                      </th>
+                      <!-- <th class="text-[#A3A7AA] text-xs text-center hidden lg:flex">
+                        Outcome
+                      </th> -->
+                      <th class="text-[#A3A7AA] text-xs text-left px-3 py-3">
+                        Status
+                      </th>
+                    </tr>
+                    <tr
+                      *ngFor="let bet of item.betLegs; index as j"
+                      class="pb-3"
+                    >
+                      <td
+                        class="text-[#A3A7AA] text-xs px-3 py-3 border-b border-[#4D585D] afterbeforeent-[''] pl-0 before:background-white before:h-4 before:w-1"
+                      >
+                        {{ bet.eventId }}
+                      </td>
+                      <td
+                        class="text-[#A3A7AA] text-xs px-3 py-3 border-b border-[#4D585D] lineAdd"
+                      >
+                        {{ bet.formattedTime }}
+                      </td>
+                      <td
+                        class="text-[#A3A7AA] text-xs px-3 py-3 border-b border-[#4D585D] lineAdd"
+                      >
+                        {{ bet.formattedDate }}
+                      </td>
+                      <td
+                        class="text-white text-xs px-3 py-3 gap-2 flex items-center border-b border-[#4D585D] lineAdd"
+                      >
+                        <div class="flex items-center gap-1 text-[#ffc600]">
+                          <!-- <span class="text-white">3:1</span> -->
+                          <a
+                          class="flex"
+                          (click)="openModal(bet)"
+                          >
+                            <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="12"
+                            height="8"
+                            viewBox="0 0 12 8"
+                            fill="none"
+                            
+                          >
+                            <path
+                              d="M0 0.5C0 0.223858 0.223858 0 0.5 0C0.776142 0 1 0.223858 1 0.5L1 6.5C1 6.77614 1.22386 7 1.5 7H11.5C11.7761 7 12 7.22386 12 7.5C12 7.77614 11.7761 8 11.5 8H1C0.447715 8 0 7.55228 0 7V0.5Z"
+                              fill="#FFC600"
+                            />
+                            <path
+                              d="M11 1.70714C11.1953 1.51188 11.1953 1.1953 11 1.00004C10.8048 0.804776 10.4882 0.804776 10.2929 1.00004L7.85359 3.43938C7.65833 3.63464 7.34175 3.63464 7.14648 3.43938L5.70714 2.00004C5.31662 1.60951 4.68345 1.60951 4.29293 2.00004L2.00004 4.29293C1.80478 4.48819 1.80478 4.80478 2.00004 5.00004C2.1953 5.1953 2.51188 5.1953 2.70714 5.00004L4.64648 3.0607C4.84175 2.86544 5.15833 2.86544 5.35359 3.0607L6.79293 4.50004C7.18346 4.89056 7.81662 4.89056 8.20714 4.50004L11 1.70714Z"
+                              fill="#FFC600"
+                            />
+                          </svg>
+                          
+                          
+                          Match Tracker
+                        </a>
+                        </div>
+                      </td>
+
+                      <td
+                        class="text-white text-xs px-3 py-3 border-b border-[#4D585D] lineAdd"
+                      >
+                        {{ bet.events[0] }}
+                        <span class="text-[#FFC600]"> VS </span>
+                        {{ bet.events[1] }}
+                      </td>
+                      <td
+                        class="text-[#A3A7AA] text-xs px-3 py-3 border-b border-[#4D585D] lineAdd"
+                      >
+                        {{ bet.market }}
+                      </td>
+                      <td
+                        class="text-white text-xs px-3 py-3 border-b border-[#4D585D] lineAdd"
+                      >
+                        {{ bet.selections[0].name }} @{{ bet.price.decimal | number : "0.2-2" }}
+                      </td>
+                      <!-- <td
+                        class="text-[#A3A7AA] custom-draw hidden lg:flex text-xs px-3 py-3 border-b border-[#4D585D] lineAdd"
+                      >
+                        Draw
+                      </td> -->
+                      <td
+                        class="text-[#A3A7AA] text-xs px-3 py-3 border-b border-[#4D585D]"
+                      >
+                        <span
+                          class="bg-warm text-white text-xs py-1 rounded-lg"
+                          >{{ bet.fullResult }}</span
+                        >
+                      </td>
+                    </tr>
+                  </table>
+                  <div class="flex items-center justify-between pt-6 pb-3">
+                    <div class="text-xs text-[#A3A7AA]">
+                      Number of Bets:
+                      <span class="text-white">{{ item.betLegs.length }}</span>
+                    </div>
+                    <!-- <div class="text-xs text-[#FFC600]">Bet Details</div> -->
+                    <div class="flex items-center gap-2">
+                      <!-- <button
+                        class="bg-[#4D585D] rounded-lg text-xs text-[#FFC600] px-3 py-1"
+                      >
+                        Check Transaction History
+                      </button> -->
+                      <button
+                        (click)="swapOpen(item.index)"
+                        class="bg-[#FFC600] rounded-lg px-3 py-1 text-xs text-[#18242A]"
+                      >
+                        Hide Ticket
+                      </button>
+                    </div>
+                  </div>
+                  
+                </div>
+
+                <div
+                  class="hidden lg:flex md:flex w-full justify-end"
+                >
+
+                  <div class="flex w-auto px-2 mb-1" *ngIf="item.betStatus == 'O' && item.isHistory === false"><app-cashout-widget [item]="item" (removeItemEvent)="removeItem($event)"></app-cashout-widget></div>
+                  
+                </div>
+                
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="flex flex-col text-center"
+            *ngIf="betHistoryData.length == 0"
+          >
+            <div class="pt-4 flex flex-col items-center justify-center">
+              <svg
+                width="202"
+                height="202"
+                viewBox="0 0 202 202"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect width="202" height="202" rx="100" fill="#2C3538" />
+                <rect
+                  x="83.498"
+                  y="95.708"
+                  width="49.5833"
+                  height="24.7917"
+                  fill="#BE202F"
+                />
+                <path
+                  d="M107.561 114.667C111.186 114.667 114.124 111.729 114.124 108.104C114.124 104.48 111.186 101.542 107.561 101.542C103.937 101.542 100.999 104.48 100.999 108.104C100.999 111.729 103.937 114.667 107.561 114.667Z"
+                  fill="#FFC600"
+                />
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M135.999 95.3157V120.893C135.999 121.481 135.521 121.958 134.933 121.958H81.6477C81.0595 121.958 80.582 121.481 80.582 120.893V95.3157C80.582 94.7267 81.0595 94.25 81.6477 94.25H134.933C135.521 94.25 135.999 94.7267 135.999 95.3157ZM131.736 113.433C129.381 113.433 127.473 115.341 127.473 117.696H89.1077C89.1077 115.341 87.1994 113.433 84.8449 113.433V102.776C87.1994 102.776 89.1077 100.867 89.1077 98.5128H127.473C127.473 100.867 129.381 102.776 131.736 102.776V113.433Z"
+                  fill="#FFC600"
+                />
+                <g filter="url(#filter0_f_9664_17691)">
+                  <rect
+                    x="82.041"
+                    y="94.25"
+                    width="48.125"
+                    height="21.875"
+                    rx="1"
+                    fill="#BE202F"
+                  />
+                </g>
+                <rect
+                  x="76.209"
+                  y="88.417"
+                  width="49.5833"
+                  height="24.7917"
+                  fill="#BE202F"
+                />
+                <path
+                  d="M100.272 107.376C103.897 107.376 106.835 104.438 106.835 100.813C106.835 97.1888 103.897 94.2507 100.272 94.2507C96.6478 94.2507 93.7096 97.1888 93.7096 100.813C93.7096 104.438 96.6478 107.376 100.272 107.376Z"
+                  fill="#FFC600"
+                />
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M128.71 88.0247V113.602C128.71 114.19 128.232 114.667 127.644 114.667H74.3587C73.7704 114.667 73.293 114.19 73.293 113.602V88.0247C73.293 87.4357 73.7704 86.959 74.3587 86.959H127.644C128.232 86.959 128.71 87.4357 128.71 88.0247ZM124.447 106.142C122.092 106.142 120.184 108.05 120.184 110.404H81.8186C81.8186 108.05 79.9103 106.142 77.5558 106.142V95.4846C79.9103 95.4846 81.8186 93.5763 81.8186 91.2218H120.184C120.184 93.5763 122.092 95.4846 124.447 95.4846V106.142Z"
+                  fill="#FFC600"
+                />
+                <g filter="url(#filter1_f_9664_17691)">
+                  <rect
+                    x="74.75"
+                    y="86.958"
+                    width="48.125"
+                    height="21.875"
+                    rx="1"
+                    fill="#BE202F"
+                  />
+                </g>
+                <rect
+                  x="68.916"
+                  y="81.124"
+                  width="49.5833"
+                  height="24.7917"
+                  fill="#BE202F"
+                />
+                <path
+                  d="M92.9792 100.083C96.6035 100.083 99.5417 97.1446 99.5417 93.5202C99.5417 89.8958 96.6035 86.9577 92.9792 86.9577C89.3548 86.9577 86.4167 89.8958 86.4167 93.5202C86.4167 97.1446 89.3548 100.083 92.9792 100.083Z"
+                  fill="#FFC600"
+                />
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M121.417 80.7317V106.309C121.417 106.897 120.939 107.374 120.351 107.374H67.0657C66.4774 107.374 66 106.897 66 106.309V80.7317C66 80.1427 66.4774 79.666 67.0657 79.666H120.351C120.939 79.666 121.417 80.1427 121.417 80.7317ZM117.154 98.8487C114.799 98.8487 112.891 100.757 112.891 103.112H74.5256C74.5256 100.757 72.6173 98.8487 70.2628 98.8487V88.1917C72.6173 88.1917 74.5256 86.2833 74.5256 83.9288H112.891C112.891 86.2833 114.799 88.1917 117.154 88.1917V98.8487Z"
+                  fill="#FFC600"
+                />
+                <path
+                  d="M115.584 68L105.584 62.2265V73.7735L115.584 68ZM84.959 69H106.584V67H84.959V69Z"
+                  fill="#FFC600"
+                />
+                <path
+                  d="M84.959 133.625L94.959 127.851V139.399L84.959 133.625ZM115.584 134.625H93.959V132.625H115.584V134.625Z"
+                  fill="#FFC600"
+                />
+                <defs>
+                  <filter
+                    id="filter0_f_9664_17691"
+                    x="78.041"
+                    y="90.25"
+                    width="56.125"
+                    height="29.875"
+                    filterUnits="userSpaceOnUse"
+                    color-interpolation-filters="sRGB"
+                  >
+                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                    <feBlend
+                      mode="normal"
+                      in="SourceGraphic"
+                      in2="BackgroundImageFix"
+                      result="shape"
+                    />
+                    <feGaussianBlur
+                      stdDeviation="2"
+                      result="effect1_foregroundBlur_9664_17691"
+                    />
+                  </filter>
+                  <filter
+                    id="filter1_f_9664_17691"
+                    x="70.75"
+                    y="82.958"
+                    width="56.125"
+                    height="29.875"
+                    filterUnits="userSpaceOnUse"
+                    color-interpolation-filters="sRGB"
+                  >
+                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                    <feBlend
+                      mode="normal"
+                      in="SourceGraphic"
+                      in2="BackgroundImageFix"
+                      result="shape"
+                    />
+                    <feGaussianBlur
+                      stdDeviation="2"
+                      result="effect1_foregroundBlur_9664_17691"
+                    />
+                  </filter>
+                </defs>
+              </svg>
+      
+              <p class="pt-2 flex justify-center items-center">No bet history available</p>
+            </div>
+          </div>
+        </div>
+        <div class="flex justify-center py-4" *ngIf="!isDataLoaded">
+          <div class="flex flex-col">
+            <p>Loading Data</p>
+          </div>
+        </div>
+
+        <!-- <div
+          class="bg-[#18242A] rounded-lg px-2 lg:px-5 py-3 flex flex-col md:flex-row gap-3"
+        >
+          <div class="flex flex-col flex-1">
+            <div
+              class="flex justify-between items-start pb-3 mb-3 border-b border-[#4D585D]"
+            >
+              <div class="flex flex-col w-1/4">
+                <div class="flex items-center justify-between">
+                  <h3 class="text-sm text-white font-bold">Multiple(3)</h3>
+                  <span class="border-l border-white pl-2 text-[#FF5353]"
+                    >Lost</span
+                  >
+                </div>
+                <p class="text-xs text-[#868686] lg:flex hidden">
+                  Game ID: 25648 | 09/08 00:30
+                </p>
+              </div>
+              <div class="flex gap-3 items-center flex-[0.2] justify-center">
+                <h5 class="text-xs text-white hidden lg:flex">
+                  <span class="text-[#A3A7AA]">Booking Code:</span>35896549
+                </h5>
+                <svg
+                  class="hidden lg:flex"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M10.8777 6.11781C11.3315 6.11869 11.7734 5.97611 12.1376 5.71131C12.5018 5.44652 12.7688 5.0737 12.8987 4.64842C13.0286 4.22314 13.0146 3.76818 12.8586 3.35135C12.7027 2.93452 12.4132 2.57814 12.0333 2.33534C11.6535 2.09255 11.2035 1.97633 10.7506 2.00401C10.2977 2.03169 9.86611 2.2018 9.5201 2.48896C9.17408 2.77613 8.93221 3.16499 8.83053 3.59756C8.72885 4.03014 8.77281 4.48328 8.95585 4.88942L6.41369 6.49411C6.10497 6.25189 5.73254 6.09994 5.33936 6.05579C4.94618 6.01163 4.54824 6.07705 4.19142 6.24452C3.83461 6.41199 3.53344 6.67469 3.32264 7.00232C3.11185 7.32996 3 7.70919 3 8.09631C3 8.48342 3.11185 8.86266 3.32264 9.19029C3.53344 9.51793 3.83461 9.78062 4.19142 9.94809C4.54824 10.1156 4.94618 10.181 5.33936 10.1368C5.73254 10.0927 6.10497 9.94072 6.41369 9.69851L8.90162 11.2684C8.73654 11.7372 8.74981 12.2485 8.93899 12.7085C9.12816 13.1684 9.48057 13.5463 9.93154 13.7727C10.3825 13.9991 10.9018 14.0588 11.3942 13.9409C11.8866 13.8231 12.319 13.5355 12.6121 13.131C12.9052 12.7265 13.0394 12.2321 12.99 11.7387C12.9406 11.2452 12.7109 10.7857 12.3432 10.4445C11.9754 10.1033 11.4942 9.90317 10.9878 9.88095C10.4814 9.85872 9.98384 10.0158 9.58631 10.3235L7.08652 8.74697C7.23245 8.32551 7.23245 7.86877 7.08652 7.44731L9.73037 5.78957C10.0719 6.00611 10.4707 6.12021 10.8777 6.11781Z"
+                    fill="#FFC600"
+                  />
+                </svg>
+                <div class="flex relative gap-3 pr-3">
+                  <div
+                    class="absolute -bottom-4 lg:-bottom-1 right-0 flex items-center justify-center"
+                  >
+                    <svg
+                      class="tab-icon"
+                      (click)="isOpen = !isOpen"
+                      *ngIf="!isOpen"
+                      width="12"
+                      height="7"
+                      viewBox="0 0 12 7"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M6.5625 4.79558L6 5.45364L5.4375 4.79558L0.7875 -4.09865e-08L2.98152e-08 0.812154L6 7L12 0.812153L11.2125 -5.8357e-07L6.5625 4.79558Z"
+                        fill="#FFC600"
+                      />
+                      <path
+                        d="M6.5625 4.79558L6 5.45364L5.4375 4.79558L0.7875 -4.09865e-08L2.98152e-08 0.812154L6 7L12 0.812153L11.2125 -5.8357e-07L6.5625 4.79558Z"
+                        stroke="white"
+                      />
+                    </svg>
+                    <svg
+                      *ngIf="isOpen"
+                      (click)="isOpen = false"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="14"
+                      viewBox="0 0 16 14"
+                      fill="none"
+                    >
+                      <path
+                        d="M7.12781 6.20442L6.58465 5.54636L6.0415 6.20442L1.55143 11L0.791016 10.1878L6.58465 4L12.3783 10.1878L11.6179 11L7.12781 6.20442Z"
+                        fill="#FFC600"
+                      />
+                      <path
+                        d="M7.12781 6.20442L6.58465 5.54636L6.0415 6.20442L1.55143 11L0.791016 10.1878L6.58465 4L12.3783 10.1878L11.6179 11L7.12781 6.20442Z"
+                        stroke="white"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex-row flex-1 hidden lg:flex" *ngIf="!isOpen">
+              <div class="flex-col flex-[0.2]">
+                <p class="text-xs text-white">Total Stake (NGN)</p>
+                <h3 class="text-xs text-white font-bold">736.00 NGN</h3>
+              </div>
+
+              <div class="flex flex-col flex-1">
+                <p class="text-xs text-white">Total Return</p>
+                <h3 class="text-xs text-white font-bold">0.00 NGN</h3>
+              </div>
+            </div>
+
+            <div *ngIf="isOpen">
+              <div
+                class="bg-darked flex justify-between items-center w-full px-5"
+              >
+                <h3 class="text-sm font-bold m-0 text-white">Ticket Details</h3>
+                <p class="text-xs m-0 text-white">
+                  Ticket ID : 8304756 | 10:30 21/08
+                </p>
+              </div>
+              <div class="flex flex-row flex-1 my-3">
+                <div class="flex flex-col flex-[0.2]">
+                  <p class="text-xs text-white">Total Stake</p>
+                  <h3 class="text-xs text-white font-bold">1000.00 NGN</h3>
+                </div>
+                <div class="flex flex-col flex-[0.2]">
+                  <p class="text-xs text-white">Total Odds</p>
+                  <h3 class="text-xs text-white font-bold">2.46</h3>
+                </div>
+                <div class="flex flex-col flex-1">
+                  <p class="text-xs text-white">Total Return</p>
+                  <h3 class="text-xs text-white font-bold">00.00</h3>
+                </div>
+              </div>
+              <table>
+                <tr>
+                  <th></th>
+                  <th class="text-[#A3A7AA] text-xs text-center">Time</th>
+                  <th class="text-[#A3A7AA] text-xs text-center">Date</th>
+                  <th class="text-[#A3A7AA] text-xs text-center">FT Score:</th>
+                  <th></th>
+                  <th class="text-[#A3A7AA] text-xs text-center">Market</th>
+                  <th class="text-[#A3A7AA] text-xs text-center">Pick</th>
+                  <th class="text-[#A3A7AA] text-xs text-center hidden lg:flex">
+                    Outcome
+                  </th>
+                  <th class="text-[#A3A7AA] text-xs text-center">Status</th>
+                </tr>
+                <tr class="pb-3">
+                  <td
+                    class="text-[#A3A7AA] text-xs px-3 py-3 border-b border-[#4D585D] afterbeforeent-[''] pl-0 before:background-white before:h-4 before:w-1"
+                  >
+                    5804
+                  </td>
+                  <td
+                    class="text-[#A3A7AA] text-xs px-3 py-3 border-b border-[#4D585D] lineAdd"
+                  >
+                    10:30
+                  </td>
+                  <td
+                    class="text-[#A3A7AA] text-xs px-3 py-3 border-b border-[#4D585D] lineAdd"
+                  >
+                    21/08
+                  </td>
+                  <td
+                    class="text-white text-xs px-3 py-3 gap-2 flex items-center border-b border-[#4D585D] lineAdd"
+                  >
+                    <div class="flex items-center gap-1 text-[#ffc600]">
+                      <span class="text-white">3:1</span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="8"
+                        viewBox="0 0 12 8"
+                        fill="none"
+                      >
+                        <path
+                          d="M0 0.5C0 0.223858 0.223858 0 0.5 0C0.776142 0 1 0.223858 1 0.5L1 6.5C1 6.77614 1.22386 7 1.5 7H11.5C11.7761 7 12 7.22386 12 7.5C12 7.77614 11.7761 8 11.5 8H1C0.447715 8 0 7.55228 0 7V0.5Z"
+                          fill="#FFC600"
+                        />
+                        <path
+                          d="M11 1.70714C11.1953 1.51188 11.1953 1.1953 11 1.00004C10.8048 0.804776 10.4882 0.804776 10.2929 1.00004L7.85359 3.43938C7.65833 3.63464 7.34175 3.63464 7.14648 3.43938L5.70714 2.00004C5.31662 1.60951 4.68345 1.60951 4.29293 2.00004L2.00004 4.29293C1.80478 4.48819 1.80478 4.80478 2.00004 5.00004C2.1953 5.1953 2.51188 5.1953 2.70714 5.00004L4.64648 3.0607C4.84175 2.86544 5.15833 2.86544 5.35359 3.0607L6.79293 4.50004C7.18346 4.89056 7.81662 4.89056 8.20714 4.50004L11 1.70714Z"
+                          fill="#FFC600"
+                        />
+                      </svg>
+                      Match Tracker
+                    </div>
+                  </td>
+
+                  <td
+                    class="text-white text-xs px-3 py-3 border-b border-[#4D585D] lineAdd"
+                  >
+                    RAKOW II CZESTOCHOWA
+                    <span class="text-[#FFC600]"> VS </span> MKP CARINA GUBIN
+                  </td>
+                  <td
+                    class="text-[#A3A7AA] text-xs px-3 py-3 border-b border-[#4D585D] lineAdd"
+                  >
+                    1X2
+                  </td>
+                  <td
+                    class="text-white text-xs px-3 py-3 border-b border-[#4D585D] lineAdd"
+                  >
+                    Home @3.34
+                  </td>
+                  <td
+                    class="text-[#A3A7AA] custom-draw hidden lg:flex text-xs px-3 py-3 border-b border-[#4D585D] lineAdd"
+                  >
+                    Draw
+                  </td>
+                  <td
+                    class="text-[#A3A7AA] text-xs px-3 py-3 border-b border-[#4D585D]"
+                  >
+                    <span
+                      class="bg-warm text-white text-xs px-3 py-1 rounded-lg"
+                      >Lost</span
+                    >
+                  </td>
+                </tr>
+                <tr class="pb-3">
+                  <td
+                    class="text-[#A3A7AA] text-xs px-3 py-3 border-b border-[#4D585D] afterbeforeent-[''] pl-0 before:background-white before:h-4 before:w-1"
+                  >
+                    5804
+                  </td>
+                  <td
+                    class="text-[#A3A7AA] text-xs px-3 py-3 border-b border-[#4D585D] lineAdd"
+                  >
+                    10:30
+                  </td>
+                  <td
+                    class="text-[#A3A7AA] text-xs px-3 py-3 border-b border-[#4D585D] lineAdd"
+                  >
+                    21/08
+                  </td>
+                  <td
+                    class="text-white text-xs px-3 py-3 gap-2 flex items-center border-b border-[#4D585D] lineAdd"
+                  >
+                    <div class="flex gap-2">
+                      <div class="flex items-center gap-1 text-[#ffc600]">
+                        <span class="text-white">3:1</span>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="12"
+                          height="8"
+                          viewBox="0 0 12 8"
+                          fill="none"
+                        >
+                          <path
+                            d="M0 0.5C0 0.223858 0.223858 0 0.5 0C0.776142 0 1 0.223858 1 0.5L1 6.5C1 6.77614 1.22386 7 1.5 7H11.5C11.7761 7 12 7.22386 12 7.5C12 7.77614 11.7761 8 11.5 8H1C0.447715 8 0 7.55228 0 7V0.5Z"
+                            fill="#FFC600"
+                          />
+                          <path
+                            d="M11 1.70714C11.1953 1.51188 11.1953 1.1953 11 1.00004C10.8048 0.804776 10.4882 0.804776 10.2929 1.00004L7.85359 3.43938C7.65833 3.63464 7.34175 3.63464 7.14648 3.43938L5.70714 2.00004C5.31662 1.60951 4.68345 1.60951 4.29293 2.00004L2.00004 4.29293C1.80478 4.48819 1.80478 4.80478 2.00004 5.00004C2.1953 5.1953 2.51188 5.1953 2.70714 5.00004L4.64648 3.0607C4.84175 2.86544 5.15833 2.86544 5.35359 3.0607L6.79293 4.50004C7.18346 4.89056 7.81662 4.89056 8.20714 4.50004L11 1.70714Z"
+                            fill="#FFC600"
+                          />
+                        </svg>
+                        Match Tracker
+                      </div>
+                    </div>
+                  </td>
+
+                  <td
+                    class="text-white text-xs px-3 py-3 border-b border-[#4D585D] lineAdd"
+                  >
+                    RAKOW II CZESTOCHOWA
+                    <span class="text-[#FFC600]"> VS </span> MKP CARINA GUBIN
+                  </td>
+                  <td
+                    class="text-[#A3A7AA] text-xs px-3 py-3 border-b border-[#4D585D] lineAdd"
+                  >
+                    1X2
+                  </td>
+                  <td
+                    class="text-white text-xs px-3 py-3 border-b border-[#4D585D] lineAdd"
+                  >
+                    Home @3.34
+                  </td>
+                  <td
+                    class="text-[#A3A7AA] custom-draw text-xs px-3 py-3 border-b border-[#4D585D] lineAdd hidden lg:flex lg:hidden"
+                  >
+                    Draw
+                  </td>
+                  <td
+                    class="text-[#A3A7AA] text-xs px-3 py-3 border-b border-[#4D585D]"
+                  >
+                    <span class="flex gap-2 items-center">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="10"
+                        height="10"
+                        viewBox="0 0 10 10"
+                        fill="none"
+                      >
+                        <path
+                          d="M5 10C7.76156 10 10 7.76144 10 5C10 2.23856 7.76156 0 5 0C2.23844 0 0 2.23856 0 5C0 7.76144 2.23844 10 5 10ZM5.27778 1.75C5.73811 1.75 6.11111 2.12311 6.11111 2.58333C6.11111 3.04356 5.73811 3.41667 5.27778 3.41667C4.81744 3.41667 4.44444 3.04356 4.44444 2.58333C4.44444 2.12311 4.81744 1.75 5.27778 1.75ZM5 3.80556C5.83333 3.80556 6.03544 4.29722 5.94211 4.90378L5.55556 7.41667C5.55556 7.41667 5.83333 7.41667 6.38889 7.13889C6.38889 7.13889 6.11111 8.25 5 8.25C4.16667 8.25 3.96456 7.75833 4.05789 7.15178L4.44444 4.63889C4.44444 4.63889 4.16667 4.63889 3.61111 4.91667C3.61111 4.91667 3.88889 3.80556 5 3.80556Z"
+                          fill="#A3A7AA"
+                        />
+                      </svg>
+                      <span
+                        class="bg-golden text-white text-xs px-3 py-1 rounded-lg"
+                        >Void</span
+                      >
+                    </span>
+                  </td>
+                </tr>
+                <tr class="pb-3">
+                  <td
+                    class="text-[#A3A7AA] text-xs px-3 py-3 border-b border-[#4D585D] afterbeforeent-[''] pl-0 before:background-white before:h-4 before:w-1"
+                  >
+                    5804
+                  </td>
+                  <td
+                    class="text-[#A3A7AA] text-xs px-3 py-3 border-b border-[#4D585D] lineAdd"
+                  >
+                    10:30
+                  </td>
+                  <td
+                    class="text-[#A3A7AA] text-xs px-3 py-3 border-b border-[#4D585D] lineAdd"
+                  >
+                    21/08
+                  </td>
+                  <td
+                    class="text-white text-xs px-3 py-3 gap-2 flex items-center border-b border-[#4D585D] lineAdd"
+                  >
+                    <div class="flex items-center gap-1 text-[#ffc600]">
+                      <span class="text-white">3:1</span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="12"
+                        height="8"
+                        viewBox="0 0 12 8"
+                        fill="none"
+                      >
+                        <path
+                          d="M0 0.5C0 0.223858 0.223858 0 0.5 0C0.776142 0 1 0.223858 1 0.5L1 6.5C1 6.77614 1.22386 7 1.5 7H11.5C11.7761 7 12 7.22386 12 7.5C12 7.77614 11.7761 8 11.5 8H1C0.447715 8 0 7.55228 0 7V0.5Z"
+                          fill="#FFC600"
+                        />
+                        <path
+                          d="M11 1.70714C11.1953 1.51188 11.1953 1.1953 11 1.00004C10.8048 0.804776 10.4882 0.804776 10.2929 1.00004L7.85359 3.43938C7.65833 3.63464 7.34175 3.63464 7.14648 3.43938L5.70714 2.00004C5.31662 1.60951 4.68345 1.60951 4.29293 2.00004L2.00004 4.29293C1.80478 4.48819 1.80478 4.80478 2.00004 5.00004C2.1953 5.1953 2.51188 5.1953 2.70714 5.00004L4.64648 3.0607C4.84175 2.86544 5.15833 2.86544 5.35359 3.0607L6.79293 4.50004C7.18346 4.89056 7.81662 4.89056 8.20714 4.50004L11 1.70714Z"
+                          fill="#FFC600"
+                        />
+                      </svg>
+                      Match Tracker
+                    </div>
+                  </td>
+
+                  <td
+                    class="text-white text-xs px-3 py-3 border-b border-[#4D585D] lineAdd"
+                  >
+                    RAKOW II CZESTOCHOWA
+                    <span class="text-[#FFC600]"> VS </span> MKP CARINA GUBIN
+                  </td>
+                  <td
+                    class="text-[#A3A7AA] text-xs px-3 py-3 border-b border-[#4D585D] lineAdd"
+                  >
+                    1X2
+                  </td>
+                  <td
+                    class="text-white text-xs px-3 py-3 border-b border-[#4D585D] lineAdd"
+                  >
+                    Home @3.34
+                  </td>
+                  <td
+                    class="text-[#A3A7AA] custom-draw hidden lg:flex text-xs px-3 py-3 border-b border-[#4D585D] lineAdd"
+                  >
+                    Draw
+                  </td>
+                  <td
+                    class="text-[#A3A7AA] text-xs px-3 py-3 text-right border-b border-[#4D585D]"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                    >
+                      <path
+                        d="M8 0C6.41775 0 4.87103 0.469192 3.55544 1.34824C2.23985 2.22729 1.21447 3.47672 0.608967 4.93853C0.00346627 6.40034 -0.15496 8.00887 0.153721 9.56072C0.462403 11.1126 1.22433 12.538 2.34315 13.6569C3.46197 14.7757 4.88743 15.5376 6.43928 15.8463C7.99113 16.155 9.59966 15.9965 11.0615 15.391C12.5233 14.7855 13.7727 13.7602 14.6518 12.4446C15.5308 11.129 16 9.58225 16 8C16 6.94942 15.7931 5.90914 15.391 4.93853C14.989 3.96793 14.3997 3.08601 13.6569 2.34315C12.914 1.60028 12.0321 1.011 11.0615 0.608964C10.0909 0.206926 9.05058 0 8 0ZM12.5408 6.5896L7.7408 10.9896C7.58883 11.1289 7.38892 11.2042 7.18278 11.1998C6.97664 11.1953 6.78019 11.1114 6.6344 10.9656L4.2344 8.5656C4.15799 8.4918 4.09705 8.40352 4.05512 8.30592C4.01319 8.20832 3.99113 8.10334 3.9902 7.99712C3.98928 7.89089 4.00952 7.78555 4.04975 7.68723C4.08997 7.58892 4.14937 7.4996 4.22449 7.42448C4.2996 7.34937 4.38892 7.28997 4.48724 7.24974C4.58556 7.20952 4.6909 7.18927 4.79712 7.1902C4.90335 7.19112 5.00832 7.21319 5.10593 7.25512C5.20353 7.29704 5.2918 7.35799 5.3656 7.4344L7.224 9.2928L11.4592 5.4104C11.6156 5.26697 11.8225 5.19153 12.0345 5.20069C12.2465 5.20984 12.4462 5.30283 12.5896 5.4592C12.733 5.61557 12.8085 5.82251 12.7993 6.03451C12.7902 6.2465 12.6972 6.44617 12.5408 6.5896Z"
+                        fill="#4CAF50"
+                      />
+                    </svg>
+                  </td>
+                </tr>
+              </table>
+              <div class="flex items-center justify-between pt-6 pb-3">
+                <div class="text-xs text-[#A3A7AA]">
+                  Number of Bets: <span class="text-white">1</span>
+                </div>
+                <div class="text-xs text-[#FFC600]">Bet Details</div>
+                <div class="flex items-center gap-2">
+                  <button
+                    class="bg-[#4D585D] rounded-lg text-xs text-[#FFC600] px-3 py-1"
+                  >
+                    Check Transaction History
+                  </button>
+                  <button
+                    (click)="isOpen = false"
+                    class="bg-[#FFC600] rounded-lg px-3 py-1 text-xs text-[#18242A]"
+                  >
+                    Hide Ticket
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-2 mb-2 mt-3">
+          <div
+            class="bg-[#18242A] rounded-lg px-2 lg:px-3 py-3 flex flex-col md:flex-row gap-3"
+          >
+            <div class="flex flex-col flex-1">
+              <div
+                class="flex justify-between items-start pb-3 mb-3 border-b border-[#4D585D]"
+              >
+                <div class="flex flex-col">
+                  <div class="flex items-center justify-between">
+                    <h3 class="text-sm text-white font-bold">Multiple(3)</h3>
+                    <span class="border-l border-white pl-2 text-[#4CAF50]"
+                      >Won</span
+                    >
+                  </div>
+                  <p class="text-xs text-[#868686] lg:flex hidden">
+                    Game ID: 25648 | 09/08 00:30
+                  </p>
+                </div>
+                <div class="flex gap-3 items-center">
+                  <h5 class="text-xs text-white hidden lg:flex">
+                    <span class="text-[#A3A7AA]">Booking Code:</span>35896549
+                  </h5>
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M10.8777 6.11781C11.3315 6.11869 11.7734 5.97611 12.1376 5.71131C12.5018 5.44652 12.7688 5.0737 12.8987 4.64842C13.0286 4.22314 13.0146 3.76818 12.8586 3.35135C12.7027 2.93452 12.4132 2.57814 12.0333 2.33534C11.6535 2.09255 11.2035 1.97633 10.7506 2.00401C10.2977 2.03169 9.86611 2.2018 9.5201 2.48896C9.17408 2.77613 8.93221 3.16499 8.83053 3.59756C8.72885 4.03014 8.77281 4.48328 8.95585 4.88942L6.41369 6.49411C6.10497 6.25189 5.73254 6.09994 5.33936 6.05579C4.94618 6.01163 4.54824 6.07705 4.19142 6.24452C3.83461 6.41199 3.53344 6.67469 3.32264 7.00232C3.11185 7.32996 3 7.70919 3 8.09631C3 8.48342 3.11185 8.86266 3.32264 9.19029C3.53344 9.51793 3.83461 9.78062 4.19142 9.94809C4.54824 10.1156 4.94618 10.181 5.33936 10.1368C5.73254 10.0927 6.10497 9.94072 6.41369 9.69851L8.90162 11.2684C8.73654 11.7372 8.74981 12.2485 8.93899 12.7085C9.12816 13.1684 9.48057 13.5463 9.93154 13.7727C10.3825 13.9991 10.9018 14.0588 11.3942 13.9409C11.8866 13.8231 12.319 13.5355 12.6121 13.131C12.9052 12.7265 13.0394 12.2321 12.99 11.7387C12.9406 11.2452 12.7109 10.7857 12.3432 10.4445C11.9754 10.1033 11.4942 9.90317 10.9878 9.88095C10.4814 9.85872 9.98384 10.0158 9.58631 10.3235L7.08652 8.74697C7.23245 8.32551 7.23245 7.86877 7.08652 7.44731L9.73037 5.78957C10.0719 6.00611 10.4707 6.12021 10.8777 6.11781Z"
+                      fill="#FFC600"
+                    />
+                  </svg>
+                  <div class="flex relative gap-3 pr-3">
+                    <div
+                      class="absolute -bottom-1 right-0 flex items-center justify-center"
+                    >
+                      <svg
+                        width="12"
+                        height="7"
+                        viewBox="0 0 12 7"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M6.5625 4.79558L6 5.45364L5.4375 4.79558L0.7875 -4.09865e-08L2.98152e-08 0.812154L6 7L12 0.812153L11.2125 -5.8357e-07L6.5625 4.79558Z"
+                          fill="#FFC600"
+                        />
+                        <path
+                          d="M6.5625 4.79558L6 5.45364L5.4375 4.79558L0.7875 -4.09865e-08L2.98152e-08 0.812154L6 7L12 0.812153L11.2125 -5.8357e-07L6.5625 4.79558Z"
+                          stroke="white"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex flex-row flex-1">
+                <div class="flex flex-col flex-[0.2]">
+                  <p class="text-xs text-white">Total Stake (NGN)</p>
+                  <h3 class="text-xs text-white font-bold">736.00 NGN</h3>
+                </div>
+                <div class="flex flex-col flex-1">
+                  <p class="text-xs text-white">Total Return</p>
+                  <h3 class="text-xs text-white font-bold">1200.00 NGN</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-2 mb-2 mt-3">
+          <div
+            class="bg-[#18242A] rounded-lg px-2 lg:px-3 py-3 flex flex-col md:flex-row gap-3"
+          >
+            <div class="flex flex-col flex-1">
+              <div
+                class="flex justify-between items-start pb-3 mb-3 border-b border-[#4D585D]"
+              >
+                <div class="flex flex-col">
+                  <div class="flex items-center justify-between">
+                    <h3 class="text-sm text-white font-bold">Multiple(3)</h3>
+                    <span class="border-l border-white pl-2 text-[#3498E2]"
+                      >Running</span
+                    >
+                  </div>
+                  <p class="text-xs text-[#868686] lg:flex hidden">
+                    Game ID: 25648 | 09/08 00:30
+                  </p>
+                </div>
+                <div class="flex gap-3 items-center">
+                  <h5 class="text-xs text-white">
+                    <span class="text-[#A3A7AA]">Booking Code:</span>35896549
+                  </h5>
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M10.8777 6.11781C11.3315 6.11869 11.7734 5.97611 12.1376 5.71131C12.5018 5.44652 12.7688 5.0737 12.8987 4.64842C13.0286 4.22314 13.0146 3.76818 12.8586 3.35135C12.7027 2.93452 12.4132 2.57814 12.0333 2.33534C11.6535 2.09255 11.2035 1.97633 10.7506 2.00401C10.2977 2.03169 9.86611 2.2018 9.5201 2.48896C9.17408 2.77613 8.93221 3.16499 8.83053 3.59756C8.72885 4.03014 8.77281 4.48328 8.95585 4.88942L6.41369 6.49411C6.10497 6.25189 5.73254 6.09994 5.33936 6.05579C4.94618 6.01163 4.54824 6.07705 4.19142 6.24452C3.83461 6.41199 3.53344 6.67469 3.32264 7.00232C3.11185 7.32996 3 7.70919 3 8.09631C3 8.48342 3.11185 8.86266 3.32264 9.19029C3.53344 9.51793 3.83461 9.78062 4.19142 9.94809C4.54824 10.1156 4.94618 10.181 5.33936 10.1368C5.73254 10.0927 6.10497 9.94072 6.41369 9.69851L8.90162 11.2684C8.73654 11.7372 8.74981 12.2485 8.93899 12.7085C9.12816 13.1684 9.48057 13.5463 9.93154 13.7727C10.3825 13.9991 10.9018 14.0588 11.3942 13.9409C11.8866 13.8231 12.319 13.5355 12.6121 13.131C12.9052 12.7265 13.0394 12.2321 12.99 11.7387C12.9406 11.2452 12.7109 10.7857 12.3432 10.4445C11.9754 10.1033 11.4942 9.90317 10.9878 9.88095C10.4814 9.85872 9.98384 10.0158 9.58631 10.3235L7.08652 8.74697C7.23245 8.32551 7.23245 7.86877 7.08652 7.44731L9.73037 5.78957C10.0719 6.00611 10.4707 6.12021 10.8777 6.11781Z"
+                      fill="#FFC600"
+                    />
+                  </svg>
+                  <div class="flex relative gap-3 pr-3">
+                    <div
+                      class="absolute -bottom-1 right-0 flex items-center justify-center"
+                    >
+                      <svg
+                        width="12"
+                        height="7"
+                        viewBox="0 0 12 7"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M6.5625 4.79558L6 5.45364L5.4375 4.79558L0.7875 -4.09865e-08L2.98152e-08 0.812154L6 7L12 0.812153L11.2125 -5.8357e-07L6.5625 4.79558Z"
+                          fill="#FFC600"
+                        />
+                        <path
+                          d="M6.5625 4.79558L6 5.45364L5.4375 4.79558L0.7875 -4.09865e-08L2.98152e-08 0.812154L6 7L12 0.812153L11.2125 -5.8357e-07L6.5625 4.79558Z"
+                          stroke="white"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex flex-row flex-1">
+                <div class="flex flex-col flex-[0.2]">
+                  <p class="text-xs text-white">Total Stake (NGN)</p>
+                  <h3 class="text-xs text-white font-bold">736.00 NGN</h3>
+                </div>
+                <div class="flex flex-col flex-1">
+                  <p class="text-xs text-white">Total Return</p>
+                  <h3 class="text-xs text-white font-bold">0.00 NGN</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-2 mb-2 mt-3">
+          <div
+            class="bg-[#18242A] rounded-lg px-2 lg:px-3 py-3 flex flex-col md:flex-row gap-3"
+          >
+            <div class="flex flex-col flex-1">
+              <div
+                class="flex justify-between items-start pb-3 mb-3 border-b border-[#4D585D]"
+              >
+                <div class="flex flex-col">
+                  <div class="flex items-center justify-between">
+                    <h3 class="text-sm text-white font-bold">Multiple(3)</h3>
+                    <span class="border-l border-white pl-2 text-[#4CAF50]"
+                      >Won</span
+                    >
+                  </div>
+                  <p class="text-xs text-[#868686] lg:flex hidden">
+                    Game ID: 25648 | 09/08 00:30
+                  </p>
+                </div>
+                <div class="flex gap-3 items-center">
+                  <h5 class="text-xs text-white">
+                    <span class="text-[#A3A7AA]">Booking Code:</span>35896549
+                  </h5>
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M10.8777 6.11781C11.3315 6.11869 11.7734 5.97611 12.1376 5.71131C12.5018 5.44652 12.7688 5.0737 12.8987 4.64842C13.0286 4.22314 13.0146 3.76818 12.8586 3.35135C12.7027 2.93452 12.4132 2.57814 12.0333 2.33534C11.6535 2.09255 11.2035 1.97633 10.7506 2.00401C10.2977 2.03169 9.86611 2.2018 9.5201 2.48896C9.17408 2.77613 8.93221 3.16499 8.83053 3.59756C8.72885 4.03014 8.77281 4.48328 8.95585 4.88942L6.41369 6.49411C6.10497 6.25189 5.73254 6.09994 5.33936 6.05579C4.94618 6.01163 4.54824 6.07705 4.19142 6.24452C3.83461 6.41199 3.53344 6.67469 3.32264 7.00232C3.11185 7.32996 3 7.70919 3 8.09631C3 8.48342 3.11185 8.86266 3.32264 9.19029C3.53344 9.51793 3.83461 9.78062 4.19142 9.94809C4.54824 10.1156 4.94618 10.181 5.33936 10.1368C5.73254 10.0927 6.10497 9.94072 6.41369 9.69851L8.90162 11.2684C8.73654 11.7372 8.74981 12.2485 8.93899 12.7085C9.12816 13.1684 9.48057 13.5463 9.93154 13.7727C10.3825 13.9991 10.9018 14.0588 11.3942 13.9409C11.8866 13.8231 12.319 13.5355 12.6121 13.131C12.9052 12.7265 13.0394 12.2321 12.99 11.7387C12.9406 11.2452 12.7109 10.7857 12.3432 10.4445C11.9754 10.1033 11.4942 9.90317 10.9878 9.88095C10.4814 9.85872 9.98384 10.0158 9.58631 10.3235L7.08652 8.74697C7.23245 8.32551 7.23245 7.86877 7.08652 7.44731L9.73037 5.78957C10.0719 6.00611 10.4707 6.12021 10.8777 6.11781Z"
+                      fill="#FFC600"
+                    />
+                  </svg>
+                  <div class="flex relative gap-3 pr-3">
+                    <div
+                      class="absolute -bottom-1 right-0 flex items-center justify-center"
+                    >
+                      <svg
+                        width="12"
+                        height="7"
+                        viewBox="0 0 12 7"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M6.5625 4.79558L6 5.45364L5.4375 4.79558L0.7875 -4.09865e-08L2.98152e-08 0.812154L6 7L12 0.812153L11.2125 -5.8357e-07L6.5625 4.79558Z"
+                          fill="#FFC600"
+                        />
+                        <path
+                          d="M6.5625 4.79558L6 5.45364L5.4375 4.79558L0.7875 -4.09865e-08L2.98152e-08 0.812154L6 7L12 0.812153L11.2125 -5.8357e-07L6.5625 4.79558Z"
+                          stroke="white"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex flex-row flex-1">
+                <div class="flex flex-col flex-[0.2]">
+                  <p class="text-xs text-white">Total Stake (NGN)</p>
+                  <h3 class="text-xs text-white font-bold">736.00 NGN</h3>
+                </div>
+                <div class="flex flex-col flex-1">
+                  <p class="text-xs text-white">Total Return</p>
+                  <h3 class="text-xs text-white font-bold">1200.00 NGN</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+      </div>
+      <div *ngIf="isCashout" class="flex flex-col gap-2 mb-2 mt-3">
+          <app-live-game
+          [isLiveGame]="isLiveGame"
+          [startDateQuery]="startDate"
+          [endDateQuery]="endDate"
+          [canSearch]="canSearch"
+          [currentTab]="currentTab"
+          >
+        </app-live-game>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="lg:hidden md:hidden flex-col">
+  <div class="flex justify-between px-2 py-5"
+  [class.py-5]="MODE == 'FULL'">
+    <div class="flex items-center gap-2" *ngIf="MODE == 'FULL'">
+      <a (click)="goHome()">
+        <svg
+          width="19"
+          height="19"
+          viewBox="0 0 19 19"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M5.73711 10.1641H15.5996V9.03906H5.73711L10.3871 4.38906L9.59961 3.60156L3.59961 9.60156L9.59961 15.6016L10.3871 14.8141L5.73711 10.1641Z"
+            fill="white"
+          />
+          <path
+            d="M5.73711 10.1641H15.5996V9.03906H5.73711L10.3871 4.38906L9.59961 3.60156L3.59961 9.60156L9.59961 15.6016L10.3871 14.8141L5.73711 10.1641Z"
+            stroke="white"
+          />
+        </svg>
+      </a>
+
+      <h3 class="mb-0">Bet History</h3>
+    </div>
+    <div class="flex gap-2 items-end justify-end">
+      <!-- <div class="relative">
+        <button
+          (click)="showOptions = !showOptions"
+          class="flex gap-1 md:gap-3 items-center text-xs lg:text-sm text-code text-white bg-secondary border border-[#4D585D] rounded-lg py-1 px-2"
+        >
+          Show Only
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="8"
+            height="5"
+            viewBox="0 0 8 5"
+            fill="none"
+          >
+            <path
+              d="M4.375 3.42541L4 3.89546L3.625 3.42541L0.525 -3.62344e-08L1.60597e-08 0.58011L4 5L8 0.58011L7.475 -5.15909e-07L4.375 3.42541Z"
+              fill="white"
+            />
+            <path
+              d="M4.375 3.42541L4 3.89546L3.625 3.42541L0.525 -3.62344e-08L1.60597e-08 0.58011L4 5L8 0.58011L7.475 -5.15909e-07L4.375 3.42541Z"
+              stroke="white"
+            />
+          </svg>
+        </button>
+        <ul
+          *ngIf="showOptions"
+          class="w-full m-0 pl-0 flex-col bg-text_secondary border border-secondary absolute top-9 z-50"
+        >
+          <li class="px-4 py-2 text-xs text-white hover:bg-slate-600">
+            <a>Test 1</a>
+          </li>
+          <li class="px-4 py-2 text-xs text-white hover:bg-slate-600">
+            <a>Test 2</a>
+          </li>
+          <li class="px-4 py-2 text-xs text-white hover:bg-slate-600">
+            <a>Test 3</a>
+          </li>
+        </ul>
+      </div> -->
+      <!-- <div class="relative">
+        <button
+          (click)="showNumberOptions2 = !showNumberOptions2"
+          class="flex gap-1 md:gap-3 items-center text-xs lg:text-sm text-code text-white bg-secondary border border-[#4D585D] rounded-lg py-1 px-2"
+        >
+          100
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="8"
+            height="5"
+            viewBox="0 0 8 5"
+            fill="none"
+          >
+            <path
+              d="M4.375 3.42541L4 3.89546L3.625 3.42541L0.525 -3.62344e-08L1.60597e-08 0.58011L4 5L8 0.58011L7.475 -5.15909e-07L4.375 3.42541Z"
+              fill="white"
+            />
+            <path
+              d="M4.375 3.42541L4 3.89546L3.625 3.42541L0.525 -3.62344e-08L1.60597e-08 0.58011L4 5L8 0.58011L7.475 -5.15909e-07L4.375 3.42541Z"
+              stroke="white"
+            />
+          </svg>
+        </button>
+        <ul
+          *ngIf="showNumberOptions2"
+          class="w-full m-0 pl-0 flex-col bg-text_secondary border border-secondary absolute top-9 z-50"
+        >
+          <li class="px-4 py-2 text-xs text-white hover:bg-slate-600">
+            <a> 100</a>
+          </li>
+          <li class="px-4 py-2 text-xs text-white hover:bg-slate-600">
+            <a> 200</a>
+          </li>
+        </ul>
+      </div> -->
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="19"
+        height="19"
+        viewBox="0 0 19 19"
+        fill="none"
+        (click)="showModalFilter(true)"
+        *ngIf="MODE == 'FULL'"
+      >
+        <circle
+          cx="9.47368"
+          cy="9.47368"
+          r="9.47368"
+          transform="matrix(-4.37114e-08 1 1 4.37114e-08 0 0)"
+          fill="#2C3538"
+        />
+        <path
+          d="M6.5 8.5H7.5V9.5H6.5V8.5ZM13.5 6V13C13.5 13.55 13.05 14 12.5 14H5.5C4.945 14 4.5 13.55 4.5 13L4.505 6C4.505 5.45 4.945 5 5.5 5H6V4H7V5H11V4H12V5H12.5C13.05 5 13.5 5.45 13.5 6ZM5.5 7H12.5V6H5.5V7ZM12.5 13V8H5.5V13H12.5ZM10.5 9.5H11.5V8.5H10.5V9.5ZM8.5 9.5H9.5V8.5H8.5V9.5Z"
+          fill="white"
+        />
+      </svg>
+    </div>
+  </div>
+  <div [class.custom-main-wrapper]="MODE === 'FULL'">
+    <div
+      class="navbar flex justify-between items-center p-2 border-b border-text_secondary my-2 md:mb-3"
+    >
+      <div class="custom-mob-dev flex justify-between w-full px-1" *ngIf="MODE === 'FULL'">
+        <a
+          class="text-[#A3A7AA] px-2 py-1 text-sm text-[8px]"
+          [class.active]="currentTab === 'ALL'"
+          (click)="swapTab('ALL')"
+        >
+          All
+        </a>
+        <a
+          class="text-[#A3A7AA] px-1 py-1 text-sm text-[8px]"
+          [class.active]="currentTab === 'SETTLED'"
+          (click)="swapTab('SETTLED')"
+        >
+          Settled
+        </a>
+        <a
+          class="text-[#A3A7AA] px-1 py-1 text-sm text-[8px]"
+          [class.active]="currentTab === 'UNSETTLED'"
+          (click)="swapTab('UNSETTLED')"
+        >
+          Unsettled
+        </a>
+        <a
+          class="text-[#A3A7AA] px-1 py-1 text-sm text-[8px]"
+          [class.active]="currentTab === 'IN-PLAY'"
+          (click)="swapTab('IN-PLAY')"
+        >
+          In-Play
+        </a>
+        <a
+          class="text-[#A3A7AA] pl-1 pr-2 py-1 text-sm text-[8px]"
+          [class.active]="currentTab === 'CASHOUT'"
+          (click)="swapTab('CASHOUT')"
+        >
+          Cashout
+        </a>
+      </div>
+
+      <div class="flex w-full" *ngIf="MODE !== 'FULL'">
+        <div class="custom-mob-dev flex justify-between w-full px-1">
+          <a
+            class="text-[#A3A7AA] px-2 py-1 text-sm text-[8px]"
+            [class.active]="currentTab === 'ALL'"
+            (click)="swapTab('ALL')"
+          >
+            All
+          </a>
+          <a
+            class="text-[#A3A7AA] px-1 py-1 text-sm text-[8px]"
+            [class.active]="currentTab === 'SETTLED'"
+            (click)="swapTab('SETTLED')"
+          >
+            Settled
+          </a>
+          <a
+            class="text-[#A3A7AA] px-1 py-1 text-sm text-[8px]"
+            [class.active]="currentTab === 'UNSETTLED'"
+            (click)="swapTab('UNSETTLED')"
+          >
+            Unsettled
+          </a>
+  
+        </div>
+        <div class="flex custom-mob-date py-1 px-2 ml-2" style="width: 40%;" (click)="showModalFilter(true)">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="19"
+            height="19"
+            viewBox="0 0 19 19"
+            fill="none"
+          >
+            <circle
+              cx="9.47368"
+              cy="9.47368"
+              r="9.47368"
+              transform="matrix(-4.37114e-08 1 1 4.37114e-08 0 0)"
+              fill="#2C3538"
+            />
+            <path
+              d="M6.5 8.5H7.5V9.5H6.5V8.5ZM13.5 6V13C13.5 13.55 13.05 14 12.5 14H5.5C4.945 14 4.5 13.55 4.5 13L4.505 6C4.505 5.45 4.945 5 5.5 5H6V4H7V5H11V4H12V5H12.5C13.05 5 13.5 5.45 13.5 6ZM5.5 7H12.5V6H5.5V7ZM12.5 13V8H5.5V13H12.5ZM10.5 9.5H11.5V8.5H10.5V9.5ZM8.5 9.5H9.5V8.5H8.5V9.5Z"
+              fill="white"
+            />
+          </svg>
+          <span class="text-[12px]"> All Dates</span>
+
+          <span class="ml-1" style="margin-top: 1px;">
+            <svg width="12" height="14" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4.375 3.42541L4 3.89546L3.625 3.42541L0.525 -3.62344e-08L1.60597e-08 0.58011L4 5L8 0.58011L7.475 -5.15909e-07L4.375 3.42541Z" fill="white"/>
+              <path d="M4.375 3.42541L4 3.89546L3.625 3.42541L0.525 -3.62344e-08L1.60597e-08 0.58011L4 5L8 0.58011L7.475 -5.15909e-07L4.375 3.42541Z" stroke="white"/>
+            </svg>
+          </span>
+          
+
+        </div>
+      </div>
+      
+      
+    </div>
+
+    <div
+      class="flex gap-5 items-center px-4 py-2 border-b border-[#4D585D] mb-1"
+    >
+      <div class="flex items-center gap-2">
+        <span class="text-white text-sm">Win Only</span>
+        <label
+          for="foobar3"
+          class="flex flex-col flex-wrap items-center cursor-pointer mb-0"
+        >
+          <div class="relative">
+            <input
+              id="foobar3"
+              type="checkbox"
+              class="hidden"
+              (change)="filterBySettledState('WIN')"
+            />
+            <div
+              class="toggle__line w-12 h-6 bg-[#4D585D] rounded-full shadow-inner"
+            ></div>
+            <div
+              class="toggle__dot absolute w-5 h-5 bg-white rounded-full shadow inset-y-0 left-0"
+            ></div>
+          </div>
+        </label>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="text-white text-sm">Lost Only</span>
+        <label
+          for="foobar4"
+          class="flex flex-col flex-wrap items-center cursor-pointer mb-0"
+        >
+          <div class="relative">
+            <input
+              id="foobar4"
+              type="checkbox"
+              class="hidden"
+              (change)="filterBySettledState('LOST')"
+            />
+            <div
+              class="toggle__line w-12 h-6 bg-[#4D585D] rounded-full shadow-inner"
+            ></div>
+            <div
+              class="toggle__dot absolute w-5 h-5 bg-white rounded-full shadow inset-y-0 left-0"
+            ></div>
+          </div>
+        </label>
+      </div>
+    </div>
+    <!-- <div class="p-[6px]">
+      <div class="bg-[#18242A] rounded-xl">
+        <div class="flex justify-between items-center gap-2 px-3 pt-3 pb-0">
+          <div class="flex gap-1">
+            <h3 class="text-base">Multiple (2)</h3>
+            <span class="text-[#A3A7AA]">|</span>
+            <span class="text-[#4CAF50]">Won</span>
+          </div>
+          <div>
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M8.5625 9.79558L8 10.4536L7.4375 9.79558L2.7875 5L2 5.81215L8 12L14 5.81215L13.2125 5L8.5625 9.79558Z"
+                fill="#FFC600"
+              />
+              <path
+                d="M8.5625 9.79558L8 10.4536L7.4375 9.79558L2.7875 5L2 5.81215L8 12L14 5.81215L13.2125 5L8.5625 9.79558Z"
+                stroke="#FFC600"
+              />
+            </svg>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 items-center p-3">
+          <div class="flex flex-col border-r border-[#4D585D] mr-3">
+            <h5 class="text-xs text-[#D9D9D9]">Total Stake</h5>
+            <span class="text-sm text-white">1000.00 NGN</span>
+          </div>
+          <div class="flex flex-col">
+            <h5 class="text-xs text-[#D9D9D9]">Total Return</h5>
+            <span class="text-sm text-white">1250.00 NGN</span>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <div *ngIf="isDataLoaded">
+      <div *ngIf="betHistoryData.length > 0">
+        <div *ngFor="let item of visibleTransactions; index as i" class="p-[6px]">
+          <div class="flex flex-col bg-[#18242A] rounded-xl">
+            <div class="flex justify-between items-center gap-2 px-3 pt-3 pb-2">
+              <div class="flex">
+                <h3 class="text-base">
+                  {{ item.betType }} ({{ item.betLegs.length }})
+                </h3>
+                <span class="text-[#A3A7AA]">|</span>
+                <div class="flex" [ngSwitch]="item.betStatus">
+                  <span *ngSwitchCase="'L'" class="text-[#FF5353]">Lost</span>
+                  <span *ngSwitchCase="'W'" class="text-[#4CAF50]">WON</span>
+                  <span *ngSwitchCase="'O'">
+                    <span *ngIf="!item.isRunning" class="text-[#FFC600]">OPEN</span>
+                    <span *ngIf="item.isRunning" class="text-[#3498E2]">RUNNING</span>
+                  </span>
+                  
+                  <span *ngSwitchCase="'X'" class="text-[#A3A7AA]">VOID</span>
+                  
+                  
+                </div>
+                <div class="flex">
+                  <div *ngIf="item.cashoutLogs !== null" class="pl-2" style="padding-top: 5px;">
+                    <img
+                      src="../../../assets/svg/CO.svg"
+                      alt=""
+                    />
+                  </div>
+
+                  <div *ngIf="item.promoType === 'BONUS' && item.isOpen" class="pl-2" style="padding-top: 5px;">
+                    <img
+                      src="../../../assets/svg/bonus-big.svg"
+                      alt=""
+                    />
+                  </div>
+
+                  <div *ngIf="item.promoType === 'BONUS' && !item.isOpen" class="pl-2" style="padding-top: 5px;">
+                    <img
+                      src="../../../assets/svg/bonus-small.svg"
+                      alt=""
+                    />
+                  </div>
+
+                  <div *ngIf="item.promoType === 'FREE' && item.isOpen" class="pl-2" style="padding-top: 5px;">
+                    <img
+                      src="../../../assets/svg/freebet-big.svg"
+                      alt=""
+                    />
+                  </div>
+
+                  <div *ngIf="item.promoType === 'FREE' && !item.isOpen" class="pl-2" style="padding-top: 5px;">
+                    <img
+                      src="../../../assets/svg/freebet-small.svg"
+                      alt=""
+                    />
+                  </div>
+
+                </div>
+              </div>
+              <div class="md:hidden" *ngIf="!item.isOpen">
+                <a
+                (click)="swapOpen(item.index)">
+                  <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M8.5625 9.79558L8 10.4536L7.4375 9.79558L2.7875 5L2 5.81215L8 12L14 5.81215L13.2125 5L8.5625 9.79558Z"
+                    fill="#FFC600"
+                  />
+                  <path
+                    d="M8.5625 9.79558L8 10.4536L7.4375 9.79558L2.7875 5L2 5.81215L8 12L14 5.81215L13.2125 5L8.5625 9.79558Z"
+                    stroke="#FFC600"
+                  />
+                </svg>
+                </a>
+                
+              </div>
+              <div class="md:hidden" *ngIf="item.isOpen">
+                <a
+                (click)="swapOpen(item.index)">
+                <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.4375 6.20442L8 5.54636L8.5625 6.20442L13.2125 11L14 10.1878L8 4L2 10.1878L2.7875 11L7.4375 6.20442Z"
+                  fill="#FFC600"
+                />
+                <path
+                  d="M7.4375 6.20442L8 5.54636L8.5625 6.20442L13.2125 11L14 10.1878L8 4L2 10.1878L2.7875 11L7.4375 6.20442Z"
+                  stroke="#FFC600"
+                />
+              </svg>
+                </a>
+                
+              </div>
+              <div class="hidden md:flex">
+                <a
+                (click)="swapOpen(item.index)">
+                  <svg
+                  *ngIf="!item.isOpen"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M8.5625 9.79558L8 10.4536L7.4375 9.79558L2.7875 5L2 5.81215L8 12L14 5.81215L13.2125 5L8.5625 9.79558Z"
+                    fill="#FFC600"
+                  />
+                  <path
+                    d="M8.5625 9.79558L8 10.4536L7.4375 9.79558L2.7875 5L2 5.81215L8 12L14 5.81215L13.2125 5L8.5625 9.79558Z"
+                    stroke="#FFC600"
+                  />
+                </svg>
+                </a>
+                
+                <a>
+                  <svg
+                  *ngIf="tabOpen"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  (click)="tabOpen = false"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M7.4375 6.20442L8 5.54636L8.5625 6.20442L13.2125 11L14 10.1878L8 4L2 10.1878L2.7875 11L7.4375 6.20442Z"
+                    fill="#FFC600"
+                  />
+                  <path
+                    d="M7.4375 6.20442L8 5.54636L8.5625 6.20442L13.2125 11L14 10.1878L8 4L2 10.1878L2.7875 11L7.4375 6.20442Z"
+                    stroke="#FFC600"
+                  />
+                </svg>
+                </a>
+                
+              </div>
+            </div>
+            <div class="grid grid-cols-2 items-center p-3">
+              <div class="flex flex-col border-r border-[#4D585D] mr-3">
+                <h5 class="text-xs text-[#D9D9D9]">Total Stake</h5>
+                <span class="text-sm text-white"
+                  >&#8358; {{ item.placeStake | number : "0.2-2" }}</span
+                >
+              </div>
+              <div class="flex flex-col">
+                <h5 class="text-xs text-[#D9D9D9]">Total Return</h5>
+                <!-- <div *ngIf="item.betStatus === 'O'">
+                  <span *ngIf="item.availableCashoutAmount === 0" class="text-sm text-white">&#8358; {{ item.potentialReturn | number : "0.2-2" }}</span>
+                  <span *ngIf="item.availableCashoutAmount > 0" class="text-sm text-white">&#8358; {{ item.availableCashoutAmount | number : "0.2-2" }}</span>
+                </div> -->
+
+                <div>
+                  <span class="text-sm text-white">&#8358; {{ item.potentialReturn | number : "0.2-2" }}</span>
+                </div>
+                
+              </div>
+            </div>
+            <div class="md:hidden" *ngIf="item.isOpen">
+              <div class="flex items-center pt-2 px-3 pb-4">
+                <h5 class="text-[#A3A7AA] text-xs">Total Odds:</h5>
+                <span class="text-white text-xs">{{ item.totalOdds | number : "0.2-2" }}</span>
+              </div>
+              <div
+                class="flex justify-between items-center px-3 mb-4 bg-darked"
+                [ngClass]="getClassOf(item)"
+              >
+                <h5 class="text-sm text-white m-0">Ticket Details</h5>
+                <p class="text-[#D9D9D9] text-xs m-0">
+                  Ticket ID : {{ item.betId }} | {{ item.formattedDate }}
+                  {{ item.formattedTime }}
+                </p>
+              </div>
+
+              <div class="px-3">
+                <div *ngFor="let bet of item.betLegs; index as j">
+                  <div class="flex justify-between items-center py-1">
+                    <div class="flex">
+                      <h5
+                        class="text-[#A3A7AA] text-xs pr-1 border-r border-[#2C3538]"
+                      >
+                        {{ bet.eventId }}
+                      </h5>
+                      <span class="text-[#A3A7AA] text-xs pl-1"
+                        >{{ bet.formattedDate }} {{ bet.formattedTime }}</span
+                      >
+                    </div>
+
+                    <img
+                      *ngIf="bet.result == 'W'"
+											src="../../../assets/svg/bet-won.svg"
+											alt=""
+										/>
+                    <img
+                      *ngIf="bet.result == 'L'"
+											src="../../../assets/svg/bet-lost.svg"
+											alt=""
+										/>
+                    <img
+                      *ngIf="bet.result == 'X'"
+											src="../../../assets/svg/bet-void.svg"
+											alt=""
+											width="16"
+											height="16"
+										/>
+                    <!-- <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                    >
+                      <path
+                        d="M8 0C6.41775 0 4.87103 0.469192 3.55544 1.34824C2.23985 2.22729 1.21447 3.47672 0.608967 4.93853C0.00346627 6.40034 -0.15496 8.00887 0.153721 9.56072C0.462403 11.1126 1.22433 12.538 2.34315 13.6569C3.46197 14.7757 4.88743 15.5376 6.43928 15.8463C7.99113 16.155 9.59966 15.9965 11.0615 15.391C12.5233 14.7855 13.7727 13.7602 14.6518 12.4446C15.5308 11.129 16 9.58225 16 8C16 6.94942 15.7931 5.90914 15.391 4.93853C14.989 3.96793 14.3997 3.08601 13.6569 2.34315C12.914 1.60028 12.0321 1.011 11.0615 0.608964C10.0909 0.206926 9.05058 0 8 0ZM12.5408 6.5896L7.7408 10.9896C7.58883 11.1289 7.38892 11.2042 7.18278 11.1998C6.97664 11.1953 6.78019 11.1114 6.6344 10.9656L4.2344 8.5656C4.15799 8.4918 4.09705 8.40352 4.05512 8.30592C4.01319 8.20832 3.99113 8.10334 3.9902 7.99712C3.98928 7.89089 4.00952 7.78555 4.04975 7.68723C4.08997 7.58892 4.14937 7.4996 4.22449 7.42448C4.2996 7.34937 4.38892 7.28997 4.48724 7.24974C4.58556 7.20952 4.6909 7.18927 4.79712 7.1902C4.90335 7.19112 5.00832 7.21319 5.10593 7.25512C5.20353 7.29704 5.2918 7.35799 5.3656 7.4344L7.224 9.2928L11.4592 5.4104C11.6156 5.26697 11.8225 5.19153 12.0345 5.20069C12.2465 5.20984 12.4462 5.30283 12.5896 5.4592C12.733 5.61557 12.8085 5.82251 12.7993 6.03451C12.7902 6.2465 12.6972 6.44617 12.5408 6.5896Z"
+                        fill="#4CAF50"
+                      />
+                    </svg> -->
+                  </div>
+                  <h6 class="text-xs text-white mb-1">
+                    {{ bet.events[0] }} <span class="text-[#FFC600]">VS</span>
+                    {{ bet.events[1] }}
+                  </h6>
+                  <div class="flex items-center pt-2 pb-4">
+                    <!-- <h5 class="text-[#A3A7AA] text-xs">FT Score :</h5>
+                    <span class="text-white text-xs">3:1</span> -->
+                    <div
+                      class="text-[#FFC600] text-xs flex items-center border-l border-[#4D585D]"
+                    >
+                    <a
+                      class="flex items-center"
+                        (click)="openModal(bet)"
+                    >
+                      <svg
+                        width="12"
+                        height="8"
+                        viewBox="0 0 12 8"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M0 0.5C0 0.223858 0.223858 0 0.5 0C0.776142 0 1 0.223858 1 0.5L1 6.5C1 6.77614 1.22386 7 1.5 7H11.5C11.7761 7 12 7.22386 12 7.5C12 7.77614 11.7761 8 11.5 8H1C0.447715 8 0 7.55228 0 7V0.5Z"
+                          fill="#FFC600"
+                        />
+                        <path
+                          d="M11 1.70714C11.1953 1.51188 11.1953 1.1953 11 1.00004C10.8048 0.804776 10.4882 0.804776 10.2929 1.00004L7.85359 3.43938C7.65833 3.63464 7.34175 3.63464 7.14648 3.43938L5.70714 2.00004C5.31662 1.60951 4.68345 1.60951 4.29293 2.00004L2.00004 4.29293C1.80478 4.48819 1.80478 4.80478 2.00004 5.00004C2.1953 5.1953 2.51188 5.1953 2.70714 5.00004L4.64648 3.0607C4.84175 2.86544 5.15833 2.86544 5.35359 3.0607L6.79293 4.50004C7.18346 4.89056 7.81662 4.89056 8.20714 4.50004L11 1.70714Z"
+                          fill="#FFC600"
+                        />
+                      </svg>
+                    
+                      
+                      Match Tracker
+                    </a>
+                    </div>
+                  </div>
+                  <div class="flex gap-2 pb-3 mb-2">
+                    <div class="flex flex-col pr-1">
+                      <h5 class="text-[#A3A7AA] text-xs">Pick</h5>
+                      <span class="text-xs text-white"
+                        >{{ bet.selections[0].name }} @{{
+                          bet.price.decimal | number : "0.2-2"
+                        }}</span
+                      >
+                    </div>
+                    <div class="flex flex-col px-1 border-x border-[#4D585D]">
+                      <h5 class="text-[#A3A7AA] text-xs">Market</h5>
+                      <span class="text-xs text-white">{{ bet.market }}</span>
+                    </div>
+                    <div class="flex flex-col px-1">
+                      <h5 class="text-[#A3A7AA] text-xs">Status</h5>
+                      <span class="text-xs text-white">{{
+                        bet.fullResult
+                      }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="flex flex-col px-3 py-2 border-t border-[#A3A7AA]">
+                <div class="flex justify-between mb-3">
+                  <div class="flex gap-1">
+                    <h6 class="text-xs text-[#A3A7AA]">Number of Bets:</h6>
+                    <span class="text-white text-xs">{{
+                      item.betLegs.length
+                    }}</span>
+                  </div>
+                  <!-- <button class="text-[#FFC600] text-xs">Bet Details</button> -->
+                </div>
+                <div class="flex-1 flex-col w-full flex items-center gap-2">
+                  <!-- <button
+                    class="bg-[#4D585D] rounded-lg text-sm w-full text-[#FFC600] px-3 py-2"
+                  >
+                    Check Transaction History
+                  </button> -->
+                  <button
+                    class="bg-[#FFC600] rounded-lg px-3 py-2 w-full text-sm text-[#18242A]"
+                    (click)="swapOpen(item.index)"
+                  >
+                    Hide Ticket
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="px-2 mb-2" *ngIf="item.betStatus == 'O' && item.isHistory === false"><app-cashout-offer [item]="item" [isMobileScreen]="isMobile" (removeItemEvent)="removeItem($event)"></app-cashout-offer></div>
+            
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col text-center" *ngIf="betHistoryData.length == 0">
+        <div class="pt-4 flex flex-col items-center justify-center">
+          <svg
+            width="202"
+            height="202"
+            viewBox="0 0 202 202"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect width="202" height="202" rx="100" fill="#2C3538" />
+            <rect
+              x="83.498"
+              y="95.708"
+              width="49.5833"
+              height="24.7917"
+              fill="#BE202F"
+            />
+            <path
+              d="M107.561 114.667C111.186 114.667 114.124 111.729 114.124 108.104C114.124 104.48 111.186 101.542 107.561 101.542C103.937 101.542 100.999 104.48 100.999 108.104C100.999 111.729 103.937 114.667 107.561 114.667Z"
+              fill="#FFC600"
+            />
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M135.999 95.3157V120.893C135.999 121.481 135.521 121.958 134.933 121.958H81.6477C81.0595 121.958 80.582 121.481 80.582 120.893V95.3157C80.582 94.7267 81.0595 94.25 81.6477 94.25H134.933C135.521 94.25 135.999 94.7267 135.999 95.3157ZM131.736 113.433C129.381 113.433 127.473 115.341 127.473 117.696H89.1077C89.1077 115.341 87.1994 113.433 84.8449 113.433V102.776C87.1994 102.776 89.1077 100.867 89.1077 98.5128H127.473C127.473 100.867 129.381 102.776 131.736 102.776V113.433Z"
+              fill="#FFC600"
+            />
+            <g filter="url(#filter0_f_9664_17691)">
+              <rect
+                x="82.041"
+                y="94.25"
+                width="48.125"
+                height="21.875"
+                rx="1"
+                fill="#BE202F"
+              />
+            </g>
+            <rect
+              x="76.209"
+              y="88.417"
+              width="49.5833"
+              height="24.7917"
+              fill="#BE202F"
+            />
+            <path
+              d="M100.272 107.376C103.897 107.376 106.835 104.438 106.835 100.813C106.835 97.1888 103.897 94.2507 100.272 94.2507C96.6478 94.2507 93.7096 97.1888 93.7096 100.813C93.7096 104.438 96.6478 107.376 100.272 107.376Z"
+              fill="#FFC600"
+            />
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M128.71 88.0247V113.602C128.71 114.19 128.232 114.667 127.644 114.667H74.3587C73.7704 114.667 73.293 114.19 73.293 113.602V88.0247C73.293 87.4357 73.7704 86.959 74.3587 86.959H127.644C128.232 86.959 128.71 87.4357 128.71 88.0247ZM124.447 106.142C122.092 106.142 120.184 108.05 120.184 110.404H81.8186C81.8186 108.05 79.9103 106.142 77.5558 106.142V95.4846C79.9103 95.4846 81.8186 93.5763 81.8186 91.2218H120.184C120.184 93.5763 122.092 95.4846 124.447 95.4846V106.142Z"
+              fill="#FFC600"
+            />
+            <g filter="url(#filter1_f_9664_17691)">
+              <rect
+                x="74.75"
+                y="86.958"
+                width="48.125"
+                height="21.875"
+                rx="1"
+                fill="#BE202F"
+              />
+            </g>
+            <rect
+              x="68.916"
+              y="81.124"
+              width="49.5833"
+              height="24.7917"
+              fill="#BE202F"
+            />
+            <path
+              d="M92.9792 100.083C96.6035 100.083 99.5417 97.1446 99.5417 93.5202C99.5417 89.8958 96.6035 86.9577 92.9792 86.9577C89.3548 86.9577 86.4167 89.8958 86.4167 93.5202C86.4167 97.1446 89.3548 100.083 92.9792 100.083Z"
+              fill="#FFC600"
+            />
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M121.417 80.7317V106.309C121.417 106.897 120.939 107.374 120.351 107.374H67.0657C66.4774 107.374 66 106.897 66 106.309V80.7317C66 80.1427 66.4774 79.666 67.0657 79.666H120.351C120.939 79.666 121.417 80.1427 121.417 80.7317ZM117.154 98.8487C114.799 98.8487 112.891 100.757 112.891 103.112H74.5256C74.5256 100.757 72.6173 98.8487 70.2628 98.8487V88.1917C72.6173 88.1917 74.5256 86.2833 74.5256 83.9288H112.891C112.891 86.2833 114.799 88.1917 117.154 88.1917V98.8487Z"
+              fill="#FFC600"
+            />
+            <path
+              d="M115.584 68L105.584 62.2265V73.7735L115.584 68ZM84.959 69H106.584V67H84.959V69Z"
+              fill="#FFC600"
+            />
+            <path
+              d="M84.959 133.625L94.959 127.851V139.399L84.959 133.625ZM115.584 134.625H93.959V132.625H115.584V134.625Z"
+              fill="#FFC600"
+            />
+            <defs>
+              <filter
+                id="filter0_f_9664_17691"
+                x="78.041"
+                y="90.25"
+                width="56.125"
+                height="29.875"
+                filterUnits="userSpaceOnUse"
+                color-interpolation-filters="sRGB"
+              >
+                <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                <feBlend
+                  mode="normal"
+                  in="SourceGraphic"
+                  in2="BackgroundImageFix"
+                  result="shape"
+                />
+                <feGaussianBlur
+                  stdDeviation="2"
+                  result="effect1_foregroundBlur_9664_17691"
+                />
+              </filter>
+              <filter
+                id="filter1_f_9664_17691"
+                x="70.75"
+                y="82.958"
+                width="56.125"
+                height="29.875"
+                filterUnits="userSpaceOnUse"
+                color-interpolation-filters="sRGB"
+              >
+                <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                <feBlend
+                  mode="normal"
+                  in="SourceGraphic"
+                  in2="BackgroundImageFix"
+                  result="shape"
+                />
+                <feGaussianBlur
+                  stdDeviation="2"
+                  result="effect1_foregroundBlur_9664_17691"
+                />
+              </filter>
+            </defs>
+          </svg>
+  
+          <p class="pt-2 flex justify-center items-center">No bet history available</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div *ngIf="!isDataLoaded">
+      <div class="flex flex-col text-center">
+        <p>Loading Data</p>
+      </div>
+    </div> -->
+
+    <div class="flex justify-center spinner mx-auto" *ngIf="isLoading"></div>
+
+    <!-- <div class="p-[6px]">
+      <div class="bg-[#18242A] rounded-xl">
+        <div class="flex justify-between items-center gap-2 px-3 pt-3 pb-0">
+          <div class="flex gap-1">
+            <h3 class="text-base">Multiple (1)</h3>
+            <span class="text-[#A3A7AA]">|</span>
+            <span class="text-[#3498E2]">Running</span>
+          </div>
+          <div>
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M8.5625 9.79558L8 10.4536L7.4375 9.79558L2.7875 5L2 5.81215L8 12L14 5.81215L13.2125 5L8.5625 9.79558Z"
+                fill="#FFC600"
+              />
+              <path
+                d="M8.5625 9.79558L8 10.4536L7.4375 9.79558L2.7875 5L2 5.81215L8 12L14 5.81215L13.2125 5L8.5625 9.79558Z"
+                stroke="#FFC600"
+              />
+            </svg>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 items-center p-3">
+          <div class="flex flex-col border-r border-[#4D585D] mr-3">
+            <h5 class="text-xs text-[#D9D9D9]">Total Stake</h5>
+            <span class="text-sm text-white">1000.00 NGN</span>
+          </div>
+          <div class="flex flex-col">
+            <h5 class="text-xs text-[#D9D9D9]">Total Return</h5>
+            <span class="text-sm text-white">00.00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="p-[6px]">
+      <div class="bg-[#18242A] rounded-xl">
+        <div class="flex justify-between items-center gap-2 px-3 pt-3 pb-0">
+          <div class="flex gap-1">
+            <h3 class="text-base">Multiple (3)</h3>
+            <span class="text-[#A3A7AA]">|</span>
+            <span class="text-[#4CAF50]">Won</span>
+          </div>
+          <div>
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M8.5625 9.79558L8 10.4536L7.4375 9.79558L2.7875 5L2 5.81215L8 12L14 5.81215L13.2125 5L8.5625 9.79558Z"
+                fill="#FFC600"
+              />
+              <path
+                d="M8.5625 9.79558L8 10.4536L7.4375 9.79558L2.7875 5L2 5.81215L8 12L14 5.81215L13.2125 5L8.5625 9.79558Z"
+                stroke="#FFC600"
+              />
+            </svg>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 items-center p-3">
+          <div class="flex flex-col border-r border-[#4D585D] mr-3">
+            <h5 class="text-xs text-[#D9D9D9]">Total Stake</h5>
+            <span class="text-sm text-white">1000.00 NGN</span>
+          </div>
+          <div class="flex flex-col">
+            <h5 class="text-xs text-[#D9D9D9]">Total Return</h5>
+            <span class="text-sm text-white">1200.00 NGN</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="p-[6px]">
+      <div class="bg-[#18242A] rounded-xl">
+        <div class="flex justify-between items-center gap-2 px-3 pt-3 pb-0">
+          <div class="flex gap-1">
+            <h3 class="text-base">Multiple (3)</h3>
+            <span class="text-[#A3A7AA]">|</span>
+            <span class="text-[#3498E2]">Running</span>
+          </div>
+          <div>
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M8.5625 9.79558L8 10.4536L7.4375 9.79558L2.7875 5L2 5.81215L8 12L14 5.81215L13.2125 5L8.5625 9.79558Z"
+                fill="#FFC600"
+              />
+              <path
+                d="M8.5625 9.79558L8 10.4536L7.4375 9.79558L2.7875 5L2 5.81215L8 12L14 5.81215L13.2125 5L8.5625 9.79558Z"
+                stroke="#FFC600"
+              />
+            </svg>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 items-center p-3">
+          <div class="flex flex-col border-r border-[#4D585D] mr-3">
+            <h5 class="text-xs text-[#D9D9D9]">Total Stake</h5>
+            <span class="text-sm text-white">1000.00 NGN</span>
+          </div>
+          <div class="flex flex-col">
+            <h5 class="text-xs text-[#D9D9D9]">Total Return</h5>
+            <span class="text-sm text-white">1200.00</span>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  </div>
+</div>
+
+<div class="pagination flex items-center justify-center mt-4">
+  <button (click)="prevPage()" [disabled]="currentPage === 1" class="mr-2 px-3 py-1 bg-yellow-500 text-white rounded-md disabled:bg-gray-600">Previous</button>
+  <span class="text-yellow-500"> {{ currentPage }} </span>
+  <button (click)="nextPage()" [disabled]="currentPage === totalPages" class="ml-2 px-3 py-1 bg-yellow-500 text-white rounded-md disabled:bg-gray-600">Next</button>
+  <!-- <div>
+    <button *ngFor="let page of generatePageArray()"
+        (click)="setPage(page)"
+        class="px-3 py-1 mx-1 rounded-md"
+        [ngClass]="{'bg-yellow-500 text-white': page === currentPage, 'bg-gray-600': page !== currentPage}">
+      {{ page }}
+    </button>
+  </div> -->
+</div>
+
+<div class="modal md:invisible" *ngIf="showFilterModal">
+  <div class="modal-content">
+    <div class="modal-wrapper pb-12">
+      <div class="flex items-center gap-2 pb-5 mb-4 border-b border-secondary">
+        <svg
+          (click)="showFilterModal = false"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle cx="12" cy="12" r="12" fill="#2C3538" />
+          <path
+            d="M8.73711 13.1621H18.5996V12.0371H8.73711L13.3871 7.38711L12.5996 6.59961L6.59961 12.5996L12.5996 18.5996L13.3871 17.8121L8.73711 13.1621Z"
+            fill="white"
+          />
+          <path
+            d="M8.73711 13.1621H18.5996V12.0371H8.73711L13.3871 7.38711L12.5996 6.59961L6.59961 12.5996L12.5996 18.5996L13.3871 17.8121L8.73711 13.1621Z"
+            stroke="white"
+          />
+        </svg>
+
+        <h3 class="text-lg font-bold text-white">Filter</h3>
+      </div>
+      <div class="flex flex-col flex-1 overflow-auto">
+        <!-- <div class="flex pb-5 mb-4 border-b border-secondary">
+          <a
+            class="bg-primary rounded-lg px-3 py-1 w-11 text-[#2C3538] text-sm text-center flex"
+            >All</a
+          >
+        </div> -->
+        <div class="grid grid-cols-2 items-center gap-3">
+          <div class="flex flex-col w-fit">
+            <h3 class="text-sm text-white mb-3">From</h3>
+            <div class="mobile-cal-piker" [class.active]="isSelectedStartDate">
+              <div class="icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="15"
+                  height="15"
+                  viewBox="0 0 15 15"
+                  fill="none"
+                >
+                  <g clip-path="url(#clip0_5153_17029)">
+                    <path
+                      d="M4.54683 6.86953H5.70794V8.03064H4.54683V6.86953ZM12.6746 3.96675V12.0945C12.6746 12.7331 12.1521 13.2556 11.5135 13.2556H3.38572C2.7413 13.2556 2.22461 12.7331 2.22461 12.0945L2.23041 3.96675C2.23041 3.32814 2.7413 2.80564 3.38572 2.80564H3.96628V1.64453H5.12739V2.80564H9.77183V1.64453H10.9329V2.80564H11.5135C12.1521 2.80564 12.6746 3.32814 12.6746 3.96675ZM3.38572 5.12786H11.5135V3.96675H3.38572V5.12786ZM11.5135 12.0945V6.28898H3.38572V12.0945H11.5135ZM9.19128 8.03064H10.3524V6.86953H9.19128V8.03064ZM6.86905 8.03064H8.03016V6.86953H6.86905V8.03064Z"
+                      fill="white"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_5153_17029">
+                      <rect
+                        width="13.9333"
+                        height="13.9333"
+                        fill="white"
+                        transform="translate(0.483398 0.483398)"
+                      />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </div>
+              <input
+                type="datetime"
+                [value]="startDate"
+                name="startDate"
+                id="startDate"
+                placeholder="DD MM YYYY"
+                (click)="setLabel('FROM')"
+              />
+            </div>
+          </div>
+          <div class="flex flex-col w-fit">
+            <h3 class="text-sm text-white mb-3">To</h3>
+            <div class="mobile-cal-piker" [class.active]="isSelectedEndDate">
+              <div class="icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="15"
+                  height="15"
+                  viewBox="0 0 15 15"
+                  fill="none"
+                >
+                  <g clip-path="url(#clip0_5153_17029)">
+                    <path
+                      d="M4.54683 6.86953H5.70794V8.03064H4.54683V6.86953ZM12.6746 3.96675V12.0945C12.6746 12.7331 12.1521 13.2556 11.5135 13.2556H3.38572C2.7413 13.2556 2.22461 12.7331 2.22461 12.0945L2.23041 3.96675C2.23041 3.32814 2.7413 2.80564 3.38572 2.80564H3.96628V1.64453H5.12739V2.80564H9.77183V1.64453H10.9329V2.80564H11.5135C12.1521 2.80564 12.6746 3.32814 12.6746 3.96675ZM3.38572 5.12786H11.5135V3.96675H3.38572V5.12786ZM11.5135 12.0945V6.28898H3.38572V12.0945H11.5135ZM9.19128 8.03064H10.3524V6.86953H9.19128V8.03064ZM6.86905 8.03064H8.03016V6.86953H6.86905V8.03064Z"
+                      fill="white"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_5153_17029">
+                      <rect
+                        width="13.9333"
+                        height="13.9333"
+                        fill="white"
+                        transform="translate(0.483398 0.483398)"
+                      />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </div>
+              <input
+                type="datetime"
+                [value]="endDate"
+                placeholder="DD MM YYYY"
+                name="endDate"
+                id="endDate"
+                (click)="setLabel('TO')"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="calendar-card">
+          <div class="calendar-header flex justify-between">
+            <h3 class="text-sm text-white m-0">{{ currdate }}</h3>
+            <div class="flex items-center gap-3">
+              <a class="mx-1" (click)="navigateTo('previous')">
+                <svg
+                  class="text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="12"
+                  height="12"
+                  viewBox="0 0 12 12"
+                  fill="none"
+                >
+                  <mask
+                    id="mask0_623_10662"
+                    style="mask-type: alpha"
+                    maskUnits="userSpaceOnUse"
+                    x="2"
+                    y="0"
+                    width="8"
+                    height="12"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M9.27396 0.469661C9.57498 0.762543 9.57498 1.2374 9.27396 1.53028L4.68021 5.99978L9.27396 10.4693C9.57498 10.7622 9.57498 11.237 9.27396 11.5299C8.97293 11.8228 8.48488 11.8228 8.18385 11.5299L2.5 5.99978L8.18385 0.469661C8.48488 0.17678 8.97293 0.17678 9.27396 0.469661Z"
+                      fill="#141841"
+                    />
+                  </mask>
+                  <g mask="url(#mask0_623_10662)">
+                    <rect
+                      y="-0.000976562"
+                      width="11.9995"
+                      height="11.9995"
+                      fill="white"
+                    />
+                  </g>
+                </svg>
+              </a>
+
+              <a class="mx-1" (click)="navigateTo('next')">
+                <svg
+                  class="text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="12"
+                  height="12"
+                  viewBox="0 0 12 12"
+                  fill="none"
+                >
+                  <mask
+                    id="mask0_623_10665"
+                    style="mask-type: alpha"
+                    maskUnits="userSpaceOnUse"
+                    x="2"
+                    y="0"
+                    width="8"
+                    height="12"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      clip-rule="evenodd"
+                      d="M2.72604 0.469661C2.42502 0.762543 2.42502 1.2374 2.72604 1.53028L7.31979 5.99978L2.72604 10.4693C2.42502 10.7622 2.42502 11.237 2.72604 11.5299C3.02707 11.8228 3.51512 11.8228 3.81615 11.5299L9.5 5.99978L3.81615 0.469661C3.51512 0.17678 3.02707 0.17678 2.72604 0.469661Z"
+                      fill="#141841"
+                    />
+                  </mask>
+                  <g mask="url(#mask0_623_10665)">
+                    <rect
+                      y="-0.000976562"
+                      width="11.9995"
+                      height="11.9995"
+                      fill="white"
+                    />
+                  </g>
+                </svg>
+              </a>
+            </div>
+          </div>
+          <div class="flex flex-col mt-4">
+            <div class="grid grid-cols-7 gap-4">
+              <div class="calendar-day">Sun</div>
+              <div class="calendar-day">Mon</div>
+              <div class="calendar-day">Tue</div>
+              <div class="calendar-day">Wed</div>
+              <div class="calendar-day">Thu</div>
+              <div class="calendar-day">Fri</div>
+              <div class="calendar-day">Sat</div>
+            </div>
+            <div class="grid grid-cols-7 gap-4 mt-3">
+              <div
+                class="calendar-day"
+                *ngFor="let date of calendarDateLoaders; let i = index"
+                (click)="selectDateMobile(date, true)"
+                [class.active]="isDateActiveMobile(date)"
+              >
+                {{ date.day }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-action">
+        <button class="btn-save" (click)="filterCustomDate()">Filter</button>
+        <button class="btn-cancel" (click)="showFilterModal = false">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-game-stat [modalData]="statData$"></app-game-stat>

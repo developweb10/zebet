@@ -1,0 +1,28 @@
+<ng-template #gameStatTpl let-data="data">
+    <div class="modal-bg bg-[#000] bg-opacity-80 z-[70] fixed top-0 left-0 w-screen h-screen" *ngIf="!notModal" ></div>
+    <div class="w-full custom_transition"
+    [ngClass]="small ? '!min-h-0 !overflow-hidden' : 'min-h-[full]'"
+    >
+    <div 
+        class="modal lg:p-3 p-2 rounded-md border border-[#4D585D]  bg-color custom_transition max-h-full"
+        [ngClass]="{' w-full h-auto relative' : notModal , 'z-[99999] fixed lg:top-[50%] lg:left-[50%] lg:translate-x-[-50%] lg:translate-y-[-50%] lg:min-w-[600px] lg:min-h-[300px] lg:h-auto lg:w-1/2 w-screen h-screen  top-0 left-0' : !notModal , 'opacity-0 scale-0 max-h-0' : small}
+        "
+        >
+        <div class="flex justify-end items-center absolute lg:top-[12px] lg:right-[12px] top-[8px] right-[8px]">
+            <div class="close-container rounded-full border border-[#4D585D] lg:p-[6px] p-[4px] bg-[#2C3538] cursor-pointer w-5 lg:w-7" (click)="closeModal()">
+                <svg width="100%" height="100%" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M8.28854 7.25012L14.0001 1.53846L12.9617 0.5L7.2501 6.21166L1.53857 0.500051L0.500122 1.53851L6.21165 7.25012L0.500353 12.9615L1.5388 13.9999L7.2501 8.28857L12.9614 14L13.9999 12.9615L8.28854 7.25012Z" fill="#FFC600"/>
+                </svg>
+            </div>
+        </div>
+        <!-- container for iframe, show loader till iframe loaded -->
+        <div class="w-full h-full flex items-start justify-center my-4" *ngIf="data!=undefined">
+            <iframe [src]="getUrl(data) | safe" class="" [ngClass]="notModal ? 'min-h-[300px] lg:min-h-[400px]' : 'lg:h-[500px] h-[calc(100%-50px)]'" width="100%"></iframe>
+        </div>
+    </div>
+    </div>
+    
+</ng-template>
+
+
+<ng-container #modalContainer></ng-container>

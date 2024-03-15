@@ -1,0 +1,129 @@
+<mat-sidenav-container>
+    <mat-sidenav mode="push" #sidenav>
+      <mat-toolbar color="accent" class="justify-content-space-between">
+        <button mat-icon-button (click)="sidenav.close()"><mat-icon>close</mat-icon></button>
+        <div mat-h2>LiveDoc Configuration</div>
+        <reader-stomp-stats badgeColor="primary"></reader-stomp-stats>
+      </mat-toolbar>
+
+      <mat-expansion-panel expanded>
+        <mat-expansion-panel-header>
+          <mat-panel-title>LiveDoc Configuration</mat-panel-title>
+        </mat-expansion-panel-header>
+        <p>This will only work if the LiveDoc Service is configured to use the Mock Config Loader service.</p>
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Configuration JSON</mat-label>
+          <mat-hint *ngIf="!liveDocConfigUser.value || !liveDocConfigUser.value.trim()">Enter configuration</mat-hint>
+          <textarea matInput rows="20" [formControl]="liveDocConfigUser" class="code-print" spellcheck="false"></textarea>
+          <mat-error *ngIf="liveDocConfigUser.invalid">Configuration is invalid</mat-error>
+        </mat-form-field>
+        <div class="update-configuration-container">
+          <button type="button" mat-raised-button (click)="liveDocConfigUser.setValue(liveDocConfigFile)" [disabled]="liveDocConfigUser.value===liveDocConfigFile">Reset</button>
+          <button type="button" mat-raised-button color="primary" [disabled]="liveDocConfigUser.invalid" (click)="loadNewConfig(liveDocConfigUser.value); sidenav.close()">Update Configuration</button>
+        </div>
+      </mat-expansion-panel>
+
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <mat-toolbar color="primary">
+        <button mat-icon-button (click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button>
+        <div class="mat-h1 livedoc-service-tester-title">LiveDoc Service</div>
+        <reader-stomp-stats></reader-stomp-stats>
+      </mat-toolbar>
+
+
+      <div class="sidenav-content-wrapper">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header class="description-elipsis">
+            <mat-panel-title>Headers</mat-panel-title>
+            <mat-panel-description class="description-elipsis"><div>{{headers | json}}</div></mat-panel-description>
+          </mat-expansion-panel-header>
+          <reader-stomp-headers (headers)="headers=$event"></reader-stomp-headers>
+        </mat-expansion-panel>
+        <mat-expansion-panel expanded>
+          <mat-expansion-panel-header class="description-elipsis">
+            <mat-panel-title>Destination</mat-panel-title>
+            <mat-panel-description class="description-elipsis"><div>{{destinationControl.value}}{{chosenStrategy.value ? ' : ('+chosenStrategy.value?.label +')' : ''}}</div></mat-panel-description>
+          </mat-expansion-panel-header>
+          <form class="subscription-form">
+            <mat-form-field matTooltip="Document or destination, which identifies a specific LiveDoc on the server">
+              <input type="text" matInput [matAutocomplete]="destination" placeholder="Document" [formControl]="destinationControl">
+              <mat-autocomplete #destination="matAutocomplete">
+                <mat-option *ngFor="let suggestion of destinationSuggestions | async" [value]="suggestion">{{suggestion}}</mat-option>
+              </mat-autocomplete>
+              <mat-hint>Use ~ (tilda) for ranges, e.g. events/E-1~20</mat-hint>
+            </mat-form-field>
+
+            <mat-form-field matTooltip="Choose a mock function which will be used to analyze deltas">
+              <mat-label>Delta Merge Strategy</mat-label>
+              <mat-hint>Function ID</mat-hint>
+              <mat-select [formControl]="chosenStrategy">
+                <mat-option><mat-icon>delete</mat-icon> None</mat-option>
+                <mat-option *ngFor="let s of deltaMergeStrategies" [value]="s">{{s.label}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" matTooltip="Subscribe to LiveDoc stream"
+              (click)="subscribeAllDestinations(destinationControl.value, chosenStrategy.value, headers, unsubscribeOthersControl.value)">
+              Subscribe
+            </button>
+
+            <div class="unsubscribe-and-beep">
+              <mat-checkbox color="primary"
+                [formControl]="unsubscribeOthersControl"
+                matTooltip="All previous subscriptions will be unsubscribed before new subscription">Unsubscribe other subscriptions
+              </mat-checkbox>
+
+              <mat-slide-toggle [formControl]="beepControl">Beep</mat-slide-toggle>
+            </div>
+
+            <div class="extra-buttons">
+            <button type="button" mat-button (click)="removeAll()" [disabled]="!liveDocCards.length">Remove All {{liveDocCards.length > 1 ? liveDocCards.length : 'Cards'}}</button>
+            <button type="button" mat-button (click)="removeStale()" [disabled]="!staleCardCount">Remove {{staleCardCount ? ' ' + staleCardCount : 'All'}} Stale</button>
+            </div>
+
+          </form>
+        </mat-expansion-panel>
+
+        <mat-card @comeAndGo class="mat-elevation-z12 live-doc-card" [ngClass]="{'live-doc-card-error': card.state==='Error', 'live-doc-card-complete': card.state==='Unsubscribed'}" *ngFor="let card of liveDocCards" matRipple [matRippleDisabled]="true" [matRippleUnbounded]="false">
+          <mat-card-header>
+            <img mat-card-avatar src="/assets/livedoc.png">
+            <mat-card-title>{{card.destination}}</mat-card-title>
+            <mat-card-subtitle>{{card.created | date : 'h:mm : ss'}}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <mat-expansion-panel expanded>
+              <mat-expansion-panel-header>
+                <mat-panel-title>Meta Data</mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="card-meta-data">
+                <div>Strategy:</div><div>{{card.strategy}}</div>
+                <div>Last Data:</div><div>{{card.lastData | date : 'h:mm : ss'}}</div>
+                <div>Updates:</div><div>{{card.updates}}</div>
+                <div>Created:</div><div>{{card.created | date : 'h:mm : ss'}}</div>
+                <div>Terminated:</div><div>{{card.terminated | date : 'h:mm : ss'}}</div>
+                <div>Status:</div><div>{{card.state}}</div>
+                <div class="card-meta-data--wide__name">Headers:</div><div class="card-meta-data--wide__value">{{card.headers | json}}</div>
+              </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel expanded>
+              <mat-expansion-panel-header>
+                <mat-panel-title>Live Doc</mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="livedoc-content">{{card.data}}</div>
+            </mat-expansion-panel>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-button (click)="unsubscribeCard(card)" [disabled]="card.state!=='Connecting'&&card.state!=='Connected'">Unsubscribe</button>
+            <button mat-button (click)="removeCard(card)" [disabled]="card.state==='Connecting'||card.state==='Connected'" [style.color]="card.state==='Unsubscribed'?'black':''">Delete</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+
+      <div class="fab-box">
+        <button mat-fab (click)="send()" matTooltip="Send message to connected servers"><mat-icon>email</mat-icon></button>
+        <button mat-fab (click)="newToken()" matTooltip="New authentication token"><mat-icon>vpn_key</mat-icon></button>
+      </div>
+
+    </mat-sidenav-content>
+  </mat-sidenav-container>

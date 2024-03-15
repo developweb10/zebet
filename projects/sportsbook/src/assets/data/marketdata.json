@@ -1,0 +1,88 @@
+{
+	"markets" : [
+		{
+			"market": "1x2",
+			"data" : [
+				{"key":"Kelantan United FC", "value":"2.34"},
+				{"key":"Draw", "value":"3.51"},
+				{"key":"Kuching City FC", "value":"2.59"}
+				
+			]
+		},
+		{
+			"market": "Total Goals - Over/Under",
+			"data" : [
+				{"key":"1 (-1.5)", "value":"4.47"},
+				{"key":"Over 4.5", "value":"4.26", "selected":"true"},
+				{"key":"Over 3.5", "value":"2.38"},
+				{"key":"Under 2.5", "value":"2.22"},
+				{"key":"Under 4.5", "value":"1.16"},
+				{"key":"Over 2.5", "value":"1.54"},
+				{"key":"Over 5.5", "value":"8.20"},
+				{"key":"Under 1.5", "value":"4.61"},
+				{"key":"Under 3.5", "value":"1.47"},
+				{"key":"Under 5.5", "value":"1.02"}
+			]
+		},
+		{
+			"market": "Asian Handicap",
+			"data" : [
+				{"key":"1(-1.5)", "value":"4.47"},
+				{"key":"1(-1) ", "value":"3.60"},
+				{"key":"1(-0.5)", "value":"2.33"},
+				{"key":"1(0)", "value":"1.71"},
+				{"key":"2(0.5)", "value":"1.38"},
+				{"key":"1(-1.25)", "value":"3.971"},
+				{"key":"1(-0.75)", "value":"2.79"},
+				{"key":"1(-0.25)", "value":"1.96"},
+				{"key":"1(0.25)", "value":"1.54", "selected":"true"},
+				{"key":"2(1.5)", "value":"1.142"}
+			]
+		},
+		{
+			"market": "Correct Score",
+			"data" : [
+				{"key":"0 -4", "value":"57.00"}
+			],
+			"valueCollection": [
+				{ 
+					"values": [
+						{"key":"0", "value":"0"},
+						{"key":"1", "value":"1", "selected":"true"},
+						{"key":"2", "value":"2"},
+						{"key":"3", "value":"3"},
+						{"key":"4", "value":"4"}
+					]
+				},
+				{ 
+					"values": [
+						{"key":"0", "value":"0"},
+						{"key":"1", "value":"1"},
+						{"key":"2", "value":"2", "selected":"true"},
+						{"key":"3", "value":"3"},
+						{"key":"4", "value":"4"}
+					]
+				}
+			] 
+		},		{
+			"market": "At Least a Half X",
+			"data" : [
+				{"key":"YES", "value":"1.46"},
+				{"key":"NO", "value":"2.15"}
+			]
+		},
+		{
+			"market": "Draw With Goals",
+			"data" : [
+				{"key":"YES", "value":"1.46"},
+				{"key":"NO", "value":"2.15"}
+			]
+		},
+		{
+			"market": "Draw With Goals",
+			"data" : [
+				{"key":"YES", "value":"1.46"}
+			]
+		}
+	]
+}

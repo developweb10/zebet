@@ -1,0 +1,45 @@
+<div class="flex justify-center align-center loading" *ngIf="isLoading">
+  <div class="spinner mx-auto"> </div>
+</div>
+
+<section *ngIf="!isLoading" class="flex main-wrapper  custom-row">
+  <div class="left-aside col-w2">
+
+  </div>
+  <div class="middle-wrapper col-w8">
+    <div class="card-group-row promo-wrapper" *ngIf="promoData">
+      <div class="card-group-col" *ngFor="let item of promoData">
+        <a (click)="navigateToPromoPost(item)">
+          <mat-card class="card gap-[10px]">
+            <div class="mainPromotionBlock--imgHolder">
+              <img mat-card-image [src]="ASSETS_URL + 'assets/'+item.banner+'?'" alt="Photo of a Shiba Inu">
+            </div>
+            <mat-card-content>
+              <div class="text-[10px] ">{{ item.date_created | date:'MMMM d, y' }}</div>
+              <!-- <mat-card-title class="text-yellow-400 font-[700] text-[16px] leading-[19.36px]">{{ item.title }}</mat-card-title> -->
+              <div [innerHTML]="item.short_content"></div>
+            </mat-card-content>
+            <button
+              class="bg-yellow-400 text-black py-0.5 px-1 rounded-md my-2 font-[500]  transition duration-300 ease-in-out mx-4 mt-auto"
+              (click)="navigateToPromoPost(item)">Read More </button>
+          </mat-card> 
+        </a>
+      </div>
+    </div>
+    <div class="d-flex justify-center align-center gap-[10px] mt-[15px]">
+      <button class="bg-[#ffc600] text-[#18242a] px-[10px] py-[5px] rounded-[5px]  leading-none"
+        (click)="onPageChange(currentPage - 1)" [hidden]="currentPage === 1">Previous</button>
+      <div class="d-flex align-center">
+        <span class="bg-[#2c3538] inline-block px-[4px] py-[4px] leading-none rounded-[5px]">{{ currentPage }} </span>
+
+      </div>
+      <button class="bg-[#ffc600] text-[#18242a] px-[10px] py-[5px] rounded-[5px]  leading-none"
+        (click)="onPageChange(currentPage + 1)" [hidden]="currentPage === calculateTotalPages()">Next</button>
+
+    </div>
+
+  </div>
+  <div class="right-aside col-w2">
+
+  </div>
+</section>

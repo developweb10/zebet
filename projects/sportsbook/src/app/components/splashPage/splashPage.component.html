@@ -1,0 +1,143 @@
+<section class="splash-section" *ngIf="showSplashScreen" >
+  <div class="splash-login-header bg-[#121C21] py-[20px] hidden md:block px-[16px]">
+    <div class="custom-row">
+      <div class="col-w1"></div>
+      <div class="col-w10">
+        <div class="d-flex align-center justify-between gap-[30px] flex-wrap">
+          <ul class="d-flex align-center splash-social-icons gap-[16px]">
+            <li><img style="height: 32px; width: 32px;" alt="X logo" src="assets/img/twitter-circle.svg" alt="" /></li>
+            <li><img style="height: 32px; width: 32px;" alt="FB Logo" src="assets/img/facebook-circle.svg" alt="" /></li>
+            <li><img style="height: 32px; width: 32px;" alt="IG logo" src="assets/img/instagram-circle.svg" alt="" /></li>
+            <li><img style="height: 32px; width: 32px;" alt="YT logo" src="assets/img/youtube-circle.svg" alt="" /></li>
+          </ul>
+          <div class="d-flex align-center">
+            <div class="headerPassword">
+              <p class="p1 cursor" routerLink="/auth/forgetpassword">
+                Forgot Password?
+              </p>
+              <form class="d-flex align-center gap-[4px]" #loginForm="ngForm" (ngSubmit)="login()">
+                <div class="d-flex">
+                  <div class="input-group w-[217px]">
+                    <ng-select [(ngModel)]="selectedOption" [searchable]="false" (change)="toggleInputType()"
+                      name="actType" class="background-[#18242A]">
+                      <ng-option [value]="'1'">
+                        <img alt="email icon" style="height: 24px;width: 27px;" src="assets/img/email-white.svg" alt="Email Image" class="option-image" />
+                      </ng-option>
+                      <ng-option [value]="'2'">
+                        <img alt="phone icon" style="height: 24px;width: 27px;" src="assets/img/phone-white.svg" alt="Phone Image" class="option-image" />
+                      </ng-option>
+                    </ng-select>
+
+                    <div *ngIf="!isPhoneNumberSelected">
+                      <input type="text" [(ngModel)]="user_email" [ngModelOptions]="{ standalone: true }"
+                        placeholder="Enter email" name="user_email" class="form-input" />
+                    </div>
+                    <div *ngIf="isPhoneNumberSelected" class="d-flex align-center">
+                      <input type="tel" [id]="loginCode" value="+234" class="form-input rounded-[4px]"
+                        placeholder="+234" maxlength="4" (keypress)="onKeyPress($event)" />
+                      <input class="form-input rounded-[4px]" type="tel" id="phoneNumber" name="phoneNumber"
+                        [(ngModel)]="phoneNumber" placeholder="e.g. 80xxxxxxx" maxlength="10" />
+                    </div>
+                  </div>
+                </div>
+                <div class="input-group w-[217px]">
+                  <span class="input-logo"><img style="height: 20px; width: 20px;" alt="lock icon" src="assets/img/password-white.svg" alt="" /></span>
+                  <input [type]="isVisible ? 'text' : 'password'" placeholder="Password" class="form-input"
+                    name="password" [(ngModel)]="password" [ngModelOptions]="{ standalone: true }" required />
+                  <span class="input-password-icon" (click)="toggleVisibility()">
+                    <img alt="eye icon" style="height: 24px;width: 24px;" [src]="
+                        isVisible
+                          ? 'assets/img/eye.png '
+                          : 'assets/img/visibility_off_black.svg'
+                      " class="w-[24px]" />
+                  </span>
+                </div>
+                <div #infoIcon id="info-icon" class="relative">
+                  <img alt="info icon" style="height: 20px; width: 20px;" src="assets/img/info.svg" alt="" />
+                  <div #popupMessage id="popup-message"
+                    class="hidden absolute py-[12px] px-[16px] w-[200px] right-[-14px] bg-[#2C3538] border border-[#4D585D] rounded-[10px] dropdown-arrow">
+                    <p class="text-[12px] font-[500] tracking-[-0.36px]">
+                      Your password must be at least 8 characters long and must
+                      contain at least one upper case, one lower case letter,
+                      and one number.
+                    </p>
+                  </div>
+                </div>
+
+                <button class="btn btn-primary cursor w-[166px]" type="submit">
+                  <p *ngIf="!isLoading" class="text-black text-[14px] font-semibold">
+                    Login
+                  </p>
+                  <div *ngIf="isLoading" class="button-spinner mx-auto"></div>
+                </button>
+              </form>
+            </div>
+            <div class="headerAuthMenu">
+              <ul class="headerAuthMenuList">
+                <li class="list-items headerLoginbtn">
+                  <a class="headerLogin_link" routerLink="/login-account">Login</a>
+                </li>
+
+                <!-- <li class="list-items"><a class="headerRegister_link hidden lg:block md:block" routerLink="/auth/register-account">Register</a></li> -->
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-w1"></div>
+    </div>
+  </div>
+  <div class="splash-wrapper md:pt-[0px] pt-[0px] px-[16px]">
+    <div class="custom-row">
+      <div class="col-w1"></div>
+      <div class="col-w10">
+        <div class="custom-row bg-cover bg-no-repeat splashBanner align-center">
+          <div class="col-w8 md:py-[60px] py-[30px] splashBanner_width100">
+            <h2 class="md:text-[60px] text-[28px] font-[800] mb-[19px] splashBanner--heading">
+              BET. PLAY. WIN.
+            </h2>
+            <p class="mb-[44px]">
+              Our platform combines cutting-edge technology with a user-friendly interface, ensuring that your journey
+              into the exciting realm of sports betting is not only rewarding but effortlessly enjoyable
+            </p>
+            <!-- <h5 class="text-[20px] text-[#FFC600] font-[600] mb-[21px]">
+              Don't have an account?
+            </h5> -->
+            <!-- <a [routerLink]="splash?.join_now_link"
+                            class="btn btn-primary w-[269px] d-flex align-center justify-center">Join Now</a> -->
+            <div class="splashPage__btns">
+              <!-- <a routerLink="#"
+                class="btn btn-primary w-[174px] d-flex align-center justify-center splashPage__btns__login">Login</a> -->
+              <a routerLink="/auth/register-account"
+                class="btn btn-primary w-[174px] d-flex align-center justify-center splashPage__btns__register">Register</a>
+            </div>
+          </div>
+          <!-- <div class="col-w4">
+            <img [src]="ASSETS_URL + 'assets/' + splash?.main_banner + '?'" alt="" class="w-100" />
+          </div> -->
+        </div>
+
+        <!-- <div class="mt-[60px] mb-[45px] splash-center-break">
+          <h2 class="text-[22px] font-[700]">More from ZEbet</h2>
+        </div> -->
+
+        <owl-carousel-o [options]="customOptions" class="custom-carousel">
+          <ng-template carouselSlide *ngFor="let link of cards">
+            <div class="items splash-card">
+              <img [src]="ASSETS_URL + 'assets/' + link.splash_card_id.image" alt="splash_card_image" class="w-100" />
+              <h2 class="splash-card-title">{{ link.splash_card_id.text }}</h2>
+            </div>
+          </ng-template>
+        </owl-carousel-o>
+
+        <!-- <div class="mt-[60px] mb-[45px] splash-center-break">
+          <a [routerLink]="splash?.join_now_link"
+                        class="btn btn-primary w-[215px] inline-flex align-center justify-center">Join Now</a>
+          <a routerLink="/auth/register-account"
+            class="btn btn-primary w-[215px] inline-flex align-center justify-center">Join Now</a>
+        </div> -->
+      </div>
+      <div class="col-w1"></div>
+    </div>
+  </div>
+</section>

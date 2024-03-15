@@ -1,0 +1,68 @@
+{
+  "/ldbckcfg": {
+    "changeOrigin": true,
+    "target": "https://sportsbook.uat.zebet.link/",
+    "ws": true,
+    "timeout": 60000
+  },
+  "/livedoc": {
+    "changeOrigin": true,
+    "target": "https://sportsbook.uat.zebet.link/",
+    "ws": true
+  },
+  "/my": {
+    "changeOrigin": true,
+    "target": "https://sportsbook.uat.zebet.link/"
+  },
+  "/betbasket": {
+    "changeOrigin": true,
+    "target": "https://sportsbook.uat.zebet.link/",
+    "ws": true
+  },
+  "/sboffer": {
+    "changeOrigin": true,
+    "target": "https://sportsbook.uat.zebet.link/",
+    "secure": false
+  },
+  "/search": {
+    "changeOrigin": true,
+    "target": "https://sportsbook.uat.zebet.link/",
+    "secure": false
+  },
+  "/portal": {
+    "changeOrigin": true,
+    "target": "https://sportsbook.uat.zebet.link/api/",
+    "secure": false
+  },
+  "/sbco": {
+    "changeOrigin": true,
+    "target": "https://sportsbook.uat.zebet.link/",
+    "secure": false
+  },
+  "/3pay": {
+    "changeOrigin" : true,
+    "target": "https://tripay.uat.zebet.link/",
+    "secure": false,
+    "logLevel": "debug"
+  },
+  "/inbox_messages": {
+    "changeOrigin": true,
+    "target": "https://sportsbook.uat.zebet.link/",
+    "ws": true
+  },
+  "/inbox": {
+    "changeOrigin": true,
+    "target": "https://sportsbook.uat.zebet.link/",
+    "secure": false
+  },
+  "/inbox/notification/seen": {
+    "changeOrigin": true,
+    "target": "https://sportsbook.uat.zebet.link/",
+    "secure": false
+  },
+  "/inbox/notification": {
+    "changeOrigin": true,
+    "target": "https://sportsbook.uat.zebet.link/",
+    "secure": false
+  }
+}

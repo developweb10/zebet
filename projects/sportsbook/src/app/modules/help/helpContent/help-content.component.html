@@ -1,0 +1,138 @@
+<div class="flex justify-center align-center loading" *ngIf="isLoading">
+  <div class="spinner mx-auto"> </div>
+</div>
+<section class="" *ngIf="!isLoading">
+  <div class="lg:flex md:flex  space-x-[80px] lg:mx-48 md:mx-10">
+
+    <div class="help-left-section col-w3" [ngClass]="{'hide-section': !isSectionVisible}">
+      <h2 class="h1">How to Guide</h2>
+      <div class="helpSearchComponent">
+        <div class="search-box input-group relative" [ngClass]="{'active': isSearchBoxActive}">
+          <input type="text" placeholder="Search" (focus)="onSearchBoxFocus()" (blur)="onSearchBoxBlur()"
+            (input)="onSearchInput($event)" class="form-input" [(ngModel)]="searchText" />
+          <button (click)="onSearch()"><img src="assets/img/search-icon.svg"></button>
+          <button class="absolute top-o right-0" *ngIf="searchText" class="close-icon" (click)="onCloseClick()"><img
+              src="assets/svg/hlepclose.svg"></button>
+        </div>
+
+        <div *ngIf="searchText && searchResults.length > 0" class="dropdown">
+          <ul class="bg-transparent border py-1.5 px-2">
+            <li *ngFor="let result of searchResults" (click)="onTitleClick(result)"
+              class="rounded-lg bg-[#2c3538]  flex justify-between w-[335px] py-2 px-4 my-3 cursor-pointer">
+              <div class="flex space-x-4 items-center">
+                <div class="flex justify-center items-center">
+                  <img src="assets/svg/faq.svg" alt="faq " />
+                </div>
+                <h1>{{ result.title }}</h1>
+              </div>
+              <div class="cursor-pointer flex justify-center items-center">
+                <img src="assets/svg/faqArrow.svg" alt="faq " />
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div *ngFor="let content of mainContent">
+        <div class="rounded-lg bg-[#2c3538]  flex justify-between w-[335px]  py-2 px-4 my-3 cursor-pointer"
+          (click)="onTitleClick(content)" [ngClass]="{
+              'bg-[#ffc600] ': content.isActive && activeArticleId !== content.title,
+              'bg-[#2c3538] ': !content.isActive || (content.isActive && activeArticleId === content.title)
+            }">
+          <div class="flex space-x-4">
+            <div class="flex justify-center items-center">
+              <img src="assets/svg/faq.svg" alt="faq " />
+            </div>
+            <h1 class="font-[500]" [ngClass]="{
+                'font-[800] text-black': content.isActive && activeArticleId !== content.title,
+                ' text-white': !content.isActive || (content.isActive && activeArticleId === content.title)
+              }">{{ content.title }}</h1>
+          </div>
+          <div class="cursor-pointer flex justify-center items-center">
+            <img src="assets/svg/faqArrow.svg" alt="faq " />
+          </div>
+        </div>
+      </div>
+      <div class="rounded-lg bg-[#2c3538] w-[335px] py-2 px-4 my-3 cursor-pointer dropdown"
+        *ngFor="let title of helpTitles; let i = index">
+        <div class="dropbtn flex font-[800] justify-between" (click)="onTitleSelect(title.id)"
+          [ngClass]="{ 'bg-active': activeTitleId === title.id }">
+          <div class="flex space-x-4 items-center">
+            <div class="flex justify-center items-center">
+              <img src="assets/svg/faq.svg" alt="faq" />
+            </div>
+            <h2 class="help_category"
+              [ngClass]="{ ' text-white': activeTitleId === title.id, 'text-white': activeTitleId !== title.id }">
+              {{ title.title }}
+            </h2>
+          </div>
+          <div class="cursor-pointer flex justify-center items-center">
+            <img src="assets/svg/faqArrow.svg" alt="faq" class="faqArrow" />
+          </div>
+        </div>
+        <div class="dropdown-content" *ngIf="isDropdownOpen && activeTitleId === title.id">
+          <ng-container *ngFor="let article of filteredArticles">
+            <div class="dropdownItem" *ngIf="article.help_id?.title">
+              <div class="flex justify-between" [ngClass]="{ 'active': activeArticleId === article.help_id?.title }"
+                (click)="onArticleClick(article)">
+                <div class="flex space-x-4 items-center">
+                  <div class="flex justify-center items-center">
+                    <img src="assets/svg/faq.svg" alt="faq" />
+                  </div>
+                  <h2 class="font-active"
+                    [ngClass]="{'font-bold': activeArticleId === article.help_id?.title, 'font-normal': activeArticleId !== article.help_id?.title}">
+                    {{ article.help_id?.title }}
+                  </h2>
+                </div>
+                <div class="cursor-pointer flex justify-center items-center">
+                  <img src="assets/svg/faqArrow.svg" alt="faq" />
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+
+
+
+      </div>
+    </div>
+
+    <div class="helpPageHolder">
+      <div class="headingHelpIcon__section">
+        <div *ngIf="helpContent">
+          <h2 class="my-10">{{ helpContent[0].title }}</h2>
+        </div>
+        <div class="helpIconCustom relative z-50  flex justify-end lg:hidden">
+          <div class=" " *ngIf="Show" (click)="toggleSectionVisibility()">
+            <img src="assets/svg/help.svg" alt="">
+          </div>
+          <div class="helpIconCustomClose" *ngIf="Hide" (click)="toggleSectionHide()">
+            <img src="assets/svg/close.svg" alt="">
+          </div>
+        </div>
+      </div>
+      <div *ngIf="helpContent">
+        <div *ngFor="let step of helpContent[0].steps"
+          class="lg:flex md:flex gap-[25px] lg:mb-[60px] md:mb-[60px] mb-[10px]">
+          <img [src]="ASSETS_URL + 'assets/' + (step.help_component_id?.banner || '') + '?'" alt="">
+          <div class="lg:mt-[0] md:mt-[0] mt-[10px]">
+            <div [innerHTML]="step.help_component_id?.first_step || ''" class="single-step"></div>
+            <div [innerHTML]="step.help_component_id?.second_step || ''" class="single-step"
+              *ngIf="step.help_component_id?.second_step"></div>
+          </div>
+        </div>
+        <div *ngIf="helpContent" class="single-step">
+          <h3>{{ helpContent[0].note }}</h3>
+          <div [innerHTML]="helpContent[0].notes"></div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+    <!-- <div class="col-w2">
+      </div> -->
+  </div>
+</section>

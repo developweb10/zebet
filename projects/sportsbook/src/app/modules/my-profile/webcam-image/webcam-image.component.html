@@ -1,0 +1,17 @@
+<div class="w-full flex flex-col items-center">
+  <webcam
+    [width]="width"
+    [height]="height"
+    [trigger]="invokeObservable"
+    (imageCapture)="captureImg($event)"
+    [imageQuality]="1"
+    (initError)="handleInitError($event)"
+  ></webcam>
+  <p class="text-sm text-red-500" *ngIf="initializationErrors">initialization Error - {{initializationErrors}}</p>
+  <button
+    class="rounded-[10px] bg-[#FFC600] text-[16px] font-semibold px-3 py-2 text-[#18242A] w-[400px]"
+    (click)="triggerSnapshot()"
+  >
+    Take Photo
+  </button>
+</div>

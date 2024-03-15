@@ -1,0 +1,383 @@
+<div class="flex justify-between items-start gap-2 lg:mx-3 px-2 py-2">
+
+      <div class="flex-1 flex justify-end w-full">
+        <div class="flex-col lg:flex gap-3 justify-end">
+          <!-- <button
+            class="border w-full border-primary border-solid rounded-lg px-6 py-2 text-[10px] font-bold uppercase text-primary"
+            (click)="rebet(i)"
+            *ngIf="item.isOpen"
+          >
+            REBET
+          </button> -->
+
+          
+
+          <div
+          
+            *ngIf="!item.confirmFullCashout && !item.confirmPartialCashout"
+            class="hidden lg:flex md:flex gap-3 lg:my-0 my-2 items-center justify-between whitespace-nowrap"
+          >
+
+            <div class="flex justify-between w-full" *ngIf="item.autoCashoutRule === null">
+                <button
+                *ngIf="!item.autoCoClicked && !item.partialCoClicked"
+                class="flex-1 rounded-lg bg-[#4D585D] px-6 py-2 mr-1 text-[10px] w-[120px] font-bold uppercase text-primary active-btn"
+                [class.active-btn]="item.autoCoClicked === true"
+                (click)="autoCo()"
+                >
+                Auto C/o
+                </button>
+
+                <button
+                    *ngIf="!item.autoCoClicked && !item.partialCoClicked" 
+                    class="flex-1 rounded-lg bg-[#4D585D] px-6 py-2 mr-1 text-[10px] font-bold uppercase text-primary"
+                    [class.active-btn]="item.partialCoClicked === true"
+                    [disabled]="item.availableCashoutAmount === 0"
+                    (click)="partialCo()"
+                >
+                Partial C/o
+                </button>
+            </div>
+
+            <div class="flex justify-between w-full" *ngIf="item.autoCashoutRule !== null">
+                <button
+                    style="height: 50px;"
+                    class="rounded-lg bg-[#4D585D] py-2 px-6 mr-1 text-[10px] w-full font-bold uppercase text-primary"
+                    [class.active-btn]="item.autoCoClicked === true"
+                    (click)="autoCo()"
+                >
+                    <div class="flex flex-col w-full px-3">
+                        <span class="w-full" [class.active-text]="item.autoCoClicked === true" [class.inactive-text]="item.autoCoClicked !== true">Auto</span> 
+                        <span class="w-full" [class.active-text]="item.autoCoClicked === true" [class.inactive-text]="item.autoCoClicked !== true" *ngIf="item.autoCashoutRule == null">C/o</span> 
+                        <span class="flex justify-center" [class.active-text]="item.autoCoClicked === true" [class.inactive-text]="item.autoCoClicked !== true" *ngIf="item.autoCashoutRule !== null">
+                        <!-- <img
+                        *ngIf="item.autoCoClicked === true"
+                        src="../../../assets/svg/auto-co-icon.svg"
+                        /> -->
+                        <svg
+                        *ngIf="item.autoCoClicked !== true"
+                        width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="5.5" cy="5.5" r="5.5" fill="#FFC600"/>
+                        <mask id="mask0_10277_15299" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="2" y="3" width="6" height="5">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M7.86785 4.02689C8.01228 4.17416 8.01015 4.41081 7.8631 4.55546L4.75171 7.61597L2.8617 5.75687C2.71465 5.61222 2.71252 5.37557 2.85694 5.22829C3.00137 5.08102 3.23765 5.07889 3.3847 5.22353L4.75171 6.56818L7.34009 4.02212C7.48714 3.87748 7.72343 3.87961 7.86785 4.02689Z" fill="white"/>
+                        </mask>
+                        <g mask="url(#mask0_10277_15299)">
+                        <rect x="2.75" y="3.025" width="5.2248" height="5.22488" fill="#18242A"/>
+                        </g>
+                        </svg>
+                        
+
+                        <!-- <svg 
+                        *ngIf="item.autoCoClicked === true"
+                        width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="5.5" cy="5.5" r="5.5" fill="#2C3538"/>
+                        <mask id="mask0_10277_15648" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="2" y="3" width="6" height="5">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M7.86785 4.02689C8.01228 4.17416 8.01015 4.41081 7.8631 4.55546L4.75171 7.61597L2.8617 5.75687C2.71465 5.61222 2.71252 5.37557 2.85694 5.22829C3.00137 5.08102 3.23765 5.07889 3.3847 5.22353L4.75171 6.56818L7.34009 4.02212C7.48714 3.87748 7.72343 3.87961 7.86785 4.02689Z" fill="white"/>
+                        </mask>
+                        <g mask="url(#mask0_10277_15648)">
+                        <rect x="2.75" y="3.025" width="5.2248" height="5.22488" fill="#FFC600"/>
+                        </g>
+                        </svg> -->
+                        
+                        <!-- <svg 
+                            *ngIf="item.autoCoClicked === true"
+                            width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="5.5" cy="5.5" r="5.5" fill="#2C3538"/>
+                            <mask id="mask0_10277_15648" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="2" y="3" width="6" height="5">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M7.86785 4.02689C8.01228 4.17416 8.01015 4.41081 7.8631 4.55546L4.75171 7.61597L2.8617 5.75687C2.71465 5.61222 2.71252 5.37557 2.85694 5.22829C3.00137 5.08102 3.23765 5.07889 3.3847 5.22353L4.75171 6.56818L7.34009 4.02212C7.48714 3.87748 7.72343 3.87961 7.86785 4.02689Z" fill="white"/>
+                            </mask>
+                            <g mask="url(#mask0_10277_15648)">
+                            <rect x="2.75" y="3.025" width="5.2248" height="5.22488" fill="#FFC600"/>
+                            </g>
+                        </svg> -->
+
+                        
+                        <svg 
+                            *ngIf="item.autoCoClicked === true"
+                            width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="5.5" cy="5.5" r="5.5" fill="#2C3538"/>
+                            <mask id="mask0_10277_15648" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="2" y="3" width="6" height="5">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M7.86785 4.02689C8.01228 4.17416 8.01015 4.41081 7.8631 4.55546L4.75171 7.61597L2.8617 5.75687C2.71465 5.61222 2.71252 5.37557 2.85694 5.22829C3.00137 5.08102 3.23765 5.07889 3.3847 5.22353L4.75171 6.56818L7.34009 4.02212C7.48714 3.87748 7.72343 3.87961 7.86785 4.02689Z" fill="white"/>
+                            </mask>
+                            <g mask="url(#mask0_10277_15648)">
+                            <rect x="2.75" y="3.025" width="5.2248" height="5.22488" fill="#FFC600"/>
+                            </g>
+                        </svg>
+                            
+                            
+                        
+                        <!-- <img
+                        *ngIf="item.autoCoClicked === true"
+                        src="../../../assets/svg/auto-co-icon-b.svg"
+                        /> -->
+                        <!-- <svg 
+                        *ngIf="item.autoCoClicked !== true"
+                        width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="5.5" cy="5.5" r="5.5" fill="#FFC600"/>
+                        <mask id="mask0_10277_15299" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="2" y="3" width="6" height="5">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M7.86785 4.02689C8.01228 4.17416 8.01015 4.41081 7.8631 4.55546L4.75171 7.61597L2.8617 5.75687C2.71465 5.61222 2.71252 5.37557 2.85694 5.22829C3.00137 5.08102 3.23765 5.07889 3.3847 5.22353L4.75171 6.56818L7.34009 4.02212C7.48714 3.87748 7.72343 3.87961 7.86785 4.02689Z" fill="white"/>
+                        </mask>
+                        <g mask="url(#mask0_10277_15299)">
+                        <rect x="2.75" y="3.025" width="5.2248" height="5.22488" fill="#18242A"/>
+                        </g>
+                        </svg> -->
+                        
+                        On</span>
+                    </div>
+                
+                </button>
+
+                <button
+                    style="height: 50px;"
+                    class="rounded-lg bg-[#4D585D] py-2 px-6 ml-1 text-[10px] w-full font-bold uppercase text-primary"
+                    [class.active-btn]="item.partialCoClicked === true"
+                    [disabled]="item.availableCashoutAmount === 0"
+                    (click)="partialCo()"
+                >
+                    <div class="flex flex-col w-full">
+                        <span class="w-full" 
+                        [class.active-text]="item.partialCoClicked === true  && item.availableCashoutAmount > 0" 
+                        [class.inactive-text]="item.partialCoClicked !== true && item.availableCashoutAmount > 0"
+                        [class.text-unavailable]="item.availableCashoutAmount === 0">Partial</span> 
+                        <span class="w-full" 
+                        [class.active-text]="item.partialCoClicked === true && item.availableCashoutAmount > 0" 
+                        [class.inactive-text]="item.partialCoClicked !== true && item.availableCashoutAmount > 0"
+                        [class.text-unavailable]="item.availableCashoutAmount === 0">C/o</span>
+                    </div>
+                
+                </button>
+            </div>
+            
+
+            
+          </div>
+
+          
+
+          <ng-container *ngIf="item.autoCoClicked">
+            <div>
+              <div class="w-full text-[10px] py-1">
+                Cash out if the bet value reaches at leasts
+              </div>
+              <div class="flex justify-between w-full text-[10px] py-1">
+                <mat-slider
+                  class="custom-slide"
+                  min="0"
+                  max="{{ item.autoCashoutValue }}"
+                  step="0.01"
+                  (input)="changeRangeAuto($event)"
+                >
+                  <input matSliderThumb value="{{ item.autoCashoutValueRange }}" />
+                </mat-slider>
+                <!-- <input id="range" type="range" min="0" max="{{ item.autoCashoutValue }}" value="{{ item.autoCashoutValueRange }}" step="0.1" (input)="changeRangeAuto(i, $event)" [disabled]="item.autoCashoutRule !== null" class="w-full"> -->
+                <span class="ml-1 text-[11px] mt-4">&#x20A6;{{ item.autoCashoutValueRange }}</span>
+              </div>
+              
+                
+            </div>
+            
+            <div>
+
+              <div class="flex w-full py-1">
+                <label class="container">
+                  <input type="checkbox" (change)="onPartialCheckboxChange($event)" [disabled]="item.autoCashoutRule !== null">
+                  <span class="checkmark"></span>
+                  <span style="position: absolute; margin-left: 20px; ">I want to partially cash out</span>
+                </label>
+                
+              </div>
+              <div *ngIf="item.partialReturnChecked" class="flex w-full text-[10px] py-1">
+                <!-- <input id="range" type="range" min="0" max="{{ item.partialCashoutValue }}"  value="{{ item.partialCashoutValueRange }}" step="0.1" (input)="changeRangePartial(i, $event)" class="w-full"> -->
+                <mat-slider
+                  class="custom-slide"
+                  min="0"
+                  max="{{ item.partialCashoutValue }}"
+                  step="0.01"
+                  (input)="changeRangePartial($event)"
+                >
+                  <input matSliderThumb value="{{ item.partialCashoutValueRange }}" />
+                </mat-slider>
+                <span class="ml-1 text-[11px]">&#x20A6;{{ item.partialCashoutValueRange }}</span>
+              </div>
+
+              <div
+                *ngIf="item.autoCoClicked && item.autoCashoutRule == null"
+                class="flex gap-3 lg:my-0 my-2 items-center justify-end whitespace-nowrap"
+                >
+                  <button
+                    class="flex-1 rounded-lg bg-[#4D585D] px-2 py-2 text-[10px] font-bold uppercase text-primary"
+                    (click)="cancelAutoCashout()"
+                  >
+                    Cancel
+                  </button>
+
+                  <button
+                    style="width: 250px;"
+                    class="flex-1 rounded-lg bg-primary px-4 py-2 text-[10px] font-bold uppercase text-[#18242A]"
+                    [disabled]="item.isAutoLoading"
+                    (click)="doAutoCashout()"
+                  >
+                    <span *ngIf="!item.isAutoLoading" class="text-[#18242A] text-[11px]">Create rule</span>
+                    <span class="flex justify-center button-spinner mx-auto"  *ngIf="item.isAutoLoading"></span>
+                    
+                  </button>
+              </div>
+
+              <div
+                *ngIf="item.autoCoClicked && item.autoCashoutRule !== null"
+                class="flex gap-3 lg:my-0 my-2 items-center justify-end whitespace-nowrap"
+                >
+                  <button
+                    class="flex-1 rounded-lg bg-[#4D585D] px-6 py-2 text-[10px] font-bold uppercase text-primary"
+                    (click)="cancelAutoCashout()"
+                  >
+                    Cancel
+                  </button>
+
+                  <button
+                    class="flex-1 rounded-lg bg-[#FF5353] px-6 py-2 text-[10px] font-bold uppercase text-[#18242A]"
+                    [disabled]="item.isAutoLoading"
+                    (click)="removeAutoCashout()"
+                  >
+                  <span *ngIf="!item.isAutoLoading">Remove rule</span>
+                  <span class="flex justify-center button-spinner mx-auto"  *ngIf="item.isAutoLoading"></span>
+                    
+                  </button>
+              </div>
+
+            </div>
+            
+          </ng-container>
+
+          <ng-container
+            *ngIf="item.partialCo"
+          >
+        
+          <div class="flex flex-col items-center">
+            <div class="flex flex-col justify-between w-full py-2 lg:py-0">
+              <p
+                class="text-[#D9D9D9] text-xs lg:flex-1 flex-none pr-2 mx-2 lg:pr-0 lg:mx-0 border-r border-[#2C3538]"
+                
+              >
+              Cash out if the bet value reaches at least
+              </p>
+              <div class="flex w-full text-[10px] py-1">
+                <!-- <input type="range" min="0" max="{{ item.partialCashoutValue }}" step="0.1" value="{{ item.partialCashoutValue }}"  (input)="changeRangePartial(i, $event)" class="w-full"> -->
+
+                <mat-slider
+                  class="custom-slide"
+                  min="0"
+                  max="{{ item.partialCashoutValue }}"
+                  step="0.01"
+                  (input)="changeRangePartial($event)"
+                >
+                  <input matSliderThumb value="{{ item.partialCashoutValueRange }}" />
+                </mat-slider>
+                
+                <span class="ml-1 mt-4 text-[11px]">&#x20A6;{{ item.partialCashoutValueRange }}</span>
+              </div>
+              
+            </div>
+            
+          </div>
+        
+          <div class="flex gap-2 items-center w-full">
+             <button
+              class="flex justify-center bg-text_secondary flex-[0.5] text-[10px] px-4 py-2 rounded-lg uppercase font-bold"
+              (click)="cancelPartialCashout()"
+              
+            >
+              CANCEL
+            </button>
+            <button
+              *ngIf="item.partialCashoutValue > 0 && !item.confirmPartialCashout"
+              class="bg-text_secondary flex-1 text-[10px] px-4 py-2 rounded-lg uppercase font-bold"
+              (click)="confirmPartialCashout()"
+            >
+              CASH OUT RETURN
+            </button>
+            <button
+                
+              *ngIf="item.partialCashoutValue > 0 && item.confirmPartialCashout"
+              style="width: 250px;"
+              class="bg-primary text-[#18242A] flex-1 text-[10px] px-2 py-2 rounded-lg uppercase font-bold"
+              [disabled]="item.isPartialLoading"
+              (click)="doPartialCashout()"
+            >
+                <span *ngIf="!item.isPartialLoading" class="text-[#18242A] text-[11px]">Confirm CASH OUT RETURN</span>
+                <span class="flex justify-center button-spinner mx-auto"  *ngIf="item.isPartialLoading"></span>
+            </button>
+            <button
+            *ngIf="item.partialCashoutValue === 0"
+            [disabled]="item.partialCashoutValue === 0"
+              class="bg-text_secondary text-[#A3A7AA] flex-1 text-[10px] px-4 py-2 rounded-lg uppercase font-bold"
+            >
+              Cash out Unavailable
+            </button>
+          </div>
+
+          </ng-container>
+
+          <div *ngIf="!item.partialCo && !item.autoCoClicked && !item.confirmFullCashout && !item.confirmPartialCashout" class="flex justify-center w-full" style="width: 100%;">
+
+            
+            
+            <button
+              (click)="confirmFullCashout()"
+              [disabled]="item.availableCashoutAmount === 0"
+              class="rounded-lg py-2 text-[10px] px-2 w-full font-bold uppercase"
+              [ngClass]="item.availableCashoutAmount > 0 ? 'btn-cashout' : 'bg-[#2C3538] text-[#A3A7AA] text-[13px]'"
+            >
+              <span class="btn-cashout" *ngIf="item.availableCashoutAmount > 0">Cash out Return NGN {{ item.availableCashoutAmount }}</span>
+              <span *ngIf="item.availableCashoutAmount === 0">Cash out Unavailable</span>
+            </button>
+            
+          </div>
+
+          <ng-container  *ngIf="item.confirmFullCashout">
+            <div class="flex flex-col">
+                <div class="flex gap-2 justify-end w-full mt-2">
+                    <span class="text-[12px]">Auto Cashout</span><span class="text-[12px]">NGN {{ item.availableCashoutAmount }}</span>
+                </div>
+                <div class="flex gap-2 items-center w-full mt-2">
+                    <button
+                   
+                     class="bg-text_secondary flex-[0.5] text-[10px] px-4 py-2 rounded-lg uppercase font-bold"
+                     (click)="cancelFullCashout()"
+                     
+                   >
+                      <div class="flex flex-col justify-center">
+                        <span class="text-[#FFC600] text-[12px]">CANCEL </span>
+                      </div>
+                   </button>
+                   
+                   <button
+                    style="width: 250px;"
+                     *ngIf="item.availableCashoutAmount > 0 && item.confirmFullCashout"
+                     class="bg-primary text-[#18242A] flex-1 text-[10px] px-2 py-2 rounded-lg uppercase font-bold"
+                     [disabled]="item.isFullLoading"
+                     (click)="doFullCashout()"
+                   >
+
+                      <span *ngIf="!item.isFullLoading" class="text-[#18242A] text-[12px]">Confirm CASH OUT RETURN</span>
+                  
+                   
+                      
+                      <span class="flex justify-center button-spinner mx-auto"  *ngIf="item.isFullLoading"></span>
+                   </button>
+                   <!-- <button
+                   *ngIf="item.partialCashoutValue === 0"
+                   [disabled]="item.partialCashoutValue === 0"
+                     class="bg-text_secondary text-[#A3A7AA] flex-1 text-[10px] px-4 py-2 rounded-lg uppercase font-bold"
+                   >
+                     Cash out Unavailable
+                   </button> -->
+                </div>
+            </div>
+            
+          </ng-container>
+          
+
+        </div>
+      </div>      
+</div>

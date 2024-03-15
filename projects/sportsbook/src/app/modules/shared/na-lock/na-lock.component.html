@@ -1,0 +1,13 @@
+<ng-container [ngSwitch]="type">
+    <ng-container  *ngSwitchCase="'overlay'">
+        <div class="!m-0 w-full h-full opacity-50 rounded-s bg-black absolute top-0 left-0"></div>
+        <picture class="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">    
+            <img class="w-4 h-4" src="../../../assets/svg/passwordLock.svg">
+        </picture>
+    </ng-container>
+    <ng-container *ngSwitchDefault>
+        <picture class="w-full h-full !flex align-center justify-center">    
+            <img class="max-w-3 max-h-3" src="../../../assets/svg/passwordLock.svg">
+        </picture>
+    </ng-container>
+</ng-container>

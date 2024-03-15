@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>Auth Token</h2>
+
+<mat-dialog-content>
+    <mat-form-field>
+        <mat-label>Enter new Token</mat-label>
+        <input matInput #token>
+    </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary" (click)="close(token.value)">Send Token</button>
+</mat-dialog-actions>

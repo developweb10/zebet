@@ -1,0 +1,28 @@
+
+<button mat-icon-button
+    [matBadge]="callCenterStats?.error || ''"
+    matBadgeSize="small"
+    matBadgePosition="below before"
+    [matBadgeColor]="badgeColor"
+    matTooltip="LiveDoc Server Stats"
+    (click)="showFullStats()">
+    <img src="/assets/logo.png">
+</button>
+
+
+<ng-template #statsDialog>
+    <h2 mat-dialog-title>LiveDoc Server Stats</h2>
+    <mat-dialog-content>
+        <div class="stats-box">
+            <div>Connecting:</div><div>{{callCenterStats?.connecting}}</div>
+            <div>Connected:</div><div>{{callCenterStats?.connected}}</div>
+            <div>Disconnected:</div><div>{{callCenterStats?.disconnected}}</div>
+            <div>Error:</div><div>{{callCenterStats?.error}}</div>
+            <div>Total:</div><div>{{callCenterStats?.total}}</div>
+            <div>Not Found:</div><div>{{callCenterStats?.serverNotFoundErrorCount}}</div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <button mat-raised-button mat-dialog-close>Close</button>
+    </mat-dialog-actions>
+</ng-template>

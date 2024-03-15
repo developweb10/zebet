@@ -1,0 +1,18 @@
+label{
+    font-size: 12px;
+    color: #FFF;
+}
+:host {
+    display: block;
+    margin: auto;
+  }
+  
+  .mat-dialog-container {
+    position: fixed;
+    bottom: 0 !important;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px; /* Adjust the width as needed */
+    /* Add any other styles as needed */
+  }
+

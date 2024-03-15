@@ -1,0 +1,19 @@
+
+/* Default positioning for desktop */
+.chat-icon {
+    position: fixed;
+    right: 10px; /* Adjust as needed */
+    bottom: 10px; /* Adjust as needed */
+    z-index: 9999; /* Adjust as needed */
+  }
+  
+  /* Media query for mobile devices */
+  @media (max-width: 767px) {
+    .chat-icon {
+      position: fixed;
+      left: 10px; /* Adjust as needed */
+      bottom: 10px; /* Adjust as needed */
+      z-index: 9999; /* Adjust as needed */
+    }
+  }
+  

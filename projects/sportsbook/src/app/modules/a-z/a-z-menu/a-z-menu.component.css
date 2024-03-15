@@ -1,0 +1,44 @@
+.menu-title {
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  color: #a3a7aa;
+  margin-top: 2px;
+}
+
+.over-top {
+  font-size: 9px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+  color: #000;
+  left: 32px;
+  top: 12px;
+}
+
+.active {
+  border-radius: 10px 10px 0px 0px;
+  background: #ffc600;
+  height: 55px;
+}
+
+.active .menu-title {
+  color: #000;
+}
+.active svg {
+  filter: invert(1);
+}
+
+.w-fixed-75 {
+  width: 75px;
+}
+figcaption {
+    background-color: #ddd;
+    color: #000;
+    font-style: italic;
+    padding: 5px;
+    text-align: center;
+    font-size: 18px;
+  }
+  

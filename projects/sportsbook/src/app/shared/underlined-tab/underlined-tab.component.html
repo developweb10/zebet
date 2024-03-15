@@ -1,0 +1,26 @@
+<div class="flex parent border-b border-[#4D585D] gap-[24px] overflow-y-auto wrapper"
+    [ngClass]="{'justify-around':isJustify, 'bg-gray-900':isDarkBg}"
+    >    
+    <button *ngFor="let tab of tabs; index as i" class="md:mx-2 mt-2 mx-1" 
+    [ngClass]="activeTab==tab ? 'text-yellow-400 border-b-2 border-yellow-400 font-bold' : 'text-zinc-400'"
+    (click)="toggleTab(tab);">
+        <div 
+        class="pb-2 md:text-sm text-[12px] whitespace-nowrap" 
+        [ngClass]="isUpper?'uppercase':''"
+        >{{tab}}</div>
+    </button>
+
+    </div>
+    <div class="flex parent border-b border-[#4D585D] gap-[24px] overflow-y-auto"
+    [ngClass]="{'justify-around':isJustify, 'bg-gray-900':isDarkBg}"
+    >    
+    <button *ngFor="let tabs of tab; index as i" class="md:mx-2 mt-2 mx-1" 
+    [ngClass]="activeTabs==tabs ? 'text-yellow-400 border-b-2 border-yellow-400 font-bold' : 'text-zinc-400'"
+    (click)="toggleTabs(tabs);">
+        <div 
+        class="pb-2 md:text-sm text-[12px] whitespace-nowrap" 
+        [ngClass]="isUpper?'uppercase':''"
+        >{{tabs}}</div>
+    </button>
+
+    </div>

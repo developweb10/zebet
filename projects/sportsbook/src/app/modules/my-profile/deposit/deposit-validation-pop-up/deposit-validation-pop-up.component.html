@@ -1,0 +1,22 @@
+<div mat-dialog-container class="flex flex-col w-full h-full gap-4 min-w-[200px] py-4 px-8  ">
+  <h2 mat-dialog-title class="w-full flex justify-center items-center title">
+    {{ title }}
+  </h2>
+  <div mat-dialog-content class="w-full flex flex-col justify-center items-center flex-grow gap-2">
+
+    <span class="question">{{data?.placeholder ?? 'Please enter Additional Details below'}}</span>
+    <input class="instrument-field" *ngIf="data?.type === 'otp'" type="number" id="input">
+    <input class="instrument-field" *ngIf="data?.type === 'pin'" type="number" id="input">
+    <input class="instrument-field" *ngIf="data?.type === 'phone'" type="tel" id="input">
+
+    <input class="instrument-field" *ngIf="data?.type === 'birthday'" type="date" id="input" [max]="maxDate">
+    <div mat-dialog-actions class="w-full flex justify-between items-center p-2">
+      <button
+        class="rounded action-btn py-2 px-4 text-black lg:bg-inherit lg:text-white  lg:hover:bg-[#ffc600] lg:hover:text-black"
+        (click)="onCancel()">Cancel</button>
+      <button
+        class="rounded action-btn py-2 px-4 text-black lg:bg-inherit lg:text-white  lg:hover:bg-[#ffc600] lg:hover:text-black"
+        cdkFocusInitial (click)="onSend()">Send</button>
+    </div>
+  </div>
+</div>

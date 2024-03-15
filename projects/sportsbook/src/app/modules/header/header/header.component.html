@@ -1,0 +1,503 @@
+<header>
+  <div class="headerContainer custom-container " [ngClass]="storedData ? 'loggedin':''">
+    <div class="custom-row">
+      <div class="" *ngIf="!isSplashPage">
+        <div class="col-w1"></div>
+      </div>
+      <div *ngIf="!isSplashPage" >
+        <div class="headerWrapper justify-between" >
+          <div class="headerLogoSection d-flex align-center"  >
+            <img src="assets/img/header_bars.png" alt="" (click)="toggleMenu()" #menuContainer1 
+              [style.display]="isMediumScreen ? 'block' : 'none'" class="headerToggle" />
+            <img [routerLink]="topNavlogo.link" src="{{ ASSETS_URL }}assets/{{ topNavlogo?.logo }}" alt="Logo"
+              *ngIf="topNavlogo?.logo" class="headerLogo" [ngStyle]="{'position': isSmallScreen ? 'absolute': 'relative'}"/>
+          </div>
+          <div class="headerLinkSection d-flex align-center">
+            <div class="headerMenu toggle-menu" #menuContainer2 [style.display]="isMenuVisible ? 'block' : 'none'"  >
+              <ul class="headerMenuList vertical-menu">
+                <li class="list-items" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }"
+                  *ngFor="let navLink of topNavItems?.data.nav_links">
+                  <a [ngClass]="{
+                    'active': isActive(navLink.link)
+                  }" [routerLink]="navLink.link" (click)="closeMenu()">{{ navLink.title }}</a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="headerMenu desktop-menu">
+              <ul class="headerMenuList">
+                <li class="list-items" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }"
+                  *ngFor="let navLink of topNavItems?.data.nav_links">
+                  <a [ngClass]="{
+                      'active': isActive(navLink.link)
+                    }" [routerLink]="navLink.link">{{ navLink.title }}</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="header-right flex justify-end">
+            <div class="" *ngIf="!isSplashPage">
+              <div class="d-flex align-center" *ngIf="!storedData">
+                <div class="headerPassword">
+                  <p class="p3 cursor" routerLink="/auth/forgetpassword">
+                    Forgot Password?
+                  </p>
+                  <div class="">
+                    <form class="d-flex align-center gap-[4px]" (ngSubmit)="login()" #loginForm="ngForm">
+                      <div class="d-flex">
+                        <ng-select [(ngModel)]="selectedOption" [searchable]="false" (change)="toggleInputType()"
+                          name="actType" class="form-input rounded-[4px]">
+                          <ng-option [value]="'1'" class="background-[#18242A]">
+                            <img src="assets/img/email.svg" alt="Email Image" class="option-image" />
+                          </ng-option>
+                          <ng-option [value]="'2'">
+                            <img src="assets/img/Phone.svg" alt="Phone Image" class="option-image" />
+                          </ng-option>
+                        </ng-select>
+
+                        <div *ngIf="!isPhoneNumberSelected">
+                          <input type="text" [(ngModel)]="user_email" [ngModelOptions]="{ standalone: true }"
+                            placeholder="Enter email" class="custom-input rounded-[4px]" />
+                        </div>
+                        <div *ngIf="isPhoneNumberSelected" class="d-flex align-center">
+                          <input                         
+                          type="tel"
+                          [id]="loginCode"
+                          value="+234"
+                          class="custom-input rounded-[4px]"
+                          placeholder="+234"
+                          maxlength="4"
+                          (keypress)="onKeyPress($event)" />
+                          <input class="custom-input rounded-[4px]"type="tel"
+                          id="phoneNumber"
+                          name="phoneNumber"
+                          [(ngModel)]="phoneNumber"
+                          placeholder="e.g. 80xxxxxxx"
+                          maxlength="10"/>
+                        </div>
+                      </div>
+                      <div class="headerInputGroup">
+                        <input type="password" placeholder="Password" class="custom-input" name="password"
+                          [(ngModel)]="password" required />
+                      </div>
+
+                      <button type="submit" class="headerLogin_link cursor" *ngIf="!storedData">
+                        Login
+                      </button>
+                    </form>
+                    <!-- <div *ngIf="errorMessage" class="error-message -mb-[14px] text-[12px]">
+                      {{ errorMessage }}
+                    </div> -->
+                  </div>
+                </div>
+                <div class="headerAuthMenu desktop-AuthMenu">
+                  <ul class="headerAuthMenuList" *ngIf="!storedData">
+                    <li class="list-items headerLoginbtn">
+                      <a class="headerLogin_link" routerLink="/auth/login-account">Login</a>
+                    </li>
+
+                    <li class="list-items" *ngIf="!isRegisterAccountRoute">
+                      <a class="headerRegister_link hidden lg:block md:block"
+                        routerLink="/auth/register-account">Register</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- *ngIf="isUserLoggedOut == false" -->
+            <div class="header_userProfile flex items-center w-auto justify-end" *ngIf="storedData">
+
+              <!-- <div class="headerMessage ml-2.5">
+                <span (click)="openNotificationDialog()">
+                  <ng-container *ngIf="getUnseenCount()">
+                    <img src="assets/svg/activemessageicon.svg" alt="active message icon"
+                      class="notification-icon cursor-pointer mr-[15px]">
+                    <span class="unseen-count">{{ getUnseenCount() }}</span>
+                  </ng-container>
+                  <ng-container *ngIf="!getUnseenCount()">
+                    <img src="assets/svg/messageicon.svg" alt="default message icon"
+                      class="notification-icon cursor-pointer mr-[7px]" />
+                  </ng-container>
+                </span>
+              </div> -->
+              
+              <div [ngClass]="{'hidden': isSmallMobile}"
+                class="hidden-bal inline-flex flex items-center border-none amount py-[12px] pl-[12px] pr-[8px] h-[32px] rounded-[10px] bg-[#4D585D]">
+                <div class="text-white text-sm font-medium leading-tight header_userProfile_paswordField flex space-x-2"
+                  *ngIf="!showBalance; else hiddenBalance" >
+                  <span>&#x20A6;</span> *****
+                </div>
+
+                <ng-template #hiddenBalance>
+                  <h1 class="font-Inter text-[14px] xs:text-[12px] font-[500] leading-[20px] text-white flex space-x-2"[matTooltip]="formattedBalance">
+                    <span>&#x20A6; </span>
+                    {{
+                      balanceUser | number : "0.2-2"
+                    }}
+                  </h1>
+                  <!-- <h1 *ngIf="!isBalanceLoaded" class="font-Inter text-[14px] xs:text-[12px] font-[500] leading-[20px] text-white flex space-x-2">
+                    <span>NGN</span>
+                    0.00
+                  </h1> -->
+                </ng-template>
+
+                <div class="flex header_userProfile_paswordIcons">
+                  <div class="cursor-pointer" (click)="toggleBalanceVisibility()">
+                    <svg *ngIf="showBalance" class="ml-[8px]" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                      fill="none">
+                      <g clip-path="url(#clip0_9542_17639)">
+                        <path
+                          d="M8.13411 4.26628C9.97411 4.26628 11.4674 5.75961 11.4674 7.59961C11.4674 8.03294 11.3808 8.43961 11.2274 8.81961L13.1741 10.7663C14.1808 9.92628 14.9741 8.83961 15.4608 7.59961C14.3074 4.67294 11.4608 2.59961 8.12745 2.59961C7.19411 2.59961 6.30078 2.76628 5.47411 3.06628L6.91411 4.50628C7.29411 4.35294 7.70078 4.26628 8.13411 4.26628ZM1.46745 2.44628L2.98745 3.96628L3.29411 4.27294C2.18745 5.13294 1.32078 6.27961 0.800781 7.59961C1.95411 10.5263 4.80078 12.5996 8.13411 12.5996C9.16745 12.5996 10.1541 12.3996 11.0541 12.0396L11.3341 12.3196L13.2874 14.2663L14.1341 13.4196L2.31411 1.59961L1.46745 2.44628ZM5.15411 6.13294L6.18745 7.16628C6.15411 7.30628 6.13411 7.45294 6.13411 7.59961C6.13411 8.70628 7.02745 9.59961 8.13411 9.59961C8.28078 9.59961 8.42745 9.57961 8.56745 9.54628L9.60078 10.5796C9.15411 10.7996 8.66078 10.9329 8.13411 10.9329C6.29411 10.9329 4.80078 9.43961 4.80078 7.59961C4.80078 7.07294 4.93411 6.57961 5.15411 6.13294ZM8.02745 5.61294L10.1274 7.71294L10.1408 7.60628C10.1408 6.49961 9.24745 5.60628 8.14078 5.60628L8.02745 5.61294Z"
+                          fill="#FFC600" />
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_9542_17639">
+                          <rect width="16" height="16" fill="white" />
+                        </clipPath>
+                      </defs>
+                    </svg>
+                    <img
+                    *ngIf="!showBalance"
+                              src="../../../assets/svg/eye_open.svg"
+                              alt=""
+                              class="ml-[8px]"
+                            />
+                  </div>
+
+                  <div>
+                    <div (click)="refreshUserBalance()" *ngIf="showRefreshIcon">
+                      <svg class="ml-[8px] cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        viewBox="0 0 16 16" fill="none">
+                        <path
+                          d="M9.10689 0.803566C5.09408 0.692107 1.80658 3.94036 1.80658 7.96884H0.395395C0.0406282 7.96884 -0.132813 8.39876 0.119465 8.64556L2.31902 10.8748C2.47669 11.034 2.72109 11.034 2.87876 10.8748L5.07832 8.64556C5.33059 8.39876 5.14927 7.96884 4.80239 7.96884H3.38332C3.38332 4.86389 5.89034 2.35604 8.98075 2.39585C11.9135 2.43566 14.3811 4.92758 14.4205 7.88923C14.4599 11.0021 11.9766 13.5418 8.90191 13.5418C7.63264 13.5418 6.45796 13.104 5.52769 12.3635C5.21234 12.1167 4.77085 12.1406 4.48704 12.4272C4.15592 12.7696 4.17957 13.3269 4.55011 13.6214C5.74843 14.5689 7.2621 15.1341 8.90191 15.1341C12.8832 15.1341 16.1076 11.8142 15.9972 7.76184C15.8948 4.02794 12.8043 0.907065 9.10689 0.803566Z"
+                          fill="#FFC600" />
+                      </svg>
+                    </div>
+                    <p class="text-[#ffc600] font-semibold -mt-2 ml-1" *ngIf="showLoadingDots">
+                      ....
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div >
+                <a class="headerProfileIconHolder" (click)="onMyProfile()">
+                  <svg alt="Profile Image" class="profile-image" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_9930_20622)">
+                      <rect width="20" height="20" rx="10" fill="#6F7B81" />
+                      <path
+                        d="M4 17C4 14.7909 5.79086 13 8 13H12C14.2091 13 16 14.7909 16 17V21C16 23.2091 14.2091 25 12 25H8C5.79086 25 4 23.2091 4 21V17Z"
+                        fill="#18242A" />
+                      <circle cx="10.1809" cy="8" r="4" fill="#18242A" />
+                    </g>
+                  <defs>
+                      <clipPath id="clip0_9930_20622">
+                        <rect width="20" height="20" rx="10" fill="white" />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                  <svg alt="Profile Image" class="ml-[7px]" xmlns="http://www.w3.org/2000/svg" width="9" height="8"
+                    viewBox="0 0 9 8" fill="none">
+                    <path
+                      d="M5.36603 7.5C4.98112 8.16667 4.01887 8.16667 3.63397 7.5L0.602886 2.25C0.217986 1.58333 0.699111 0.75 1.46891 0.75L7.53109 0.750001C8.30089 0.750001 8.78202 1.58333 8.39711 2.25L5.36603 7.5Z"
+                      fill="#18242A" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <div class="headerAuthMenu md:hidden block">
+              <ul class="headerAuthMenuList" *ngIf="!storedData">
+                <li class="list-items headerLoginbtn">
+                  <a routerLink="/auth/login-account" class="mx-2 text-[#ffc600] font-semibold cursor-pointer">Login</a>
+                  <a class="btn btn-primary md:p-[8px] p-[6px]" routerLink="/auth/register-account">Register</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="storedData" class="flex align-center mt-2.5 justify-end" [ngClass]="{'hidden': !isSmallMobile}">
+          <div 
+            class="inline-flex flex items-center border-none py-[12px] pl-[12px] pr-[8px] h-[32px] rounded-[10px] bg-[#4D585D]">
+            <div class="text-white text-sm font-medium leading-tight header_userProfile_paswordField flex space-x-2"
+              *ngIf="!showBalance; else hiddenBalance" >
+              <span>&#x20A6;</span> *****
+            </div>
+  
+            <ng-template #hiddenBalance>
+              <h1 class="font-Inter text-[14px] xs:text-[12px] font-[500] leading-[20px] text-white flex space-x-2">
+                <span>&#x20A6; </span>
+                {{
+                  balanceUser | number : "0.2-2"
+                }}
+              </h1>
+              <!-- <h1 *ngIf="!isBalanceLoaded" class="font-Inter text-[14px] xs:text-[12px] font-[500] leading-[20px] text-white flex space-x-2">
+                <span>NGN</span>
+                0.00
+              </h1> -->
+            </ng-template>
+  
+            <div class="flex header_userProfile_paswordIcons">
+              <div class="cursor-pointer" (click)="toggleBalanceVisibility()">
+                <svg class="ml-[8px]" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                  fill="none">
+                  <g clip-path="url(#clip0_9542_17639)">
+                    <path
+                      d="M8.13411 4.26628C9.97411 4.26628 11.4674 5.75961 11.4674 7.59961C11.4674 8.03294 11.3808 8.43961 11.2274 8.81961L13.1741 10.7663C14.1808 9.92628 14.9741 8.83961 15.4608 7.59961C14.3074 4.67294 11.4608 2.59961 8.12745 2.59961C7.19411 2.59961 6.30078 2.76628 5.47411 3.06628L6.91411 4.50628C7.29411 4.35294 7.70078 4.26628 8.13411 4.26628ZM1.46745 2.44628L2.98745 3.96628L3.29411 4.27294C2.18745 5.13294 1.32078 6.27961 0.800781 7.59961C1.95411 10.5263 4.80078 12.5996 8.13411 12.5996C9.16745 12.5996 10.1541 12.3996 11.0541 12.0396L11.3341 12.3196L13.2874 14.2663L14.1341 13.4196L2.31411 1.59961L1.46745 2.44628ZM5.15411 6.13294L6.18745 7.16628C6.15411 7.30628 6.13411 7.45294 6.13411 7.59961C6.13411 8.70628 7.02745 9.59961 8.13411 9.59961C8.28078 9.59961 8.42745 9.57961 8.56745 9.54628L9.60078 10.5796C9.15411 10.7996 8.66078 10.9329 8.13411 10.9329C6.29411 10.9329 4.80078 9.43961 4.80078 7.59961C4.80078 7.07294 4.93411 6.57961 5.15411 6.13294ZM8.02745 5.61294L10.1274 7.71294L10.1408 7.60628C10.1408 6.49961 9.24745 5.60628 8.14078 5.60628L8.02745 5.61294Z"
+                      fill="#FFC600" />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_9542_17639">
+                      <rect width="16" height="16" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
+              </div>
+  
+              <div>
+                <div (click)="refreshUserBalance()" *ngIf="showRefreshIcon">
+                  <svg class="ml-[8px] cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                    viewBox="0 0 16 16" fill="none">
+                    <path
+                      d="M9.10689 0.803566C5.09408 0.692107 1.80658 3.94036 1.80658 7.96884H0.395395C0.0406282 7.96884 -0.132813 8.39876 0.119465 8.64556L2.31902 10.8748C2.47669 11.034 2.72109 11.034 2.87876 10.8748L5.07832 8.64556C5.33059 8.39876 5.14927 7.96884 4.80239 7.96884H3.38332C3.38332 4.86389 5.89034 2.35604 8.98075 2.39585C11.9135 2.43566 14.3811 4.92758 14.4205 7.88923C14.4599 11.0021 11.9766 13.5418 8.90191 13.5418C7.63264 13.5418 6.45796 13.104 5.52769 12.3635C5.21234 12.1167 4.77085 12.1406 4.48704 12.4272C4.15592 12.7696 4.17957 13.3269 4.55011 13.6214C5.74843 14.5689 7.2621 15.1341 8.90191 15.1341C12.8832 15.1341 16.1076 11.8142 15.9972 7.76184C15.8948 4.02794 12.8043 0.907065 9.10689 0.803566Z"
+                      fill="#FFC600" />
+                  </svg>
+                </div>
+                <p class="text-[#ffc600] font-semibold -mt-2 ml-1" *ngIf="showLoadingDots">
+                  ....
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-w1 customTabMobNone" *ngIf="isSplashPage"></div>
+
+      <div class="col-w12 " *ngIf="isSplashPage" >
+        <div class="headerWrapper justify-between">
+          <div class="headerLogoSection d-flex align-center"  >
+            <img src="assets/img/header_bars.png" alt="" (click)="toggleMenu()" 
+              [style.display]="isMediumScreen ? 'block' : 'none'" class="headerToggle" />
+
+            <img [routerLink]="topNavlogo.link" src="{{ ASSETS_URL }}assets/{{ topNavlogo?.logo }}" alt="Logo"
+              *ngIf="topNavlogo?.logo" class="headerLogo" />
+          </div>
+          <div class="headerLinkSection d-flex align-center ml-auto pr-[15px]">
+            <div class="headerMenu toggle-menu"  [style.display]="isMenuVisible ? 'block' : 'none'"   >
+              <ul class="headerMenuList vertical-menu">
+                <li class="list-items" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }"
+                  *ngFor="let navLink of topNavItems?.data.nav_links">
+                  <a [ngClass]="{
+                    'active': isActive(navLink.link)
+                  }" [routerLink]="navLink.link">{{ navLink.title }}</a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="headerMenu desktop-menu">
+              <ul class="headerMenuList">
+                <li class="list-items" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }"
+                  *ngFor="let navLink of topNavItems?.data.nav_links">
+                  <a [ngClass]="{
+                    'active': isActive(navLink.link)
+                  }" [routerLink]="navLink.link">{{ navLink.title }}</a>
+                </li>
+              </ul>
+            </div>
+            <div class="" *ngIf="!isSplashPage">
+              <div class="d-flex align-center" *ngIf="!storedData">
+                <div class="headerPassword">
+                  <p class="p3 cursor" routerLink="/auth/forgetpassword">
+                    Forgot Password?
+                  </p>
+                  <form class="d-flex align-center gap-[4px]" (ngSubmit)="login()" #loginForm="ngForm">
+                    <div class="d-flex">
+                      <ng-select [(ngModel)]="selectedOption" [searchable]="false" (change)="toggleInputType()"
+                        name="actType" class="form-input rounded-[4px]">
+                        <ng-option [value]="'1'" class="background-[#18242A]">
+                          <img src="assets/img/email.svg" alt="Email Image" class="option-image" />
+                        </ng-option>
+                        <ng-option [value]="'2'">
+                          <img src="assets/img/Phone.svg" alt="Phone Image" class="option-image" />
+                        </ng-option>
+                      </ng-select>
+
+                      <div *ngIf="isEmailSelected">
+                        <input type="text" [(ngModel)]="user_email" [ngModelOptions]="{ standalone: true }"
+                          placeholder="Enter email" class="custom-input rounded-[4px]" />
+                      </div>
+                      <div *ngIf="!isEmailSelected" class="d-flex align-center">
+                        <input type="text" [id]="loginCode" value="+234" placeholder="Country Code"
+                          class="custom-input rounded-[4px]" />
+                        <input class="custom-input rounded-[4px]" type="number" id="phoneNumber"
+                          [(ngModel)]="phoneNumber" placeholder="e.g. 80xxxxxxx" />
+                      </div>
+                    </div>
+                    <div class="headerInputGroup">
+                      <input type="password" placeholder="Password" class="custom-input" name="password"
+                        [(ngModel)]="password" required />
+                    </div>
+
+                    <button type="submit" class="headerLogin_link cursor" *ngIf="!storedData">
+                      Login
+                    </button>
+                  </form>
+                </div>
+                <div class="headerAuthMenu desktop-AuthMenu">
+                  <ul class="headerAuthMenuList" *ngIf="isLoggedIn && !storedData">
+                    <li class="list-items headerLoginbtn">
+                      <a class="headerLogin_link" routerLink="/auth/login-account">Login</a>
+                    </li>
+
+                    <li class="list-items" *ngIf="!isRegisterAccountRoute">
+                      <a class="headerRegister_link hidden lg:block md:block"
+                        routerLink="/auth/register-account">Register</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="header-right  flex justify-end">
+            <!-- *ngIf="isUserLoggedOut == false" -->
+            <div class="header_userProfile flex items-center w-auto" *ngIf="storedData">
+
+              <!-- <div class="headerMessage">
+                <span (click)="openNotificationDialog()">
+                  <ng-container *ngIf="getUnseenCount()">
+                    <img src="assets/svg/activemessageicon.svg" alt="active message icon"
+                      class="notification-icon cursor-pointer mr-[15px]">
+                    <span class="unseen-count">{{ getUnseenCount() }} </span>
+                  </ng-container>
+                  <ng-container *ngIf="!getUnseenCount()">
+                    <img src="assets/svg/messageicon.svg" alt="default message icon"
+                      class="notification-icon cursor-pointer mr-[7px]" />
+                  </ng-container>
+                </span>
+              </div> -->
+              <div
+                class="inline-flex flex items-center border-none py-[12px] pl-[12px] pr-[8px] h-[32px] rounded-[10px] bg-[#4D585D]">
+                <div class="text-white text-sm font-medium leading-tight header_userProfile_paswordField flex space-x-2"
+                  *ngIf="!showBalance; else hiddenBalance">
+                  <span>&#x20A6;</span> *****
+                </div>
+
+                <ng-template #hiddenBalance>
+                  <h1 class="font-Inter text-[14px] xs:text-[12px] font-[500] leading-[20px] text-white flex space-x-2">
+                    <span>&#x20A6; </span>
+                    {{
+                    balanceUser | number : "0.2-2"
+                    }}
+                  </h1>
+                  <!-- <h1 *ngIf="!isBalanceLoaded" class="font-Inter text-[14px] xs:text-[12px] font-[500] leading-[20px] text-white flex space-x-2">
+                    <span>NGN</span>
+                    0.00
+                  </h1> -->
+                </ng-template>
+
+                <div class="flex header_userProfile_paswordIcons">
+                  <div class="cursor-pointer" (click)="toggleBalanceVisibility()">
+                    <svg class="ml-[8px]" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
+                      fill="none">
+                      <g clip-path="url(#clip0_9542_17639)">
+                        <path
+                          d="M8.13411 4.26628C9.97411 4.26628 11.4674 5.75961 11.4674 7.59961C11.4674 8.03294 11.3808 8.43961 11.2274 8.81961L13.1741 10.7663C14.1808 9.92628 14.9741 8.83961 15.4608 7.59961C14.3074 4.67294 11.4608 2.59961 8.12745 2.59961C7.19411 2.59961 6.30078 2.76628 5.47411 3.06628L6.91411 4.50628C7.29411 4.35294 7.70078 4.26628 8.13411 4.26628ZM1.46745 2.44628L2.98745 3.96628L3.29411 4.27294C2.18745 5.13294 1.32078 6.27961 0.800781 7.59961C1.95411 10.5263 4.80078 12.5996 8.13411 12.5996C9.16745 12.5996 10.1541 12.3996 11.0541 12.0396L11.3341 12.3196L13.2874 14.2663L14.1341 13.4196L2.31411 1.59961L1.46745 2.44628ZM5.15411 6.13294L6.18745 7.16628C6.15411 7.30628 6.13411 7.45294 6.13411 7.59961C6.13411 8.70628 7.02745 9.59961 8.13411 9.59961C8.28078 9.59961 8.42745 9.57961 8.56745 9.54628L9.60078 10.5796C9.15411 10.7996 8.66078 10.9329 8.13411 10.9329C6.29411 10.9329 4.80078 9.43961 4.80078 7.59961C4.80078 7.07294 4.93411 6.57961 5.15411 6.13294ZM8.02745 5.61294L10.1274 7.71294L10.1408 7.60628C10.1408 6.49961 9.24745 5.60628 8.14078 5.60628L8.02745 5.61294Z"
+                          fill="#FFC600" />
+                      </g>
+                      <defs>
+                        <clipPath id="clip0_9542_17639">
+                          <rect width="16" height="16" fill="white" />
+                        </clipPath>
+                      </defs>
+                    </svg>
+                  </div>
+
+                  <div>
+                    <div (click)="refreshUserBalance()" *ngIf="showRefreshIcon">
+                      <svg class="ml-[8px] cursor-pointer" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                        viewBox="0 0 16 16" fill="none">
+                        <path
+                          d="M9.10689 0.803566C5.09408 0.692107 1.80658 3.94036 1.80658 7.96884H0.395395C0.0406282 7.96884 -0.132813 8.39876 0.119465 8.64556L2.31902 10.8748C2.47669 11.034 2.72109 11.034 2.87876 10.8748L5.07832 8.64556C5.33059 8.39876 5.14927 7.96884 4.80239 7.96884H3.38332C3.38332 4.86389 5.89034 2.35604 8.98075 2.39585C11.9135 2.43566 14.3811 4.92758 14.4205 7.88923C14.4599 11.0021 11.9766 13.5418 8.90191 13.5418C7.63264 13.5418 6.45796 13.104 5.52769 12.3635C5.21234 12.1167 4.77085 12.1406 4.48704 12.4272C4.15592 12.7696 4.17957 13.3269 4.55011 13.6214C5.74843 14.5689 7.2621 15.1341 8.90191 15.1341C12.8832 15.1341 16.1076 11.8142 15.9972 7.76184C15.8948 4.02794 12.8043 0.907065 9.10689 0.803566Z"
+                          fill="#FFC600" />
+                      </svg>
+                    </div>
+                    <p class="text-[#ffc600] font-semibold -mt-2 ml-1" *ngIf="showLoadingDots">
+                      ....
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div >
+                <a href="edit-profile" class="headerProfileIconHolder">
+                  <svg alt="Profile Image" class="profile-image" width="20" height="20" viewBox="0 0 20 20" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_9930_20622)">
+                      <rect width="20" height="20" rx="10" fill="#6F7B81" />
+                      <path
+                        d="M4 17C4 14.7909 5.79086 13 8 13H12C14.2091 13 16 14.7909 16 17V21C16 23.2091 14.2091 25 12 25H8C5.79086 25 4 23.2091 4 21V17Z"
+                        fill="#18242A" />
+                      <circle cx="10.1809" cy="8" r="4" fill="#18242A" />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_9930_20622">
+                        <rect width="20" height="20" rx="10" fill="white" />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                  <svg alt="Profile Image" class="ml-[7px]" xmlns="http://www.w3.org/2000/svg" width="9" height="8"
+                    viewBox="0 0 9 8" fill="none">
+                    <path
+                      d="M5.36603 7.5C4.98112 8.16667 4.01887 8.16667 3.63397 7.5L0.602886 2.25C0.217986 1.58333 0.699111 0.75 1.46891 0.75L7.53109 0.750001C8.30089 0.750001 8.78202 1.58333 8.39711 2.25L5.36603 7.5Z"
+                      fill="#18242A" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            <div class="headerAuthMenu md:hidden block">
+              <ul class="headerAuthMenuList" *ngIf="!storedData">
+                <li class="list-items headerLoginbtn">
+                  <a routerLink="/auth/login-account" class="mx-2 text-[#ffc600] font-semibold cursor-pointer">Login</a>
+                  <a class="btn btn-primary md:p-[8px] p-[6px]" routerLink="/auth/register-account">Register</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-w1" *ngIf="isSplashPage"></div>
+    </div>
+  </div>
+  <header class="mobile-header bg-[#18242A] lg:hidden md:hidden" *ngIf="shouldShowHeader()">
+    <div class="headerLinkSection w-100 d-flex align-center px-[16px] py-[14px] overflow-x-auto">
+      <div class="headerMenu">
+        <ul class="headerMenuList flex-nowrap">
+          <li class="list-items" [ngClass]="{
+            'active': isActive(navLink.mobile_nav_items_id.link)
+          }" [routerLink]="navLink.mobile_nav_items_id.link" [routerLinkActive]="['active']"
+            [routerLinkActiveOptions]="{ exact: true }" *ngFor="let navLink of mobile_nav_items">
+            <span class="flex justify-center" *ngIf="!isLinkActive(navLink)">
+              <img [src]="
+                  ASSETS_URL + 'assets/' + navLink.mobile_nav_items_id.icon
+                " alt="Social Media Icon" />
+            </span>
+            <span class="flex justify-center" *ngIf="isLinkActive(navLink)">
+              <img [src]="
+                  ASSETS_URL +
+                  'assets/' +
+                  navLink.mobile_nav_items_id.toggled_icon
+                " alt="Social Media Icon" />
+            </span>
+            <a>{{
+              navLink.mobile_nav_items_id.label
+              }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <hr class="border-[#4D585D] border-[1px] w-full lg:hidden md:hidden" />
+  </header>
+</header>
+<router-outlet></router-outlet>

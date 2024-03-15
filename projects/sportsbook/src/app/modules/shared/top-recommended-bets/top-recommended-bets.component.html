@@ -1,0 +1,99 @@
+
+<div class="inner-wrapper mt-3 px-2 sm:p-0" (resized)="onResize($event)" >
+    <ng-container *ngIf="type !== 'recommendedBets'">
+        <owl-carousel-o [options]="customOptions" (initialized)="initializeCarousel($event)"> 
+            <ng-container *ngFor="let competition of events">
+                <ng-container *ngIf="checkParticipationId(competition.selections)">
+                    <ng-template carouselSlide [id]="competition.id">
+                        <div class="box-holder p-2 rounded shadow-sm bg-[#2C3538] relative w-full">
+                            <i class="absolute top-0 right-0" *ngIf="checkIfPriceIncreased(competition.selections)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none">
+                                    <path d="M22.04 21.5144V1C22.04 0.447715 21.5923 0 21.04 0H1.34622C0.465118 0 0.0146403 1.05692 0.62483 1.69253L20.3186 22.2069C20.9424 22.8567 22.04 22.4151 22.04 21.5144Z" fill="#5DE862"/>
+                                </svg>
+                            </i>
+                            <i class="absolute top-0 right-0" *ngIf="checkIfPriceDecreased(competition.selections)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none">
+                                    <path d="M22.04 1.48564V22C22.04 22.5523 21.5923 23 21.04 23H1.34622C0.465118 23 0.0146403 21.9431 0.62483 21.3075L20.3186 0.793112C20.9424 0.143303 22.04 0.584867 22.04 1.48564Z" fill="#FE5151"/>
+                                </svg>
+                            </i>
+                            <div class="top head flex mb-[6px] gap-[8px]">
+                                <img src="../../../assets/img/{{ competition.sportId }}.png" alt="" class="w-[16px] h-[16px]">
+                                <p class=" text-[#A3A7AA] text-[10px] font-medium leading-[16px] truncate ...">{{getSelectionName(competition.selections)}} - {{competition.name}}</p>
+                            </div>
+                            <div class="text-[#FFF] text-[10px] font-medium leading-[16px] pb-2 flex justify-between"> 
+                                <span class="truncate ... w-[65px] inline-block">{{getParticipentsName(0, competition.participants)}}</span> 
+                                <span class="text-[#FFC600] mx-2 w-[15px] inline-block">VS</span> 
+                                <span class="truncate ... w-[65px] inline-block">{{getParticipentsName(1, competition.participants)}}</span> 
+                            </div>
+                            <div class="text-[#A3A7AA] text-[10px] font-medium leading-[16px]">{{competition.anticipated?.startTime | date: 'mediumDate'}} {{competition.anticipated?.startTime | date: 'shortTime'}}</div>
+                            <div 
+                            [ngClass]="!competition?.isSelected
+                            ? 'text-[12px] font-medium leading-[16px] tracking-tight bg-[#4D585D]  sm:hover:bg-yellow-500 hover:text-black py-[8px] px-[60px] rounded mt-2 text-center'
+                            : 'text-[12px] font-medium leading-[16px] tracking-tight odd-yellow  py-[8px] px-[60px] rounded mt-2 text-center'" 
+                             (click)="selectionselection(competition)" >{{getPrice(competition.selections) | number: '0.2-2'}}</div>
+                        </div>
+                    </ng-template>
+                </ng-container>
+            </ng-container>
+        </owl-carousel-o>
+        <ng-container *ngIf="events.length === 0 && !loading">
+            <div class="w-full font-semibold text-sm text-center bg-[#2C3538] p-2 rounded text-[#FFC600]">No Top bets right now.</div>
+        </ng-container>
+        
+    </ng-container>
+<ng-container *ngIf="type === 'recommendedBets' ">
+    <owl-carousel-o [options]="customOptionsRecommended" (initialized)="initializeCarousel($event)" > 
+        <ng-container *ngFor="let competition of recommendedData;">
+            <!-- <ng-container *ngIf="checkParticipationId(competition.selections)"> -->
+            <ng-container >
+                <ng-template carouselSlide [id]="competition.id">
+                    <div class="box-holder p-2 rounded shadow-sm bg-[#2C3538] relative w-full">
+                        <!-- <i class="absolute top-0 right-0" *ngIf="checkIfPriceIncreased(competition.selections)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none">
+                                <path d="M22.04 21.5144V1C22.04 0.447715 21.5923 0 21.04 0H1.34622C0.465118 0 0.0146403 1.05692 0.62483 1.69253L20.3186 22.2069C20.9424 22.8567 22.04 22.4151 22.04 21.5144Z" fill="#5DE862"/>
+                            </svg>
+                        </i>
+                        <i class="absolute top-0 right-0" *ngIf="checkIfPriceDecreased(competition.selections)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23" fill="none">
+                                <path d="M22.04 1.48564V22C22.04 22.5523 21.5923 23 21.04 23H1.34622C0.465118 23 0.0146403 21.9431 0.62483 21.3075L20.3186 0.793112C20.9424 0.143303 22.04 0.584867 22.04 1.48564Z" fill="#FE5151"/>
+                            </svg>
+                        </i> -->
+                        <div class="top head flex mb-[6px] gap-[8px]">
+                            <img src="../../../assets/img/{{ competition.sportId }}.png" alt="" class="w-[16px] h-[16px]">
+                            <!-- <p class=" text-[#A3A7AA] text-[10px] font-medium leading-[16px] truncate ...">{{getSelectionName(competition.selections)}} - {{competition.name}}</p> -->
+                            <p class=" text-[#A3A7AA] text-[10px] font-medium leading-[16px] truncate ...">{{competition?.competitionName}}</p>
+
+                        </div>
+                        <div class="text-[#FFF] text-[10px] font-medium leading-[16px] pb-2 flex justify-between items-center h-[39px]"> 
+                            <span class=" w-[65px] text-start" [ngClass]="checkCompetitionNameSize(0, competition?.participants) ? 'truncate ...' : 'truncate-com'">{{getParticipentsName(0, competition?.participants)}}</span> 
+                            <span class="text-[#FFC600] mx-2 w-[15px] inline-block">VS</span> 
+                            <span class=" w-[65px] text-end" [ngClass]="checkCompetitionNameSize(1, competition?.participants) ? 'truncate ...' : 'truncate-com'">{{getParticipentsName(1, competition?.participants)}}</span> 
+                        </div>
+                        <div class="text-[#A3A7AA] text-[10px] font-medium leading-[16px]">{{competition.anticipated?.startTime | date: 'mediumDate'}} {{competition.anticipated?.startTime | date: 'shortTime'}}</div>
+                        <!-- <div 
+                        [ngClass]="!competition?.isSelected
+                        ? 'text-[12px] font-medium leading-[16px] tracking-tight bg-[#4D585D] sm:hover:bg-yellow-500 hover:text-black py-[8px] px-[60px] rounded mt-2 text-center'
+                        : 'text-[12px] font-medium leading-[16px] tracking-tight odd-yellow  py-[8px] px-[60px] rounded mt-2 text-center'" 
+                        (click)="selectionselection(competition)" >{{'getPrice(competition.selections)'}}</div> -->
+                        <ng-container *ngIf="competition.selections[0].length">
+                            <div class="mt-2 flex items-center gap-0.5 justify-between border-radius-fl">
+                                <div class="rounded-tl rounded-bl  desktopScore__digitsCon__single flex-1"
+                                *ngFor="let price of competition.selections[0]" (click)="selectionselectionRecommendedBets(price)"
+                                [ngClass]="!price?.isSelected ? 'bg-[#4D585D] w-10 justify-center items-center flex p-2 cursor-pointer sm:hover:bg-yellow-500 sm:hover:text-black':'w-10 justify-center items-center flex p-2 cursor-pointer text-[12px] font-medium leading-[16px] tracking-tight odd-yellow'"
+                                >
+                                {{price?.price?.dec | number: '0.2-2'}}</div>
+                            </div>
+
+                        </ng-container>
+            
+                    </div>
+                </ng-template>
+            </ng-container>
+        </ng-container>
+        </owl-carousel-o>
+        <ng-container *ngIf="recommendedData.length === 0 && !loading">
+            <div class="w-full font-semibold text-sm text-center bg-[#2C3538] p-2 rounded text-[#FFC600]">No Recommended bets available.</div>
+        </ng-container>
+    </ng-container>
+</div> 
+      

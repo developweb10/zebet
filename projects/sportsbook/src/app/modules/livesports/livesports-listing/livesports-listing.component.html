@@ -1,0 +1,132 @@
+<ng-container *ngIf="isMultibet || !isLargeScreen(); else eventView">
+  <div class="w-full flex justify-between max-lg:flex-col max-lg:justify-center gap-2 items-center relative" [ngClass]="singleSport && isLargeScreen() ? '' : 'my-4'">
+    <!-- sport name in case of multiple sports ( fav ) -->
+    <h4 class="title text-[#A3A7AA] pl-4" *ngIf="!singleSport">
+      <!-- sport name variable here -->
+      {{sport.name}}
+    </h4>
+    <div class="flex max-lg:w-full" [ngClass]="singleSport && isLargeScreen() ? 'absolute top-0 right-[150px] -translate-y-[40px]' : ''">
+      <select [(ngModel)]="currentDropVal"
+      (change)="handleMiniCouponChange(currentDropVal)"
+        class="rounded-[4px] w-full border border-gray-600 bg-[#2C3538] lg:w-[300px] p-1 text-zinc-300 text-[10px] font-normal uppercase z-[1] ng-pristine ng-valid ng-touched"
+      >
+      <option *ngFor="let option of miniCoupons" [value]="option.key">
+        {{ option.description }}
+      </option>
+        
+      </select>
+    </div>
+  </div>
+  
+
+
+  <ng-container *ngIf="!eventsLoading; else loader">
+      <!-- desktop table -->
+      <ng-container *ngIf="isLargeScreen()">
+        <div class="overflow-x-auto w-full">
+          <div class="w-min min-w-full">
+            <div class="grid grid-cols-[120px_1fr_auto_60px_60px] gap-2 p-1 text-zinc-400 text-[12px] font-normal items-center min-w-full">
+              <div class="col-span-1 pl-4 text-left scoreHeadingRow__time">Time</div>
+              <div class="col-span-1">Event</div>	
+              <div class="col-span-1 flex justify-end gap-4">
+                <div class="grid scoreHeadingRow__threeCol " [ngClass]="eachOv?.overUnder?.length ? 'grid-cols-'+(eachOv.overUnder.length ?? 3) : 'grid-cols-3'" *ngFor = "let eachOv of overUnder">
+                <div class="col-span-full text-center">{{eachOv.name}}</div>
+                <div class="col-span-full grid grid-cols-subgrid gap-0.5">
+                  <div class="justify-center flex p-1 col-span-1 w-[50px]" *ngFor = "let eachName of eachOv.overUnder">{{eachName}}</div>
+                </div>
+                </div>
+              </div>
+              <div class="flex w-16 mt-0 p-1 text-center"></div>
+              <div class="flex w-16 mt-0 p-1 text-center"></div>
+              </div>
+            
+            <!-- show live match listing below -->
+            <ng-container *ngFor="let data of compsMap">
+              <app-live-competition-item
+                [compId]="data.competitionId"
+                [events]="data.events"
+                [sport]="sport"
+                [overUnder]="overUnder"
+                [currentEventMiniCouponData]="currentEventMiniCouponData"
+                [latestMarketCount]="latestMarketCount"
+                (openModalEvent)="openModal($event)"
+              ></app-live-competition-item>
+            </ng-container>
+          </div>
+
+        </div>
+
+      </ng-container>
+      <!-- mobile table -->
+      <ng-container *ngIf="!isLargeScreen()" >
+        <div class="bg-[#2C3538] p-2 rounded-md">
+      
+          <app-underlined-tab
+            *ngIf="overUnderNames?.length"
+            [tabs]="overUnderNames"
+            (tabClick)="onOddsChange($event)"
+            class="mainProfile__scoreBoard__chanceTab mb-4"
+          ></app-underlined-tab>
+          <!-- heading loop -->
+          <div
+            class=" w-full d-flex gap-[1px] justify-end mainProfile__scoreBoard__tableThHolder" [ngClass]="overUnder?.[currentMarketTabIndex??0]?.overUnder?.length > 2 ? 'pr-10' : 'pr-[50px]'">
+            <div class="flex gap-0.5 h-min text-[8px]">
+              <div
+                *ngFor="let eachHead of overUnder?.[currentMarketTabIndex??0].overUnder"
+                class="w-10 justify-center flex p-1 mainProfile__scoreBoard__tableTh"
+              >
+                {{ eachHead }}
+              </div>
+            </div>
+          </div>
+          <!-- each competition loop now -->
+      
+            <!-- show live match listing below -->
+            <ng-container *ngFor="let data of compsMap">
+              <app-live-competition-item
+                [compId]="data.competitionId"
+                [events]="data.events"
+                [sport]="sport"
+                [currentMarketTabIndex]="currentMarketTabIndex"
+                [overUnder]="overUnder"
+                [currentEventMiniCouponData]="currentEventMiniCouponData"
+                [latestMarketCount]="latestMarketCount"
+                (openModalEvent)="openModal($event)"
+              ></app-live-competition-item>
+            </ng-container>
+        </div>
+      </ng-container>  
+  </ng-container>
+</ng-container>
+
+<ng-template #eventView>
+  <div class="title flex gap-1 items-center w-full mb-2" *ngIf="!singleSport">									
+    <span class="yellow_color text-[12px] font-medium">{{sport.name}}</span>
+    <div class="line h-[1px] bg-[#4D585D] flex-grow"></div>
+  </div>
+  <ng-container *ngIf="!eventsLoading; else loader">
+    
+  <ng-container *ngFor="let comp of compsMap; index as compIndex">
+    <div [ngClass]="compIndex===competitionEventsData?.length-1 ? '' : 'mb-4'">
+      <app-live-competition-item
+      [isMultibet]="false"
+      [compId]="comp.competitionId"
+      [events]="comp.events"
+      [sport]="sport"
+      [currentMarketTabIndex]="currentMarketTabIndex"
+      [overUnder]="overUnder"
+      [currentEventMiniCouponData]="currentEventMiniCouponData"
+      [latestMarketCount]="latestMarketCount"
+      (openModalEvent)="openModal($event)"
+    ></app-live-competition-item>
+    </div>
+  </ng-container>
+  </ng-container>
+</ng-template>
+
+
+
+<ng-template #loader>
+  <div class="flex justify-center spinner mx-auto"></div>
+</ng-template>
+

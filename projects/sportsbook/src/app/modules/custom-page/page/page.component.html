@@ -1,0 +1,14 @@
+<div class="bettingWrapper ">
+  <div class="terms-section"  *ngIf="customPageData && customPageData.data && customPageData.data.length > 0" >
+    <div class="terms-main-wrapper" *ngFor="let item of customPageData.data">
+      <h1 class="h1 uppercase" >{{ item?.title }}</h1>
+      <div class="terms-wrapper" [innerHTML]="item?.primary_content"></div>
+      <ng-container *ngIf="item?.list?.length" >
+        <div *ngFor="let listItem of item?.list">
+          <h2 class="h1 uppercase" >{{ listItem?.title }}</h2>
+          <div class="terms-wrapper" [innerHTML]="listItem?.content"></div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

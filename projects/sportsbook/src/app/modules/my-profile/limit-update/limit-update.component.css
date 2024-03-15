@@ -1,0 +1,63 @@
+.input-wrap {
+	position: relative;
+	border-radius: 10px;
+	border: 1px solid #4d585d;
+	background: #2c3538;
+	height: 44px;
+}
+.input-wrap .number {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	right: 15px;
+	color: #7c878c;
+	font-size: 24px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: 16px;
+	letter-spacing: -0.72px;
+}
+.input-wrap .tag {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	left: 15px;
+	color: #7c878c;
+	font-size: 24px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: 16px;
+	letter-spacing: -0.72px;
+}
+.input-wrap input {
+	background: transparent;
+	outline: none;
+	border: none;
+	height: 44px;
+	width: 100%;
+	padding: 0 40px 0 18px;
+	color: #ffffff;
+	font-size: 24px;
+	text-align: end;
+	padding: 0 52px;
+	font-family: 'Kanit', sans-serif;
+	font-weight: 600;
+}
+
+.btn-limit {
+	border-radius: 10px;
+	background: #ffc600;
+	color: #18242a;
+	font-size: 12px;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.btn-cancel {
+	border-radius: 10px;
+	background: #2C3538;
+	color: #FFC600;
+	font-size: 12px;
+	font-weight: bold;
+	text-transform: uppercase;
+}

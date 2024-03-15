@@ -1,0 +1,4 @@
+.inactive {
+    filter: invert(73%) sepia(7%) saturate(6869%) hue-rotate(3deg) brightness(109%) contrast(103%);
+}
+    

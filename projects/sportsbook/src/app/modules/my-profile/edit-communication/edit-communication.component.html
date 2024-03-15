@@ -1,0 +1,63 @@
+<div class=" ">
+  <div class=" bg-[#18242A] rounded-tl-xl rounded-tr-xl ">
+
+    <div class="max-w-full py-0 md:py-9 md:pt-0 pt-6 mx-auto h-full w-[926px] ">
+      <div class="flex justify-between items-center">
+        <div class="flex items-center gap-2 py-2 lg:px-0 ">
+          <a (click)="closeDialog()">
+            <img alt="back arrow" src="./assets/img/back_arrow.png" class="modal-backArrow" />
+          </a>
+          <h1 class="text-[18px] text-[#fff] font-semibold">
+            Edit Communication
+          </h1>
+        </div>
+
+        <a (click)="closeDialog()">
+          <img src="assets/img/close-round.png" alt="" class="modal-backArrow">
+        </a>
+
+      </div>
+      <div class="md:px-0 ">
+        <div class="flex lg:flex-row flex-col  y-2 py-2">
+          <div class="w-full lg:w-1/2 lg:pr-2 flex flex-col">
+            <label>Phone Number*</label>
+            <!-- <h1  class="placeholder-[#4D585D] h-[44px] bg-[#2C3538] px-[16px] py-[12px] mt-2 border border-[#4D585D] text-[#D9D9D9] rounded-lg py-2 px-1 h-9 text-[16px]">
+           
+                {{userPhone}}
+              </h1> -->
+            <div class="editCommunication__phoneNumberGroup">
+              <input type="tel" value="+234" class="form-input rounded-[4px] editCommunication__phoneNumberGroup__code" placeholder="+234" maxlength="4"
+                (keypress)="onKeyPress($event)" />
+              <input type="tel" [(ngModel)]="userPhone" placeholder="Enter your phone number"
+                class="placeholder-[#4D585D] h-[44px] bg-[#2C3538] px-[16px] py-[12px] mt-2 border border-[#4D585D] text-[#D9D9D9] rounded-lg py-2 px-1 h-9 text-[16px]"
+                [attr.readonly]="!usernameIsEmail ? 'readonly' : null" (keypress)="validateInput($event)"
+                maxlength="10" />
+            </div>
+          </div>
+          <div class="w-full lg:w-1/2 lg:pl-2 flex flex-col lg:mt-0 mt-[13px]">
+            <label>Email ID*</label>
+            <!-- <h1  class="placeholder-[#4D585D] h-[44px]  px-[16px] py-[12px] mt-2 border  text-[#D9D9D9] rounded-lg py-2 px-1 h-9 text-[16px]">
+                
+                {{userEmail}} 
+              </h1> -->
+            <input type="email" [(ngModel)]="userEmail" placeholder="Enter your email"
+              class="placeholder-[#4D585D] h-[44px] bg-[#2C3538] px-[16px] py-[12px] mt-2 border border-[#4D585D] text-[#D9D9D9] rounded-lg py-2 px-1 h-9 text-[16px]"
+              [attr.readonly]="usernameIsEmail ? 'readonly' : null" />
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center mt-4 justify-between gap-2 py-2 bottom-0 left-0 right-0 m-auto md:px-0">
+        <a (click)="closeDialog()">
+          <button
+            class="uppercase bg-[#2C3538] text-[#FFC600] text-[12px] rounded-md w-[165px] font-medium text-center h-full py-[12px] px-[16px]">
+            Cancel
+          </button>
+        </a>
+        <button (click)="saveUserData()"
+          class="uppercase bg-[#FFC600] text-[#18242A] text-[12px] rounded-md w-[165px] font-medium text-center h-full py-[12px] px-[16px]">
+          Save
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

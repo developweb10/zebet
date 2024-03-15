@@ -1,0 +1,10 @@
+<div class="ml-5 flex rounded bg-[#2C3538]">
+    <button class="flex rounded mr-4 p-2 items-center" 
+    *ngFor="let tab of tabs; index as i" (click)="toggleTab(tab);"
+    [ngClass]="activeTab==tab ? 'text-gray-900 bg-yellow-400' : 'text-zinc-400 bg-[#2C3538]'"
+    >
+        <img src='../../../assets/svg/{{tab}}.svg' class="mr-2 max-w-none" width="25px" [ngClass]="activeTab==tab ? '' : 'inactive'"/>
+        <div class="text-sm font-medium uppercase">{{tab}}</div>
+    </button>
+</div>
+

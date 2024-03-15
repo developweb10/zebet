@@ -1,0 +1,142 @@
+.active-item {
+  font-weight: 700;
+  color: #ffc600;
+  border-bottom: 4px solid #ffc600;
+}
+
+table.Table1 td {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.selectedRate_area .selectedRate {
+  padding-bottom: 12px !important;
+  margin-bottom: 12px !important;
+}
+
+.ms-auto {
+  margin-left: auto;
+}
+
+.full-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 50%;
+  margin: 0;
+  padding: 0;
+  z-index: 1000;
+  /* You can adjust the z-index based on your needs */
+}
+
+@media (min-width:1024px) {
+  .title_arrow {
+    display: none;
+  }
+}
+
+.betloader .icon img {
+  margin: 0 auto;
+  -webkit-animation: spin 2.5s linear infinite;
+  -moz-animation: spin 2.5s linear infinite;
+  animation: spin 2.5s linear infinite;
+}
+
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.bets_area {
+  background: linear-gradient(180deg, #4D585D 0%, #2C3538 14.17%, #2C3538 100%);
+}
+
+.arrowDiv {
+  display: none;
+}
+
+.priceChanged .arrowDiv {
+  width: 17px;
+  display: block;
+}
+
+
+.checkbox_div label {
+  position: relative;
+  padding-right: 25px;
+}
+
+.checkbox_div input {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+  width: 16px;
+  height: 16px;
+  opacity: 0;
+}
+
+.checkbox_div .custom_check {
+  content: '';
+  width: 16px;
+  height: 16px;
+  background: #4D585D;
+  border: 1px solid #A3A7AA;
+  position: absolute;
+  right: 0;
+  top: 0;
+  border-radius: 4px;
+}
+
+.checkbox_div .custom_check:after {
+  content: '';
+  width: calc(100% - 6px);
+  height: calc(100% - 6px);
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  padding: 3px;
+  background-image: url('/assets/svg/freebetCheck_ic.svg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0;
+}
+
+.checkbox_div input:checked~.custom_check {
+  background: #ffc600;
+  border-color: #ffc600;
+}
+
+.checkbox_div input:checked~.custom_check:after {
+  opacity: 1;
+}
+
+.oddsArrow {
+  display: none;
+}
+
+.oddsArrow.showArrow {
+  display: block;
+}
+
+
+.freebetButton.open .icon img {
+  transform: rotate(90deg);
+  transition: all ease 0.3s;
+}

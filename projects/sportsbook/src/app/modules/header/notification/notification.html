@@ -1,0 +1,140 @@
+<div class=" ">
+  <div class="bg-[##2C3538] rounded-tl-xl rounded-tr-xl ">
+
+    <div class="max-w-full py-6 md:py-0 mx-auto h-full w-[926px] ">
+      <div class="flex justify-between items-center">
+        <div class="flex items-center gap-2 py-2 lg:px-0 ">
+          <a class="notificationBox__back" (click)="closeDialog()">
+            <!-- <img alt="back arrow" src="./assets/img/back_arrow.png" class="modal-backArrow" /> -->
+            <svg class="modal-backArrow" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2.1375 6.5625H12V5.4375H2.1375L6.7875 0.7875L6 0L0 6L6 12L6.7875 11.2125L2.1375 6.5625Z"
+                fill="#a3a77a" />
+              <path d="M2.1375 6.5625H12V5.4375H2.1375L6.7875 0.7875L6 0L0 6L6 12L6.7875 11.2125L2.1375 6.5625Z"
+                stroke="#a3a77a" />
+            </svg>
+          </a>
+        </div>
+ 
+        <a class="notificationBox__cross" (click)="closeDialog()">
+          <svg class="modal-backArrow" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"
+            fill="none">
+            <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M8.28842 7.25012L14 1.53846L12.9616 0.5L7.24997 6.21166L1.53844 0.500051L0.5 1.53851L6.21153 7.25012L0.500231 12.9615L1.53868 13.9999L7.24997 8.28857L12.9613 14L13.9998 12.9615L8.28842 7.25012Z"
+              fill="#ffc600" />
+          </svg>
+        </a>
+      </div>
+
+      <div *ngIf="!selectedNotification">
+        <div class="">
+          <h1 class="text-[20px] text-[#fff] font-semibold md:pt-[8px] md:pb-[10px]">
+            Inbox
+          </h1>
+        </div>
+
+        <div class="flex justify-between notificationBox__form">
+          <select (change)="onFlaggedOnlyChange($event)"
+            class="rounded-[4px] border border-gray-600 bg-[#2C3538] w-[200px] p-1 text-zinc-300 text-[10px] font-normal uppercase z-[1]">
+            <option>All Message</option>
+            <option>Newest first </option>
+            <option>Flagged only</option>
+          </select>
+          <span>
+            <mat-form-field class="bg-[#2C3538]  border border-gray-600 text-[#D9D9D9] customMatform rounded-[10px]">
+              <input matInput [matDatepicker]="picker" [max]="getToday()" [readonly]="true"
+                (dateChange)="onDateChange($event)">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </span>
+        </div>
+
+
+        <div class="" *ngIf="notificationProperties?.length > 0; else noRecords">
+          <div *ngFor="let notification of notificationProperties">
+            <ng-container>
+              <div class="">
+                <span class="text-[#D9D9D9] text-[12px]" *ngIf="selectedDate; else showPlacedOnDate">
+                  {{ selectedDate | date:'d MMM yyyy' }}
+                </span>
+                <ng-template #showPlacedOnDate>
+                  <span class="text-[#D9D9D9] text-[12px]">
+                    {{ notification.message.placedOn | date:'d MMM yyyy' }}
+                  </span>
+                </ng-template>
+                <div class="notificationBox__notes ">
+                  <div class="scroll-notificationBox">
+                    <div class="message-action">
+                      <ng-container *ngIf="!notification.seen; else seenIcon">
+                        <img src="assets/svg/activemessageicon.svg" alt="" class="max-w-[16px] cursor-pointer">
+                      </ng-container>
+                      <ng-template #seenIcon>
+                        <img src="assets/svg/messageopen.svg" alt="" class="max-w-[16px] cursor-pointer">
+                      </ng-template>
+                      <img (click)="deleteNotification(notification.id)" src="assets/svg/delete.svg" alt=""
+                        class="max-w-[14px] cursor-pointer">
+                    </div>
+                    <div class="message cursor-pointer" (click)="toggleMessageDetails(notification)"
+                      [ngClass]="{'not-seen': !notification.seen, 'seen': notification.seen}">
+                      <p class="notificationTime" *ngIf="selectedNotification !== notification">
+                        {{ notification.message.placedOn | date:'shortTime' }}</p>
+                      <p class="notificationMsg--heading" *ngIf="selectedNotification !== notification">Withdrawal
+                        Completed</p>
+                        <p class="notificationMsg--desc text-[12px] pt-1">Hi, Your Withdrawal of NGN{{ notification.message.totalPotentialReturnOC}} has been Completed</p>
+                    </div>
+                    <div class="message-arrow cursor-pointer">
+                      <div class="">
+                        <img *ngIf="!notification.flagged; else flaggedIcon" (click)="flagNotification(notification.id)"
+                          src="assets/svg/Staractive.svg" alt="" />
+                        <ng-template #flaggedIcon>
+                          <img src="assets/svg/Star.svg" alt="" (click)="flagNotification(notification.id)">
+                        </ng-template>
+
+                      </div>
+                      <div class="" (click)="toggleMessageDetails(notification)">
+                        <img src="assets/svg/nextarrow.svg" alt="" class="max-w-[16px]">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="selectedNotification">
+        <!-- Display detailed information about the selected notification -->
+        <div class="messageOpenWrapper">
+          <div class="messageDetails_heading">
+            <h2 class="text-[20px] text-[#fff] font-semibold">
+              Message Details
+            </h2>
+          </div>
+          <p class="date text-[14px] text-[#D9D9D9] pb-3"> {{ selectedNotification.message.placedOn | date:'d MMM yyyy' }}</p>
+
+          <div class="messageDetails_body">
+            <div class="messageDetails_openImage">
+              <img src="assets/svg/messageopen.svg" alt="">
+            </div>
+            <p class="date text-[12px] text-[#D9D9D9] mb-0"> {{ selectedNotification.message.placedOn | date:'shortTime' }}</p>
+            <p class="text-[12px] font-bold text-[#D9D9D9] py-3"> Withdrawal Completed</p>
+            <p class="text-[12px] pt-1 pb-3 text-[#D9D9D9]">Hi,<br/>Withdrawal Completed:<br /> Your Withdrawal of NGN{{ selectedNotification.message.totalPotentialReturnOC}} has been Completed.</p>
+            <p class="text-[12px] text-[#D9D9D9]">Please check your balance in your profile under transactions.</p>
+          </div>
+
+          <!-- Add more details as needed -->
+        </div>
+
+        <div class="notification-delete cursor-pointer" (click)="deleteNotification(selectedNotification.id)">
+          Delete
+        </div>
+      </div>
+      <ng-template #noRecords>
+        <div class="notificationBox__notes notificationBox__notes__nomsg" *ngIf="showNoRecordsMessage">No
+          records found for the selected date.</div>
+      </ng-template>
+    </div>
+  </div>
+</div>

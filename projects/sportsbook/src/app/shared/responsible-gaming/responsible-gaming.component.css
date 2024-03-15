@@ -1,0 +1,424 @@
+.input-wrap {
+	position: relative;
+	border-radius: 10px;
+	border: 1px solid #4d585d;
+	background: #2c3538;
+	height: 44px;
+}
+.input-wrap .number {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	right: 15px;
+	color: #7c878c;
+	font-size: 24px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: 16px;
+	letter-spacing: -0.72px;
+}
+.input-wrap .tag {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	left: 15px;
+	color: #7c878c;
+	font-size: 24px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: 16px;
+	letter-spacing: -0.72px;
+}
+.input-wrap input {
+	background: transparent;
+	outline: none;
+	border: none;
+	height: 44px;
+	width: 100%;
+	padding: 0 40px 0 18px;
+	color: #ffffff;
+	font-size: 24px;
+	text-align: end;
+	padding: 0 52px;
+	font-family: 'Kanit', sans-serif;
+	font-weight: 600;
+}
+
+
+.modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	display: flex !important;
+	align-items: flex-end;
+	z-index: 9999;
+  }
+
+  .footer-action {
+	margin-top: 25px;
+  }
+  
+  .modal-content {
+	border-radius: 20px 20px 0px 0px;
+	border: 1px solid #4d585d;
+	background: #18242a;
+	box-shadow: -1px 4px 34px 9px rgba(0, 0, 0, 0.65);
+	max-width: 100%;
+	padding: 20px;
+	position: relative;
+	height: calc(100% - 220px);
+	width: 100%;
+  }
+  .modal-wrapper {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	height: 100%;
+	max-width: 920px;
+	margin: 0 auto;
+  }
+  .modal-wrapper .modal-body {
+	flex: 1;
+	overflow: auto;
+  }
+  .modal-wrapper .footer-action {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 16px;
+	margin: 0;
+	padding: 0;
+  }
+.head-tag {
+	padding: 5px;
+	display: none;
+}
+.head-tag h1 {
+	color: #fff;
+	font-size: 15px;
+	font-weight: 600;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	line-height: normal;
+}
+.back-arrow {
+	width: 24px;
+	height: 24px;
+	min-width: 24px;
+	border-radius: 50%;
+	background: #2c3538;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.footer-action {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 16px;
+	margin: 0;
+	padding: 0 0 48px;
+}
+.footer-action .btn-cancel {
+	border-radius: 10px;
+	background: #2c3538;
+	color: #ffc600;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 600;
+	width: 164px;
+	line-height: 48px;
+	text-transform: uppercase;
+}
+.footer-action .btn-cancel:hover {
+	background: #ffc600;
+	color: #2c3538;
+}
+.footer-action .btn-save {
+	border-radius: 10px;
+	background: #ffc600;
+	color: #18242a;
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 48px;
+	width: 164px;
+	text-transform: uppercase;
+}
+
+.footer-action .btn-save:disabled .btn-save[disabled] {
+	border-radius: 10px;
+	background: #4d585d;
+	color: #18242a;
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 48px;
+	width: 164px;
+	text-transform: uppercase;
+}
+.footer-action .btn-limit {
+	border-radius: 10px;
+	background: #ffc600;
+	color: #18242a;
+	font-size: 16px;
+	font-weight: 600;
+	text-transform: uppercase;
+}
+
+.btn-revoke {
+	border-radius: 10px;
+	background: #A3A7AA;
+	color: #18242a;
+	font-size: 12px;
+	font-weight: 600;
+	width: 111px;
+	height: 20px;
+	padding: 0px, 31px, 0px, 31px;
+	border-radius: 2px;
+
+}
+
+.footer-action .btn-save:hover {
+	background: #dfaf04;
+	color: #18242a;
+}
+.date-piker-icon {
+	position: absolute;
+	width: 27px;
+	height: 27px;
+	border-radius: 50%;
+	background: #18242a;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	top: 50%;
+	transform: translateY(-50%);
+	right: 9.5px;
+	z-index: 0;
+}
+
+.custom-date::-webkit-calendar-picker-indicator {
+	color: rgba(0, 0, 0, 0);
+	opacity: 0.1;
+	display: block;
+	background-repeat: no-repeat;
+	width: 25px;
+	height: 25px;
+	border-width: thin;
+	position: absolute;
+	left: 5%;
+}
+.custom-date-wrap a.active {
+	background: #ffc600;
+	color: #7da3b6;
+}
+.custom-date-wrap input[type='date'] {
+	border-radius: 10px;
+	background: var(--Secondary---Other-Spaces, #2c3538);
+	border: none;
+	outline: none;
+	color: #4d585d;
+}
+input[type='date']::-webkit-inner-spin-button,
+input[type='date']::-webkit-calendar-picker-indicator {
+	opacity: 0.1;
+	-webkit-appearance: none;
+	width: 100%;
+}
+@media screen and (max-width: 991px) {
+	.head-tag {
+		display: flex;
+	}
+}
+
+.date:focus {
+	color: var(--Secondary--2-Trout, #4d585d);
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 20px;
+}
+.date {
+	color: #fff;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 20px;
+}
+.date-piker-icon {
+	position: absolute;
+	width: 22px;
+	height: 22px;
+	border-radius: 50%;
+	background: #18242a;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	top: 50%;
+	transform: translateY(-50%);
+	right: 9.5px;
+	z-index: 0;
+}
+.date::-webkit-calendar-picker-indicator {
+	opacity: 0.01;
+	width: 100%;
+}
+
+.date::-moz-calendar-picker-indicator {
+	opacity: 0.01;
+	width: 100%;
+}
+
+.date::-ms-clear {
+	opacity: 0.01;
+	width: 100%;
+	height: 100%;
+}
+.accordion-title {
+	border-radius: 10px;
+	background: var(--primary-black-mirage-primary-text-z, #18242a);
+	padding: 11px 21px 11px 12px;
+}
+
+.input-field {
+	height: calc(1.5em + 1rem + 2px);
+	padding: 0.5rem 1rem;
+	font-size: 1.25rem;
+	line-height: 1.5;
+	border-radius: 0.3rem;
+	display: block;
+	width: 40%;
+	font-weight: 400;
+	color: #495057;
+	background-color: #fff;
+	background-clip: padding-box;
+	border: 2px solid black;
+}
+
+.date::-webkit-calendar-picker-indicator {
+	color: rgba(0, 0, 0, 0);
+	opacity: 1;
+	display: block;
+	background-repeat: no-repeat;
+	width: 25px;
+	height: 25px;
+	border-width: thin;
+}
+.date::-webkit-calendar-picker-indicator {
+	position: absolute;
+	left: 0;
+}
+input::-webkit-datetime-edit-fields-wrapper {
+	position: relative;
+	left: 00;
+}
+input::-webkit-datetime-edit {
+	position: relative;
+	left: 00;
+}
+.custom-date-wrap a.active {
+	background: #ffc600;
+	color: #ffffff;
+}
+.custom-date-wrap input[type='date'] {
+	border-radius: 10px;
+	background: var(--Secondary---Other-Spaces, #2c3538);
+	border: 1px solid var(--Secondary--2-Trout, #4d585d);
+	outline: none;
+	color: #4d585d;
+}
+input[type='date']::-webkit-inner-spin-button,
+input[type='date']::-webkit-calendar-picker-indicator {
+	opacity: 0.1;
+	-webkit-appearance: none;
+	width: 100%;
+}
+.active-labels {
+	background: #ffc600;
+	color: #18242a;
+}
+
+
+/* The container */
+.container {
+	display: block;
+	position: relative;
+	padding-left: 35px;
+	padding-top: 5px;
+	margin-top: 12px;
+	margin-bottom: 12px;
+	cursor: pointer;
+	-webkit-user-select: none;
+	font-family: Kanit;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 16px;
+	letter-spacing: -0.03em;
+	text-align: left;
+
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+  }
+  
+  /* Hide the browser's default radio button */
+  .container input {
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
+  }
+  
+  /* Create a custom radio button */
+  .checkmark {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 25px;
+	width: 25px;
+	background-color: #eee;
+	border-radius: 50%;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .container:hover input ~ .checkmark {
+	background-color: #ccc;
+  }
+  
+  /* When the radio button is checked, add a blue background */
+  .container input:checked ~ .checkmark {
+	background-color: #FFC600;
+	;
+  }
+  
+  /* Create the indicator (the dot/circle - hidden when not checked) */
+  .checkmark:after {
+	content: "";
+	position: absolute;
+	display: none;
+  }
+  
+  /* Show the indicator (dot/circle) when checked */
+  .container input:checked ~ .checkmark:after {
+	display: block;
+  }
+  
+  /* Style the indicator (dot/circle) */
+  .container .checkmark:after {
+	   top: 9px;
+	  left: 9px;
+	  width: 8px;
+	  height: 8px;
+	  border-radius: 50%;
+	  background: white;
+  }
+
+  .fin_amount {
+	font-family: Kanit;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 16px;
+	letter-spacing: -0.03em;
+	text-align: left;
+
+  }

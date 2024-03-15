@@ -1,0 +1,10 @@
+.active-item {
+  font-weight: 700;
+  color: #ffc600;
+  border-bottom: 4px solid #ffc600;
+}
+table.Table1 td {
+  padding: 8px 15px;
+}    
+
+/* css */

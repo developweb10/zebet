@@ -1,0 +1,64 @@
+<div class="">
+  <div
+    class=" bg-[#18242A] rounded-tl-xl rounded-tr-xl  ">
+ 
+    <div class="max-w-full py-0 md:py-9 mx-auto h-full w-[926px]">
+      <div class="flex justify-between items-center">
+        <div class="flex items-center gap-2 py-2 lg:px-0 ">
+          <a (click)="closeDialog()">
+            <img alt="back arrow" src="./assets/img/back_arrow.png" class="modal-backArrow" />
+          </a>
+          <h1 class="text-[18px] text-[#fff] font-semibold">
+            Edit Other Settings
+          </h1>
+        </div>
+
+        <a (click)="closeDialog()">
+          <img src="assets/img/close-round.png" alt="" class="modal-backArrow">
+        </a>
+
+      </div>
+      <div class="flex lg:flex-row flex-col y-2 py-2">
+        <div class="w-full lg:w-1/2 lg:pl-2 flex flex-col lg:mt-0 mt-[25px]">
+          <label class="text-[12px] font-medium">Language</label>
+          <select name="language" required [(ngModel)]="savelanguage"
+            class="placeholder-[#4D585D] leading-none bg-[#2C3538] px-[16px] py-[10px] mt-2 border border-gray-600 text-[#D9D9D9] rounded-lg text-[16px]">
+            <option *ngIf="savelanguage" >
+              {{savelanguage}}
+            </option>
+            <option *ngFor="let languages of language" >
+              {{ languages.name}}
+            </option>
+          </select>
+        </div>
+        <div class="w-full lg:w-1/2 lg:pl-2 flex flex-col lg:mt-0 mt-[25px]">
+          <label class="text-[12px] font-medium">Preferred Currency</label>
+          <select name="currency" required [(ngModel)]="savecurrency"
+            class="placeholder-[#4D585D] leading-none bg-[#2C3538] px-[16px] py-[10px] mt-2 border border-gray-600 text-[#D9D9D9] rounded-lg text-[16px]">
+            <!-- <option value="" selected disabled>Preferred Currency</option> -->
+            <option *ngIf="savecurrency" >
+              {{savecurrency}}
+            </option>
+            <option *ngFor="let currencies of currency" >
+              {{ currencies.name}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="flex items-center justify-between gap-2 py-2 mt-4 bottom-0 left-0 right-0 m-auto md:px-4">
+        <a (click)="closeDialog()">
+        <button
+          class="uppercase bg-[#2C3538] text-[#FFC600] text-[12px] rounded-md w-[165px] font-medium text-center h-full py-[12px] px-[16px]">
+          Cancel
+        </button>
+      </a>
+        <button
+        (click)="saveUserData()"
+          class="uppercase bg-[#FFC600] text-[#18242A] text-[12px] rounded-md w-[165px] font-medium text-center h-full py-[12px] px-[16px]">
+          Save
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>

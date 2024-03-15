@@ -1,0 +1,82 @@
+{
+  "id": "B-9636388",
+  "version": 4,
+  "sportId": "FBL",
+  "eventId": "B-49310",
+  "name": "3 - Way",
+  "status": "OFFERED",
+  "tradeStatus": "TRADABLE",
+  "marketType": {
+    "legType": "SIMPLE",
+    "picks": 1,
+    "orderImportant": false
+  },
+  "taxonomy": {
+    "type": "WINNER2D",
+    "period": "FLGM",
+    "scoreType": "GL"
+  },
+  "selections": [
+    [
+      {
+        "id": "W2-1",
+        "participantId": "B-43737",
+        "name": "CA Paranaense PR",
+        "status": "OFFERED",
+        "tradestatus": "TRADABLE",
+        "price": {
+          "up": 21,
+          "down": 20,
+          "dec": "2.05"
+        },
+        "side": "HOME",
+        "line": 0,
+        "pushHonored": false,
+        "homeScore": 0,
+        "awayScore": 0,
+        "selTemplate": "HOME"
+      },
+      {
+        "id": "W2-D",
+        "name": "Draw",
+        "status": "OFFERED",
+        "tradestatus": "TRADABLE",
+        "price": {
+          "up": 12,
+          "down": 5,
+          "dec": "3.4"
+        },
+        "side": "DRAW",
+        "line": 0,
+        "pushHonored": false,
+        "homeScore": 0,
+        "awayScore": 0,
+        "selTemplate": "DRAW"
+      },
+      {
+        "id": "W2-2",
+        "participantId": "B-43668",
+        "name": "SC Internacional RS",
+        "status": "OFFERED",
+        "tradestatus": "TRADABLE",
+        "price": {
+          "up": 12,
+          "down": 5,
+          "dec": "3.9"
+        },
+        "side": "AWAY",
+        "line": 0,
+        "pushHonored": false,
+        "homeScore": 0,
+        "awayScore": 0,
+        "selTemplate": "AWAY"
+      }
+    ]
+  ],
+  "betting": {
+    "startTime": null,
+    "endTime": "2023-09-21T22:30:00Z"
+  },
+  "coDisabled": false,
+  "createdAt": "2023-09-09T01:35:23.344268Z"
+}

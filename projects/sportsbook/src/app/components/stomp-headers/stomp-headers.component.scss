@@ -1,0 +1,124 @@
+
+.frame {
+    display: grid;
+    grid-template-rows: auto;
+    grid-gap: 24px 12px;
+    @media (max-width: 800px) {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "new-header"
+            "stomp-headers"
+            "standby-headers";
+    }
+    @media (min-width: 801px) {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "stomp-headers standby-headers"
+            "new-header .";
+    }
+
+
+}
+
+.stomp-headers {
+    grid-area: stomp-headers;
+}
+
+.standby-headers {
+    grid-area: standby-headers;
+}
+
+.standby-headers .cdk-drag {
+    border-color: #888;
+    background-color: #eee;
+    color: #888;
+    .actions {
+        background-color: inherit;
+    }
+}
+
+.new-header {
+    grid-area: new-header;
+    display: grid;
+    grid-column-gap: 16px;
+    align-items: baseline;
+
+    @media (min-width: 800px) and (max-width: 1050px) {
+        grid-template-columns: 1fr 1fr;
+        button {
+            grid-column: 2;
+        }
+    }
+
+    @media (min-width: 1051px) {
+        grid-template-columns: 1fr 1fr max-content;
+    }
+
+    button {
+        justify-self: end;
+    }
+}
+
+.cdk-drop-list {
+    display: grid;
+    grid-row-gap: 8px;
+    align-content: start;
+    border: thin solid #ddd;
+    min-height: 42px;
+    padding: 8px;
+}
+
+.cdk-drag {
+    min-height: 40px;
+    background-color: white;
+    border: thin solid grey;
+    padding: 0 8px;
+    border-radius: 8px;
+    font-family: "Lucida Console", Monaco, monospace;
+    display: flex;
+    flex-wrap:wrap;
+    position: relative;
+    align-items: center;
+    cursor: move;
+    span {
+        font-size: larger;
+        font-weight: 700;
+        color: red;
+    }
+    .actions {
+        display: none;
+        position: absolute;
+        background: white;
+        border-radius: 10px;
+        right: 0;
+        button:first-child {
+            color: #555;
+        }
+        button:last-child {
+            color: #D00;
+        }
+    }
+    &:hover .actions {
+        display: block;
+    }
+}
+
+.cdk-drag-placeholder {
+    opacity: 0.5;
+    color: steelblue;
+    background-color: steelblue;
+    span{
+        color: steelblue;
+    }
+    .actions {
+        display: none !important;
+    }
+}
+
+.cdk-drop-list-dragging .cdk-drag {
+    transition: transform 150ms cubic-bezier(0, 0, 0.2, 1);
+  }
+
+.cdk-drag-animating {
+    transition: transform 150ms cubic-bezier(0, 0, 0.2, 1);
+}

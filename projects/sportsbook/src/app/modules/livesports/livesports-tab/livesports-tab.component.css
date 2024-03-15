@@ -1,0 +1,71 @@
+
+.live_sport {
+	background: none;
+}
+.min-w-36{
+	min-width: 136px;
+}
+
+.min-w-32 {
+	min-width: 128px;
+  }
+
+  
+.odd-yellow {
+	color: #18242a !important;
+	background-color: #ffc600 !important;
+}
+
+
+.nav_bar a {
+	color: #a3a7aa;
+	font-family: Inter;
+	font-size: 12px;
+	/* position: relative; */
+	font-style: normal;
+	font-weight: 500;
+	line-height: 16px; /* 133.333% */
+	/* letter-spacing: -0.36px; */
+}
+
+.nav_bar a.active,
+.nav_bar a.active,
+.nav_bar a.active span {
+	color: #ffc600;
+}
+.nav_bar img {
+	/* width: 24px;
+	display: inline-block;
+	height: 24px; */
+}
+
+
+.hide-scroll::-webkit-scrollbar {
+    display: none;
+}
+.hide-scroll{
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+
+.nav_bar .notification_count {
+	color: #a3a7aa;
+	/* padding-left: 8px; */
+	/* padding-right: 5px; */
+	font-size: 10px;
+	/* position: relative; */
+	/* top: 10px; */
+	font-style: normal;
+	/* display: inline-block; */
+	font-weight: 500;
+	/* line-height: 8px; */
+	/* top: -6px; */
+}
+
+
+@media screen and (min-width : 1023px) {
+	.lg\:min-w-36{
+		min-width: 136px;
+	}
+}

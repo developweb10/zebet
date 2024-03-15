@@ -1,0 +1,40 @@
+
+
+.calendar-card {
+  width: 100%;
+  padding: 16px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-header {
+  text-align: center;
+  font-weight: bold;
+}
+
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 37px);
+  text-align: center;
+  grid-auto-rows: minmax(37px, 1fr);
+  color: var(--White-Primary, #fff);
+  font-size: 14px;
+  font-weight: 400;
+  gap: 5px;
+  line-height: 20px;
+}
+
+.calendar-day {
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+.calendar-day.active {
+  color: #18242a;
+  cursor: pointer;
+  background-color: #ffc600;
+  border-radius: 50%;
+}

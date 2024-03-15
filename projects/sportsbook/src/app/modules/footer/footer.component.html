@@ -1,0 +1,472 @@
+<div class="mt-[20px]">
+  <footer class="footerBorder relative">
+    <section class="footer">
+
+      <div class="footerContainer">
+        <div class="footer-menu">
+          <div class="footerRow">
+            <div class="col-2 footer-logo-col">
+              <div class="footerLogo lg:text-left text-center lg:mx-[0] mx-auto first-line">
+                <a routerLink="sports-book" *ngIf="footerData?.logo"  >
+                  <img [src]="ASSETS_URL + 'assets/' + footerData.logo " alt="Logo" />
+                </a>
+              </div>
+              <div class="lg:d-flex lg:block justify-between  gap-30px">
+                <ul
+                  class="footer-items lg:block flex flex-wrap justify-center  lg:divide-x-[0] divide-x divide-solid lg:mb-[0] mb-[22px]">
+                  <li *ngFor="let link of footerData?.primary_links"
+                    class="lg:px-[0] px-[8px] leading-none lg:my-0 my-[6px]" [routerLinkActive]="['active']">
+                    <a [routerLink]="link.link" [target]="isAffiliateProgram(link.link) ? '_blank' : null"  class="p2 lg:leading-[26px] leading-none">{{ link.title }}</a>
+                  </li>
+                </ul>
+                <!-- footer.component.html -->
+                <div
+                  class="footer-social-links lg:justify-start flex justify-center lg:pb-[0] pb-[30px] lg:border-none border-b-[1px] border-[#4D585D]">
+                  <div *ngFor="let link of socialLinks">
+                    <a [href]="link.footer_social_link_id.link">
+                      <img [src]="
+                          ASSETS_URL +
+                          'assets/' +
+                          link.footer_social_link_id.icon
+                        " alt="Social Media Icon" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-3 lg:mt-[0] mt-[24px] w-full">
+              <h2 class="footerMenuHeading lg:text-left text-center lg:block hidden">
+                {{ footerData?.terms_and_condition_title }}
+              </h2>
+              <ul
+                class="footer-items d-flex lg:block flex-wrap lg:divide-x-[0] divide-x divide-solid justify-center md-pb-[0] pb-[30px] lg:border-none border-b-[1px] border-[#4D585D]">
+                <li *ngFor="let link of footerData?.terms_and_condition_links"
+                  class="lg:pr-[0] px-[8px] lg:my-0 my-[6px] leading-none" [routerLinkActive]="['active']">
+                  <a [routerLink]="link.link" class="p2 lg:leading-[26px] leading-none">{{ link.title }}</a>
+                </li>
+              </ul>
+            </div>
+            <div class="col-2 lg:mt-[0] mt-[30px] w-full">
+              <h2 class="footerMenuHeading lg:text-left text-center lg:block hidden">
+                {{ footerData?.help_title }}
+              </h2>
+              <ul
+                class="footer-items lg:block d-flex flex-wrap lg:divide-x-[0] lg:justify-start justify-center divide-x divide-solid lg:border-none border-b-[1px] border-[#4D585D] lg:pb-[0] pb-[30px]">
+                <li *ngFor="let link of footerData?.help_links" class="leading-none lg:px-[0] px-[8px]" [routerLinkActive]="['active']" >
+                  <a [routerLink]="link.link" class="p2 lg:leading-[26px] leading-none" >{{ link.title }}</a>
+                </li>
+              </ul>
+            </div>
+            <div class="col-3">
+              <h2 class="footerMenuHeading lg:mt-[0] mt-[30px] lg:text-left text-center">
+                {{ footerData?.supported_payment_methods_title }}
+              </h2>
+              <div class="payment-icons lg:justify-start justify-center">
+                <div *ngFor="let link of supported_payment_method_images" class="payment-icons-wrapper">
+                  <img [src]="ASSETS_URL + 'assets/' + link.directus_files_id" alt="Social Media Icon" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="d-flex lg:block justify-between gap-30px">
+          <ul class="footer-items">
+            <li *ngFor="let link of footerData?.primary_links">
+              <a [routerLink]="link.link" class="p2">{{ link.title }}</a>
+            </li>
+          </ul>
+          <div class="footer-social-links" *ngIf="currentUrl !== '/'">
+            <div *ngFor="let link of socialLinks">
+              <img [src]="ASSETS_URL + 'assets/' + link.footer_social_link_id.icon" alt="Social Media Icon" />
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </section>
+    <div class="footerCopyright footerBorder lg:mt-[0] mt-[64px] lg:mb-[0] mb-[60px]">
+      <div class="footerContainer">
+        <div class="footer-age">18+</div>
+        <p class="p2 text-[#4D585D]">
+          &copy; ZEbet is licensed and regulated by the National Lottery
+          Regulatory Commission. <a href="https://nlrc-gov.ng/list-of-approved-gaming-operators/" target="_blank"> <span class="underline font-400 text-[14px] leading-[26px] 
+            text-[#4D585D] cursor-pointer">Permit No. 0001028</span></a>
+        </p>
+      </div>
+    </div>
+  </footer>
+  <div class="fixed z-[9999] w-full bottom-0" *ngIf="!isSplashPage">
+    <section class="lg:hidden  bg-[#18242a] phnMenu customMobileMenu" *ngIf="storedData">
+      <div class="flex menu_div">
+        <span class="text-center menuLink" [ngClass]="{ active: azMenuVisible }">
+          <span class="flex justify-center" (click)="toggleVisibility()">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g id="menu_black_24dp 1" clip-path="url(#clip0_5153_49362)">
+              <path id="Vector" d="M1 13H15V11.3333H1V13ZM1 8.83333H15V7.16667H1V8.83333ZM1 3V4.66667H15V3H1Z" fill="#D9D9D9"/>
+              </g>
+              <defs>
+              <clipPath id="clip0_5153_49362">
+              <rect width="16" height="16" fill="white"/>
+              </clipPath>
+              </defs>
+              </svg>
+              
+            </span>
+          <p class="text-[12px]">A-Z Menu</p>
+        </span>
+
+        <span class="text-center menuLink" routerLink="live-sports" routerLinkActive="active" >
+          <span class="flex justify-center mt-0 mb-[3px]">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path
+                d="M11.9379 12.431C11.9377 12.2608 12.0217 12.0994 12.1669 11.9913C12.2572 11.9235 14.2428 10.3923 14.2428 7.50052C14.2428 4.60438 12.2522 3.0725 12.1667 3.00878C11.8983 2.80937 11.8594 2.45083 12.0798 2.20795C12.3001 1.96508 12.6962 1.92984 12.9646 2.12925C13.0681 2.20605 15.5 4.04666 15.5 7.50052C15.5 10.9543 13.0681 12.7947 12.9646 12.8714C12.696 13.0703 12.2999 13.0345 12.08 12.7914C11.9881 12.6897 11.9379 12.5624 11.9379 12.431Z"
+                fill="#D9D9D9" />
+              <path
+                d="M10.2615 11.1035C10.2612 10.9341 10.3445 10.7733 10.4887 10.6653C11.4401 9.84054 11.9658 8.69247 11.9378 7.50046C11.966 6.30803 11.4402 5.15962 10.4883 4.33484C10.2282 4.12668 10.2039 3.76714 10.4339 3.53179C10.6529 3.30767 11.0263 3.27541 11.2882 3.45797C12.5283 4.49986 13.2215 5.96922 13.1951 7.50046C13.2215 9.03166 12.5283 10.501 11.2882 11.5429C11.0196 11.7419 10.6236 11.7061 10.4037 11.463C10.312 11.3615 10.2618 11.2345 10.2615 11.1035Z"
+                fill="#D9D9D9" />
+              <path
+                d="M3.8331 11.9913C3.97828 12.0994 4.06227 12.2608 4.06213 12.431C4.06213 12.5624 4.01188 12.6897 3.91995 12.7914C3.70006 13.0345 3.30404 13.0703 3.0354 12.8714C2.9319 12.7947 0.5 10.9543 0.5 7.50052C0.5 4.04666 2.9319 2.20605 3.0354 2.12925C3.30376 1.92984 3.69992 1.96508 3.92024 2.20795C4.14062 2.45083 4.10166 2.80937 3.83331 3.00878C3.74782 3.0725 1.75719 4.60438 1.75719 7.50052C1.75719 10.3923 3.74281 11.9235 3.8331 11.9913Z"
+                fill="#D9D9D9" />
+              <path
+                d="M5.73849 11.1035C5.73878 10.9341 5.6555 10.7733 5.51132 10.6653C4.55986 9.84054 4.03417 8.69247 4.06219 7.50046C4.03395 6.30803 4.55979 5.15962 5.51175 4.33484C5.77181 4.12668 5.79611 3.76714 5.56615 3.53179C5.34712 3.30767 4.97368 3.27541 4.71177 3.45797C3.47166 4.49986 2.77855 5.96922 2.80492 7.50046C2.77855 9.03166 3.47166 10.501 4.71177 11.5429C4.9804 11.7419 5.37643 11.7061 5.59631 11.463C5.68803 11.3615 5.73821 11.2345 5.73849 11.1035Z"
+                fill="#D9D9D9" />
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M10.6786 7.76191C10.6786 9.20837 9.47933 10.381 8 10.381C6.52067 10.381 5.32143 9.20837 5.32143 7.76191C5.32143 6.31544 6.52067 5.14286 8 5.14286C9.47933 5.14286 10.6786 6.31544 10.6786 7.76191ZM6.66074 6.40103C6.66074 5.99781 7.10717 5.74579 7.46431 5.9474L9.87503 7.3083C10.2322 7.50991 10.2322 8.01395 9.87503 8.21556L7.46431 9.57646C7.10717 9.77807 6.66074 9.52606 6.66074 9.12283V6.40103Z"
+                fill="#D9D9D9" /></svg></span>
+          <p class="text-[12px]">Live</p>
+        </span>
+        <!-- <span class="text-center menuLink" (click)="onBetslipClick()"> -->
+        <span class="text-center menuLink" [ngClass]="{ betSlipOpen: betSlipList.length >= 1, active: isBetslipActive && betSlipList.length < 1}"
+          (click)="onBetslipClick()">
+          <ng-container *ngIf="betSlipList.length >= 1">
+            <div class="total_odds">
+              {{ totalOddsCalculate | number : '1.2-2' }}
+            </div>
+          </ng-container>
+          <ng-container *ngIf="betSlipList.length >= 1">
+            <div class="betslip_lenght">
+              {{ totalGames }}
+            </div>
+          </ng-container>
+          <ng-container *ngIf="betSlipList.length == 0">
+            <span class="flex justify-center mt-0 mb-[3px]">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g id="menu_black_24dp 1" clip-path="url(#clip0_5153_49362)">
+                <path id="Vector" d="M1 13H15V11.3333H1V13ZM1 8.83333H15V7.16667H1V8.83333ZM1 3V4.66667H15V3H1Z" fill="#D9D9D9"/>
+                </g>
+                <defs>
+                <clipPath id="clip0_5153_49362">
+                <rect width="16" height="16" fill="white"/>
+                </clipPath>
+                </defs>
+              </svg>
+            </span>
+          </ng-container>
+          <!-- <span class="flex justify-center mt-0 mb-[3px]">
+            <img src="./assets/img/Betslip.svg" alt="" />
+          </span> -->
+          <p class="text-[12px]">Betslip</p>
+        </span>
+        <span class="text-center menuLink" (click)="onMyBetClick()" [ngClass]="{ active: isMybetsActive }">
+          <span class="flex justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <g clip-path="url(#clip0_9904_25602)">
+                <path
+                  d="M12.5629 2.34665H9.83819C9.56441 1.60425 8.84738 1.06665 7.99997 1.06665C7.15256 1.06665 6.43552 1.60425 6.16175 2.34665H3.437C2.71997 2.34665 2.1333 2.92265 2.1333 3.62665V12.5866C2.1333 13.2907 2.71997 13.8666 3.437 13.8666H12.5629C13.28 13.8666 13.8666 13.2907 13.8666 12.5866V3.62665C13.8666 2.92265 13.28 2.34665 12.5629 2.34665ZM7.99997 2.34665C8.35849 2.34665 8.65182 2.63465 8.65182 2.98665C8.65182 3.33865 8.35849 3.62665 7.99997 3.62665C7.64145 3.62665 7.34812 3.33865 7.34812 2.98665C7.34812 2.63465 7.64145 2.34665 7.99997 2.34665ZM6.69626 11.3067L4.08886 8.74665L5.00797 7.84425L6.69626 9.49545L10.992 5.27785L11.9111 6.18665L6.69626 11.3067Z"
+                  fill="#D9D9D9" />
+              </g>
+              <defs>
+                <clipPath id="clip0_9904_25602">
+                  <rect width="16" height="16" fill="white" />
+                </clipPath>
+              </defs>
+            </svg></span>
+          <p class="text-[12px]">My Bets</p>
+        </span>
+        <span class="text-center menuLink"  [ngClass]="{ active: isDepositActive }" >
+          <span class="flex justify-center mt-0 mb-[3px]">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0_9922_42408)">
+                <mask id="path-1-inside-1_9922_42408" fill="white">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M3.08691 12.1739V13.2876C3.08691 13.3928 3.16782 13.4783 3.26752 13.4783H12.2976C12.3973 13.4783 12.4782 13.3928 12.4782 13.2876V8.71236C12.4782 8.60701 12.3973 8.52173 12.2976 8.52173H11.9839V12.1739H11.2474C11.1153 12.3121 11.0334 12.5038 11.0334 12.7157H4.53173C4.53173 12.5038 4.44986 12.3121 4.31769 12.1739H3.08691Z" />
+                </mask>
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M3.08691 12.1739V13.2876C3.08691 13.3928 3.16782 13.4783 3.26752 13.4783H12.2976C12.3973 13.4783 12.4782 13.3928 12.4782 13.2876V8.71236C12.4782 8.60701 12.3973 8.52173 12.2976 8.52173H11.9839V12.1739H11.2474C11.1153 12.3121 11.0334 12.5038 11.0334 12.7157H4.53173C4.53173 12.5038 4.44986 12.3121 4.31769 12.1739H3.08691Z"
+                  fill="#D9D9D9" />
+                <path
+                  d="M3.08691 12.1739V11.8478H2.76083V12.1739H3.08691ZM11.9839 8.52173V8.19564H11.6579V8.52173H11.9839ZM11.9839 12.1739V12.5H12.31V12.1739H11.9839ZM11.2474 12.1739V11.8478H11.1081L11.0118 11.9485L11.2474 12.1739ZM11.0334 12.7157V13.0418H11.3595V12.7157H11.0334ZM4.53173 12.7157H4.20564V13.0418H4.53173V12.7157ZM4.31769 12.1739L4.55333 11.9485L4.45702 11.8478H4.31769V12.1739ZM3.413 13.2876V12.1739H2.76083V13.2876H3.413ZM3.26752 13.1522C3.3643 13.1522 3.413 13.2296 3.413 13.2876H2.76083C2.76083 13.5561 2.97134 13.8043 3.26752 13.8043V13.1522ZM12.2976 13.1522H3.26752V13.8043H12.2976V13.1522ZM12.1521 13.2876C12.1521 13.2296 12.2008 13.1522 12.2976 13.1522V13.8043C12.5938 13.8043 12.8043 13.5561 12.8043 13.2876H12.1521ZM12.1521 8.71236V13.2876H12.8043V8.71236H12.1521ZM12.2976 8.84782C12.201 8.84782 12.1521 8.77041 12.1521 8.71236H12.8043C12.8043 8.4436 12.5937 8.19564 12.2976 8.19564V8.84782ZM11.9839 8.84782H12.2976V8.19564H11.9839V8.84782ZM11.6579 8.52173V12.1739H12.31V8.52173H11.6579ZM11.9839 11.8478H11.2474V12.5H11.9839V11.8478ZM11.0118 11.9485C10.8222 12.1467 10.7073 12.4189 10.7073 12.7157H11.3595C11.3595 12.5886 11.4084 12.4774 11.4831 12.3993L11.0118 11.9485ZM11.0334 12.3896H4.53173V13.0418H11.0334V12.3896ZM4.85782 12.7157C4.85782 12.419 4.74295 12.1467 4.55333 11.9485L4.08204 12.3993C4.15678 12.4774 4.20564 12.5886 4.20564 12.7157H4.85782ZM4.31769 11.8478H3.08691V12.5H4.31769V11.8478Z"
+                  fill="#D9D9D9" mask="url(#path-1-inside-1_9922_42408)" />
+                <mask id="path-3-inside-2_9922_42408" fill="white">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M2.04346 10.3477V11.4614C2.04346 11.5667 2.12661 11.6521 2.22908 11.6521H11.51C11.6125 11.6521 11.6956 11.5667 11.6956 11.4614V6.88619C11.6956 6.78083 11.6125 6.69556 11.51 6.69556H11.1876V10.3477H10.4307C10.2948 10.4859 10.2107 10.6776 10.2107 10.8895H3.52841C3.52841 10.6776 3.44426 10.4859 3.30842 10.3477H2.04346Z" />
+                </mask>
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                  d="M2.04346 10.3477V11.4614C2.04346 11.5667 2.12661 11.6521 2.22908 11.6521H11.51C11.6125 11.6521 11.6956 11.5667 11.6956 11.4614V6.88619C11.6956 6.78083 11.6125 6.69556 11.51 6.69556H11.1876V10.3477H10.4307C10.2948 10.4859 10.2107 10.6776 10.2107 10.8895H3.52841C3.52841 10.6776 3.44426 10.4859 3.30842 10.3477H2.04346Z"
+                  fill="#D9D9D9" />
+                <path
+                  d="M2.04346 10.3477V10.0216H1.71737V10.3477H2.04346ZM11.1876 6.69556V6.36947H10.8615V6.69556H11.1876ZM11.1876 10.3477V10.6738H11.5137V10.3477H11.1876ZM10.4307 10.3477V10.0216H10.294L10.1981 10.1191L10.4307 10.3477ZM10.2107 10.8895V11.2156H10.5368V10.8895H10.2107ZM3.52841 10.8895H3.20232V11.2156H3.52841V10.8895ZM3.30842 10.3477L3.54096 10.1191L3.44512 10.0216H3.30842V10.3477ZM2.36954 11.4614V10.3477H1.71737V11.4614H2.36954ZM2.22908 11.326C2.31485 11.326 2.36954 11.3948 2.36954 11.4614H1.71737C1.71737 11.7385 1.93838 11.9782 2.22908 11.9782V11.326ZM11.51 11.326H2.22908V11.9782H11.51V11.326ZM11.3695 11.4614C11.3695 11.3948 11.4242 11.326 11.51 11.326V11.9782C11.8007 11.9782 12.0217 11.7385 12.0217 11.4614H11.3695ZM11.3695 6.88619V11.4614H12.0217V6.88619H11.3695ZM11.51 7.02164C11.4244 7.02164 11.3695 6.95282 11.3695 6.88619H12.0217C12.0217 6.60885 11.8006 6.36947 11.51 6.36947V7.02164ZM11.1876 7.02164H11.51V6.36947H11.1876V7.02164ZM10.8615 6.69556V10.3477H11.5137V6.69556H10.8615ZM11.1876 10.0216H10.4307V10.6738H11.1876V10.0216ZM10.1981 10.1191C10.0039 10.3167 9.88459 10.5899 9.88459 10.8895H10.5368C10.5368 10.7653 10.5858 10.6551 10.6632 10.5763L10.1981 10.1191ZM10.2107 10.5634H3.52841V11.2156H10.2107V10.5634ZM3.85449 10.8895C3.85449 10.5899 3.73523 10.3167 3.54096 10.1191L3.07588 10.5763C3.1533 10.6551 3.20232 10.7653 3.20232 10.8895H3.85449ZM3.30842 10.0216H2.04346V10.6738H3.30842V10.0216Z"
+                  fill="#D9D9D9" mask="url(#path-3-inside-2_9922_42408)" />
+                <path
+                  d="M9.9097 8.46399H10.0727V8.30095V6.39459V6.23155H9.9097C9.59372 6.23155 9.33027 5.96731 9.33027 5.63205V5.46901H9.16722H2.48495H2.32191V5.63205C2.32191 5.96731 2.05845 6.23155 1.74247 6.23155H1.57943V6.39459V8.30095V8.46399H1.74247C2.05845 8.46399 2.32191 8.72823 2.32191 9.06349V9.22653H2.48495H9.16722H9.33027V9.06349C9.33027 8.72823 9.59372 8.46399 9.9097 8.46399ZM6.67906 7.34777C6.67906 7.91018 6.23624 8.35864 5.69908 8.35864C5.16193 8.35864 4.71911 7.91018 4.71911 7.34777C4.71911 6.78535 5.16193 6.3369 5.69908 6.3369C6.23624 6.3369 6.67906 6.78535 6.67906 7.34777ZM10.4891 5.06014V9.63539C10.4891 9.6547 10.4749 9.66298 10.4666 9.66298H1.18562C1.17727 9.66298 1.16304 9.6547 1.16304 9.63539V5.06014C1.16304 5.04078 1.17721 5.03255 1.18562 5.03255H10.4666C10.475 5.03255 10.4891 5.04078 10.4891 5.06014Z"
+                  fill="#D9D9D9" stroke="#D9D9D9" stroke-width="0.326087" />
+                <path
+                  d="M13.6739 9C13.6739 9.18009 13.8199 9.32609 14 9.32609C14.1801 9.32609 14.3261 9.18009 14.3261 9L13.6739 9ZM14 1L12.1173 4.26087L15.8827 4.26087L14 1ZM14.3261 9L14.3261 3.93478L13.6739 3.93478L13.6739 9L14.3261 9Z"
+                  fill="#D9D9D9" />
+              </g>
+              <defs>
+                <clipPath id="clip0_9922_42408">
+                  <rect width="16" height="16" fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
+          </span>
+          <a href="edit-profile?deposit=true">
+            <p class="text-[12px]">Deposit</p>
+          </a>
+        </span>
+      </div>
+    </section>
+
+    <section class="lg:hidden  bg-[#18242a] phnMenu" *ngIf="!storedData">
+      <div class="flex menu_div">
+        <span class="text-center menuLink" [ngClass]="{ active: azMenuVisible }">
+          <span class="flex justify-center" (click)="toggleVisibility()">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g id="menu_black_24dp 1" clip-path="url(#clip0_5153_49362)">
+              <path id="Vector" d="M1 13H15V11.3333H1V13ZM1 8.83333H15V7.16667H1V8.83333ZM1 3V4.66667H15V3H1Z" fill="#D9D9D9"/>
+              </g>
+              <defs>
+              <clipPath id="clip0_5153_49362">
+              <rect width="16" height="16" fill="white"/>
+              </clipPath>
+              </defs>
+              </svg>
+          </span>
+          <p class="text-[12px]">A-Z Menu</p>
+        </span>
+
+        <span class="text-center menuLink"  routerLink="/live-sports" routerLinkActive="active">
+          <span class="flex justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path
+                d="M11.9379 12.431C11.9377 12.2608 12.0217 12.0994 12.1669 11.9913C12.2572 11.9235 14.2428 10.3923 14.2428 7.50052C14.2428 4.60438 12.2522 3.0725 12.1667 3.00878C11.8983 2.80937 11.8594 2.45083 12.0798 2.20795C12.3001 1.96508 12.6962 1.92984 12.9646 2.12925C13.0681 2.20605 15.5 4.04666 15.5 7.50052C15.5 10.9543 13.0681 12.7947 12.9646 12.8714C12.696 13.0703 12.2999 13.0345 12.08 12.7914C11.9881 12.6897 11.9379 12.5624 11.9379 12.431Z"
+                fill="#D9D9D9" />
+              <path
+                d="M10.2615 11.1035C10.2612 10.9341 10.3445 10.7733 10.4887 10.6653C11.4401 9.84054 11.9658 8.69247 11.9378 7.50046C11.966 6.30803 11.4402 5.15962 10.4883 4.33484C10.2282 4.12668 10.2039 3.76714 10.4339 3.53179C10.6529 3.30767 11.0263 3.27541 11.2882 3.45797C12.5283 4.49986 13.2215 5.96922 13.1951 7.50046C13.2215 9.03166 12.5283 10.501 11.2882 11.5429C11.0196 11.7419 10.6236 11.7061 10.4037 11.463C10.312 11.3615 10.2618 11.2345 10.2615 11.1035Z"
+                fill="#D9D9D9" />
+              <path
+                d="M3.8331 11.9913C3.97828 12.0994 4.06227 12.2608 4.06213 12.431C4.06213 12.5624 4.01188 12.6897 3.91995 12.7914C3.70006 13.0345 3.30404 13.0703 3.0354 12.8714C2.9319 12.7947 0.5 10.9543 0.5 7.50052C0.5 4.04666 2.9319 2.20605 3.0354 2.12925C3.30376 1.92984 3.69992 1.96508 3.92024 2.20795C4.14062 2.45083 4.10166 2.80937 3.83331 3.00878C3.74782 3.0725 1.75719 4.60438 1.75719 7.50052C1.75719 10.3923 3.74281 11.9235 3.8331 11.9913Z"
+                fill="#D9D9D9" />
+              <path
+                d="M5.73849 11.1035C5.73878 10.9341 5.6555 10.7733 5.51132 10.6653C4.55986 9.84054 4.03417 8.69247 4.06219 7.50046C4.03395 6.30803 4.55979 5.15962 5.51175 4.33484C5.77181 4.12668 5.79611 3.76714 5.56615 3.53179C5.34712 3.30767 4.97368 3.27541 4.71177 3.45797C3.47166 4.49986 2.77855 5.96922 2.80492 7.50046C2.77855 9.03166 3.47166 10.501 4.71177 11.5429C4.9804 11.7419 5.37643 11.7061 5.59631 11.463C5.68803 11.3615 5.73821 11.2345 5.73849 11.1035Z"
+                fill="#D9D9D9" />
+              <path fill-rule="evenodd" clip-rule="evenodd"
+                d="M10.6786 7.76191C10.6786 9.20837 9.47933 10.381 8 10.381C6.52067 10.381 5.32143 9.20837 5.32143 7.76191C5.32143 6.31544 6.52067 5.14286 8 5.14286C9.47933 5.14286 10.6786 6.31544 10.6786 7.76191ZM6.66074 6.40103C6.66074 5.99781 7.10717 5.74579 7.46431 5.9474L9.87503 7.3083C10.2322 7.50991 10.2322 8.01395 9.87503 8.21556L7.46431 9.57646C7.10717 9.77807 6.66074 9.52606 6.66074 9.12283V6.40103Z"
+                fill="#D9D9D9" /></svg></span>
+          <p class="text-[12px]">Live</p>
+        </span>
+        <span class="text-center menuLink" [ngClass]="{ 'betSlipOpen': totalGames >= 1, 'active': isBetslipActive && totalGames < 1}" (click)="onBetslipClick()">
+          <ng-container *ngIf="totalGames >= 1">
+            <div class="total_odds">
+              {{ totalOddsCalculate | number : "0.2-2" }}
+            </div>
+          </ng-container>
+          <ng-container *ngIf="totalGames >= 1">
+            <div class="betslip_lenght">
+              {{ totalGames }}
+            </div>
+          </ng-container>
+          <ng-container *ngIf="totalGames < 1;">
+            <span class="flex justify-center mt-0 mb-[3px]">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g id="menu_black_24dp 1" clip-path="url(#clip0_5153_49362)">
+                <path id="Vector" d="M1 13H15V11.3333H1V13ZM1 8.83333H15V7.16667H1V8.83333ZM1 3V4.66667H15V3H1Z" fill="#D9D9D9"/>
+                </g>
+                <defs>
+                <clipPath id="clip0_5153_49362">
+                <rect width="16" height="16" fill="white"/>
+                </clipPath>
+                </defs>
+              </svg>
+            </span>
+          </ng-container>
+          <p class="text-[12px]">Betslip</p>
+        </span>
+        <span class="text-center menuLink" (click)="openBookingModal()" [ngClass]="{ active: bookingCodeModal }">
+          <span class="flex justify-center">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g id="assignment_turned_in_black_24dp 1" clip-path="url(#clip0_5153_49345)">
+              <path id="Vector" d="M12.5624 2.34641H9.8377C9.56392 1.60401 8.84689 1.06641 7.99948 1.06641C7.15207 1.06641 6.43504 1.60401 6.16126 2.34641H3.43652C2.71948 2.34641 2.13281 2.92241 2.13281 3.62641V12.5864C2.13281 13.2904 2.71948 13.8664 3.43652 13.8664H12.5624C13.2795 13.8664 13.8661 13.2904 13.8661 12.5864V3.62641C13.8661 2.92241 13.2795 2.34641 12.5624 2.34641ZM7.99948 2.34641C8.358 2.34641 8.65133 2.63441 8.65133 2.98641C8.65133 3.33841 8.358 3.62641 7.99948 3.62641C7.64096 3.62641 7.34763 3.33841 7.34763 2.98641C7.34763 2.63441 7.64096 2.34641 7.99948 2.34641ZM6.69578 11.3064L4.08837 8.74641L5.00748 7.84401L6.69578 9.49521L10.9915 5.27761L11.9106 6.18641L6.69578 11.3064Z" fill="#D9D9D9"/>
+              </g>
+              <defs>
+              <clipPath id="clip0_5153_49345">
+              <rect width="16" height="16" fill="white"/>
+              </clipPath>
+              </defs>
+              </svg>
+            </span>
+          <p class="text-[12px]">Book a Bet</p>
+        </span>
+        <span class="text-center menuLink" [ngClass]="{ active: isLoginActive }">
+          <span class="flex justify-center">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0_2316_8459)">
+              <path d="M5.82388 4.65859L10.8121 7.23313C11.2064 7.43666 11.1991 8.00304 10.7996 8.19632L5.81146 10.61C5.45388 10.783 5.03846 10.5225 5.03846 10.1253V9.09937H1.53846C1.24108 9.09937 1 8.85829 1 8.56091V6.67629C1 6.37891 1.24108 6.13783 1.53846 6.13783H5.03846V5.13708C5.03846 4.73378 5.4655 4.47362 5.82388 4.65859Z" fill="#D9D9D9"/>
+              <path d="M1.875 2.16667C1.875 1.52233 2.39733 1 3.04167 1H13.8333C14.4777 1 15 1.52233 15 2.16667V13.8333C15 14.4777 14.4777 15 13.8333 15H3.04167C2.39733 15 1.875 14.4777 1.875 13.8333V10.0417H3.04167V13.25C3.04167 13.5722 3.30283 13.8333 3.625 13.8333H13.25C13.5722 13.8333 13.8333 13.5722 13.8333 13.25V2.75C13.8333 2.42783 13.5722 2.16667 13.25 2.16667H3.625C3.30283 2.16667 3.04167 2.42783 3.04167 2.75V5.375H1.875V2.16667Z" fill="#D9D9D9"/>
+              </g>
+              <defs>
+              <clipPath id="clip0_2316_8459">
+              <rect width="16" height="16" fill="white"/>
+              </clipPath>
+              </defs>
+            </svg>
+              
+          </span>
+          <a href="auth/login-account" >
+            <p class="text-[12px]">login</p>
+          </a>
+        </span>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- book a bet modal -->
+<div class="w-full h-full fixed top-0 left-0 z-[999] bg-[#000]/[0.8]"
+  *ngIf="bookingCodeModal">
+  <div class="opacity-100 duration-500 ease-out h-[100%] transition-all lg:max-w-4xl lg:w-full lg:mx-auto">
+    <div class="bg-[#18242A] h-[87%] rounded-[10px]">
+      <div class="bet_wrapper-container py-3 px-4 dark:border-gray-700">
+        <div class="bet_wrappper pt-[15px]">
+          <div class="bet_header flex items-center">
+            <button type="button" class="mr-3" (click)="openBookingModal()"><img src="./assets/svg/back-arrow.svg"
+                alt=""></button>
+            Book a Bet
+          </div>
+          <div class="pt-[30px]">
+            <p class="text-[12px] font-medium pb-[8px]">Please Insert booking code</p>
+            <input type="text"
+              class="bg-[#2C3538] border-[#4D585D] rounded-[10px] w-100 h-[44px] px-4 text-[20px] font-semibold"
+              [(ngModel)]="bookingCode">
+            <button class="btn btn-primary d-block w-100 mt-[20px]" (click)="getBookingCode()">Load</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="betslip_div customMainRightContainer z-[999]" [ngClass]="{'betSlipShow': betslipShow}">
+  <div class="betslip_area rounded-[10px]">
+    <app-bet-slip-desktop *ngIf="this.loginStatus === false"></app-bet-slip-desktop>
+    <app-bet-slip-desktop *ngIf="this.loginStatus === true"></app-bet-slip-desktop>
+  </div>
+</div>
+
+
+<div class="betslip_div customMainRightContainer z-[999]" [ngClass]="{'betSlipShow': myBetShow}">
+  <div class="betslip_area rounded-[10px]">
+    <app-my-bet></app-my-bet>
+  </div>
+</div>
+
+
+
+
+
+<!-- betwin modal -->
+<div class="w-full h-full fixed top-0 left-0 z-[52] overflow-x-hidden overflow-y-auto bg-[#000]/[0.8]"
+  *ngIf="betWinModal">
+  <div class="opacity-100 duration-500 pt-[50px] ease-out h-[100%] transition-all lg:max-w-xl lg:w-full lg:mx-auto">
+    <div class="bg-[#18242A] rounded-[10px] pb-[80px] lg:pb-0">
+      <div class="py-5 px-4 dark:border-gray-700">
+        <div class="max-w-[350px] mx-auto text-center">
+          <div class="pb-[30px]">
+            <button type="button" (click)="messageSeen(betWinDataModal)"><img src="assets/img/closebet.svg" alt="" class="w-[33px] h-[33px]"></button>
+          </div>
+          <h2 class="text-[26px] font-semibold text-white mb-0 pb-[20px]">Congratulations!</h2>
+          <p class="text-[#A3A7AA] text-[16px] mb-1 max-w-[245px] mx-auto">Your bet placed on {{betPlacedDate}} has won</p>
+          <h4 class="text-[#FFC600] font-semibold text-[26px] mb-0 pb-[30px]">NGN
+            {{betWinDataModal.message.totalPotentialReturnOC}}</h4>
+          <div class="text-center">
+            <img src="assets/img/betwin_t.png" class="mx-auto" alt="">
+          </div>
+          <div class="shareTitle mt-[25px] relative">
+            <hr />
+            <h6 class="px-2 bg-[#18242A] text-[12px] font-normal inline-block relative -top-[15px] mb-0">Share</h6>
+          </div>
+          <div class="flex justify-center pt-[20px] pb-[20px]">
+            <ul class=" d-flex align-center splash-social-icons gap-[16px]  text-[10px]  font-[500] leading-[16px]">
+              <li class="cursor-pointer text-center" (click)="shareOnTwitter()"> <img src="assets/img/bet twiter.svg"
+                  alt="" class="mb-[4.3px] flex justify-center mx-auto">Twitter</li>
+              <li class="cursor-pointer text-center" (click)="shareOnFacebook()"> <img src="assets/img/bet facebook.svg"
+                  alt="" class="mb-[4.3px] flex justify-center mx-auto">Facebook
+              </li>
+              <li class="cursor-pointer text-center" (click)="shareOnWhatsApp()"> <img src="assets/img/bet whatsapp.svg"
+                  alt="" class="mb-[4.3px] flex justify-center mx-auto">Whatsapp
+              </li>
+            </ul>
+          </div>
+          <div class="link relative">
+            <input type="text" readonly [(ngModel)]="betWinUrl"
+              class="border w-100 border-[#4D585D] h-[44px] rounded-[10px] bg-[#18242A] text-[16px] text-[#D9D9D9] pl-[16px] pr-[105px]">
+            <button type="button"
+              class="absolute right-0 px-[16px] flex items-center uppercase font-medium text-[14px] top-0 bottom-0 text-[#FFC600]"
+              (click)="copyText(betWinUrl)">Copy Link</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- betwin modal get -->
+<div class="w-full h-full fixed top-0 left-0 z-[52] overflow-x-hidden overflow-y-auto bg-[#000]/[0.8]"
+  *ngIf="betWinModalAPI">
+  <div class="opacity-100 duration-500 pt-[50px] ease-out h-[100%] transition-all lg:max-w-xl lg:w-full lg:mx-auto">
+    <div class="bg-[#18242A] rounded-[10px] pb-[80px] lg:pb-0">
+      <div class="py-5 px-4 dark:border-gray-700">
+        <div class="max-w-[350px] mx-auto text-center">
+          <div class="pb-[30px]">
+            <button type="button" (click)="closeBetWinModal()"><img src="assets/img/closebet.svg" alt=""
+                class="w-[33px] h-[33px]"></button>
+          </div>
+          <h2 class="text-[26px] font-semibold text-white mb-0 pb-[20px]">Congratulations!</h2>
+          <p class="text-[#A3A7AA] text-[16px] mb-1 max-w-[245px] mx-auto">{{betWinDataModalAPI.user_id}} bet placed on
+            {{betPlaceDate}} has won</p>
+          <h4 class="text-[#FFC600] font-semibold text-[26px] mb-0 pb-[30px]">NGN
+            {{betWinDataModalAPI.total_potential_return_oc}}</h4>
+          <div class="text-center">
+            <img src="assets/img/betwin_t.png" class="mx-auto" alt="">
+          </div>
+          <div class="shareTitle mt-[25px] relative">
+            <hr />
+            <h6 class="px-2 bg-[#18242A] text-[12px] font-normal inline-block relative -top-[15px] mb-0">Share</h6>
+          </div>
+          <div class="flex justify-center pt-[20px] pb-[20px]">
+            <ul class=" d-flex align-center splash-social-icons gap-[16px]  text-[10px]  font-[500] leading-[16px]">
+              <li class="cursor-pointer text-center" (click)="shareOnTwitter()"> <img src="assets/img/bet twiter.svg"
+                  alt="" class="mb-[4.3px] flex justify-center mx-auto">Twitter</li>
+              <li class="cursor-pointer text-center" (click)="shareOnFacebook()"> <img src="assets/img/bet facebook.svg"
+                  alt="" class="mb-[4.3px] flex justify-center mx-auto">Facebook
+              </li>
+              <li class="cursor-pointer text-center" (click)="shareOnWhatsApp()"> <img src="assets/img/bet whatsapp.svg"
+                  alt="" class="mb-[4.3px] flex justify-center mx-auto">Whatsapp
+              </li>
+            </ul>
+          </div>
+          <div class="link relative">
+            <input type="text" readonly [(ngModel)]="betWinUrl"
+              class="border w-100 border-[#4D585D] h-[44px] rounded-[10px] bg-[#18242A] text-[16px] text-[#D9D9D9] pl-[16px] pr-[105px]">
+            <button type="button"
+              class="absolute right-0 px-[16px] flex items-center uppercase font-medium text-[14px] top-0 bottom-0 text-[#FFC600]">Copy
+              Link</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,60 @@
+<div class="flex justify-center my-2">
+    <div class="flex flex-col bg-[#18242A] rounded-[4px] w-auto py-2 px-1">
+        <div class="flex justify-between px-2 mb-3">
+            <div class="flex text-[12px]">
+                {{currdate}}
+            </div>
+            <div class="inline-block align-middle">
+                <div class="flex">
+                    <a class="mx-1" (click)="navigateTo('previous')">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <mask id="mask0_8384_10093" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="2" y="0" width="8" height="12">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M9.27396 0.469661C9.57498 0.762543 9.57498 1.2374 9.27396 1.53028L4.68021 5.99978L9.27396 10.4693C9.57498 10.7622 9.57498 11.237 9.27396 11.5299C8.97293 11.8228 8.48488 11.8228 8.18385 11.5299L2.5 5.99978L8.18385 0.469661C8.48488 0.17678 8.97293 0.17678 9.27396 0.469661Z" fill="#141841"/>
+                            </mask>
+                            <g mask="url(#mask0_8384_10093)">
+                                <rect y="-0.000976562" width="11.9995" height="11.9995" fill="white"/>
+                            </g>
+                        </svg>
+                    </a>
+                    
+                    <a class="mx-1" (click)="navigateTo('next')">
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <mask id="mask0_8384_10096" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="2" y="0" width="8" height="12">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M2.72604 0.469661C2.42502 0.762543 2.42502 1.2374 2.72604 1.53028L7.31979 5.99978L2.72604 10.4693C2.42502 10.7622 2.42502 11.237 2.72604 11.5299C3.02707 11.8228 3.51512 11.8228 3.81615 11.5299L9.5 5.99978L3.81615 0.469661C3.51512 0.17678 3.02707 0.17678 2.72604 0.469661Z" fill="#141841"/>
+                            </mask>
+                            <g mask="url(#mask0_8384_10096)">
+                            <rect y="-0.000976562" width="11.9995" height="11.9995" fill="white"/>
+                            </g>
+                        </svg>
+                    </a>
+                    
+                        
+                        
+                </div>
+            </div>
+            
+        </div>
+        <div class="flex flex-col items-center">
+            <div class="calendar-days">
+                <div class="calendar-day">Sun</div>
+                <div class="calendar-day">Mon</div>
+                <div class="calendar-day">Tue</div>
+                <div class="calendar-day">Wed</div>
+                <div class="calendar-day">Thu</div>
+                <div class="calendar-day">Fri</div>
+                <div class="calendar-day">Sat</div>
+            </div>
+            <div class="calendar-days">
+                
+                <div
+                class="calendar-day"
+                *ngFor="let date of calendarDateLoaders; let i = index"
+                (click)="selectDate(date)"
+                [class.active]="isDateActive(date)"
+                >
+                {{ date.day }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

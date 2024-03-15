@@ -1,0 +1,191 @@
+
+<div class="main-wrapper-account " >
+  <div class="head-tag lg:hidden block">
+    <h1>
+   
+      <span class="back-arrow" (click)="reloadCurrentRoute()">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="19"
+          height="19"
+          viewBox="0 0 19 19"
+          fill="none"
+        >
+          <path
+            d="M5.73711 10.1621H15.5996V9.03711H5.73711L10.3871 4.38711L9.59961 3.59961L3.59961 9.59961L9.59961 15.5996L10.3871 14.8121L5.73711 10.1621Z"
+            fill="white"
+          />
+          <path
+            d="M5.73711 10.1621H15.5996V9.03711H5.73711L10.3871 4.38711L9.59961 3.59961L3.59961 9.59961L9.59961 15.5996L10.3871 14.8121L5.73711 10.1621Z"
+            stroke="white"
+          />
+        </svg>
+      </span>
+     My Profile
+    </h1>
+  </div>
+  <div class="user-info-wrapper">
+    <div class="user-data-wrap">
+      <div class="user-title">
+        <h3>Profile Info</h3>
+       
+        <button class="btn-edit" (click)="openEditProfileDialog()">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="13"
+            height="13"
+            viewBox="0 0 13 13"
+            fill="none"
+          >
+            <path
+              d="M11.6449 3.45343L9.54893 1.35598L10.633 0.271132C10.9943 -0.0903772 11.5726 -0.0903772 11.8616 0.271132L12.729 1.1391C13.0904 1.50072 13.0904 2.07933 12.729 2.36869L11.6449 3.45343ZM5.57408 9.52856L3.47815 7.43111L9.18753 1.79008L11.2835 3.88731L5.57408 9.52856ZM1.81599 11.2643L3.11686 7.8651L5.21278 9.96243L1.81599 11.2643ZM12.4938 11.9875C12.783 11.9875 12.9999 12.2044 12.9999 12.4936C12.9999 12.783 12.783 13 12.4938 13H0.506242C0.189367 13 0 12.783 0 12.4936C0 12.2044 0.216883 11.9875 0.506242 11.9875H12.4938Z"
+              fill="#FFC600"
+            />
+          </svg>
+          Edit
+        </button>
+  
+        
+      </div>
+      <div class="user-data-details">
+        <div class="form">
+          <div class="form-group-input">
+            <label for="firstname">First Name</label>
+            <p>{{ firstName|| '-' }}</p>
+          </div>
+          <div class="form-group-input">
+            <label for="lastname">Last Name</label>
+            <p>{{ lastname|| '-' }}</p>
+          </div>
+          <div class="form-group-input">
+            <label for="dob">Date of Birth</label>
+            <p>{{(dob | date:'dd/MM/yyyy')  || '-'}}</p>
+          </div>
+          <div class="form-group-input">
+            <label for="selectedNationalIdentityNumber">NIN</label>
+            <p>{{ NIN || '-' }}</p>
+          </div>
+          <div class="form-group-input">
+            <label for="gender">Gender</label>
+            <p>{{gender || '-'}}</p>
+          </div>
+        </div>
+        <!-- <div class="user-profile">
+          <img src="assets/img/avatar--b.png" alt="">
+        </div> -->
+      </div>
+    </div>
+    <div class="user-main-body">
+      <div class="user-data-wrap">
+        <div class="user-title">
+          <h3>Communication</h3>
+          <button class="btn-edit" (click)="openEditCommunicationDialog()">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="13"
+              height="13"
+              viewBox="0 0 13 13"
+              fill="none"
+            >
+              <path
+                d="M11.6449 3.45343L9.54893 1.35598L10.633 0.271132C10.9943 -0.0903772 11.5726 -0.0903772 11.8616 0.271132L12.729 1.1391C13.0904 1.50072 13.0904 2.07933 12.729 2.36869L11.6449 3.45343ZM5.57408 9.52856L3.47815 7.43111L9.18753 1.79008L11.2835 3.88731L5.57408 9.52856ZM1.81599 11.2643L3.11686 7.8651L5.21278 9.96243L1.81599 11.2643ZM12.4938 11.9875C12.783 11.9875 12.9999 12.2044 12.9999 12.4936C12.9999 12.783 12.783 13 12.4938 13H0.506242C0.189367 13 0 12.783 0 12.4936C0 12.2044 0.216883 11.9875 0.506242 11.9875H12.4938Z"
+                fill="#FFC600"
+              />
+            </svg>
+            edit
+          </button>
+        </div>
+        <div class="form">
+          <div class="form-group-input">
+            <label for="firstname">Phone Number</label>
+            <p>{{phone_number}}</p>
+          </div>
+          <div class="form-group-input">
+            <label for="lastname">Email ID</label>
+            <p>{{email}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="user-data-wrap">
+        <div class="user-title">
+          <h3>Other Setting</h3>
+          <button class="btn-edit" (click)="openEditCurrenciesDialog()">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="13"
+              height="13"
+              viewBox="0 0 13 13"
+              fill="none"
+            >
+              <path
+                d="M11.6449 3.45343L9.54893 1.35598L10.633 0.271132C10.9943 -0.0903772 11.5726 -0.0903772 11.8616 0.271132L12.729 1.1391C13.0904 1.50072 13.0904 2.07933 12.729 2.36869L11.6449 3.45343ZM5.57408 9.52856L3.47815 7.43111L9.18753 1.79008L11.2835 3.88731L5.57408 9.52856ZM1.81599 11.2643L3.11686 7.8651L5.21278 9.96243L1.81599 11.2643ZM12.4938 11.9875C12.783 11.9875 12.9999 12.2044 12.9999 12.4936C12.9999 12.783 12.783 13 12.4938 13H0.506242C0.189367 13 0 12.783 0 12.4936C0 12.2044 0.216883 11.9875 0.506242 11.9875H12.4938Z"
+                fill="#FFC600"
+              />
+            </svg>
+            Edit
+          </button>
+        </div>
+        <div class="form">
+          <div class="form-group-input">
+            <label for="currency">Preferred Currency </label>
+            <p>{{ currency || '-' }}</p>
+          </div>
+          <div class="form-group-input">
+            <label for="currency">Preferred Language</label>
+            <p>{{ language || '-' }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="user-data-wrap">
+      <div class="user-title">
+        <h3>Address</h3>
+        <button class="btn-edit" (click)="openEditAddressDialog()">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="13"
+            height="13"
+            viewBox="0 0 13 13"
+            fill="none"
+          >
+            <path
+              d="M11.6449 3.45343L9.54893 1.35598L10.633 0.271132C10.9943 -0.0903772 11.5726 -0.0903772 11.8616 0.271132L12.729 1.1391C13.0904 1.50072 13.0904 2.07933 12.729 2.36869L11.6449 3.45343ZM5.57408 9.52856L3.47815 7.43111L9.18753 1.79008L11.2835 3.88731L5.57408 9.52856ZM1.81599 11.2643L3.11686 7.8651L5.21278 9.96243L1.81599 11.2643ZM12.4938 11.9875C12.783 11.9875 12.9999 12.2044 12.9999 12.4936C12.9999 12.783 12.783 13 12.4938 13H0.506242C0.189367 13 0 12.783 0 12.4936C0 12.2044 0.216883 11.9875 0.506242 11.9875H12.4938Z"
+              fill="#FFC600"
+            />
+          </svg>
+          edit
+        </button>
+      </div>
+      <div class="custom-input-wrap">
+        <div class="form custom-form">
+          <div class="form-group-input">
+            <label for="add1">Address Line 1</label>
+            <p>{{ address || '-' }}</p>
+          </div>
+          <div class="form-group-input">
+            <label for="country">Country</label>
+            <p>{{countrie}}</p>
+          </div>
+        </div>
+        <div class="form custom-form">
+          <div class="form-group-input">
+            <label for="add2">Address Line 2</label>
+            <p>{{ address2|| '-' }}</p>
+          </div>
+          <div class="form-group-input">
+            <!-- <label for="zip">Zip</label>
+            <p>{{ postCode || '-' }}</p> -->
+            <label for="city">City</label>
+            <p>{{ city || '-' }}</p>
+          </div>
+        </div>
+        <!-- <div class="form custom-form">
+          <div class="form-group-input">
+            <label for="city">City</label>
+            <p>{{ city || '-' }}</p>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>

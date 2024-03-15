@@ -1,0 +1,144 @@
+<div class="">
+  <div class="relative  bg-[#18242A] rounded-tl-xl rounded-tr-xl ">
+    <div class=" max-w-full pb-6 md:pb-9 mx-auto flex flex-col flex-1 h-full w-[926px]">
+      <div class="flex justify-between items-center">
+        <div class="flex items-center gap-2 py-2 lg:px-0 px-4 px-[0px]">
+          <a (click)="closeDialog()">
+            <img alt="back arrow" src="./assets/img/back_arrow.png" class="modal-backArrow" />
+          </a>
+          <h1 class="text-[18px] text-[#fff] font-semibold">
+            Edit Personal Info
+          </h1>
+        </div>
+
+        <a  (click)="closeDialog()">
+          <img src="assets/img/close-round.png" alt="" class="modal-backArrow">
+        </a>
+
+      </div>
+      <div class=" flex-1">
+        <!-- <div class="flex items-center gap-2 py-2 mb-8">
+          <ng-container *ngIf="!photoUploaded">
+            <svg width="83" height="83" viewBox="0 0 83 83" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0_6538_22835)">
+                <rect width="83" height="83" rx="41.5" fill="#6F7B81" />
+                <path
+                  d="M16.6001 70.5499C16.6001 61.382 24.0322 53.95 33.2001 53.95H49.8001C58.968 53.95 66.4001 61.382 66.4001 70.55V87.15C66.4001 96.3179 58.968 103.75 49.8001 103.75H33.2001C24.0322 103.75 16.6001 96.3179 16.6001 87.15V70.5499Z"
+                  fill="#18242A" />
+                <ellipse cx="42.2504" cy="33.2" rx="16.6" ry="16.6" fill="#18242A" />
+              </g>
+              <defs>
+                <clipPath id="clip0_6538_22835">
+                  <rect width="83" height="83" rx="41.5" fill="white" />
+                </clipPath>
+              </defs>
+            </svg>
+
+
+            <form (ngSubmit)="onSubmit()">
+              <label>
+                <input id="profilepic" type="file" (change)="onFileSelected($event)" hidden />
+                <span for="profilepic" class="text-[#FFC600]"> UPLOAD <br />
+                  PROFILE PIC</span>
+              </label>
+            </form>
+          </ng-container>
+          <img *ngIf="photoUploaded" [src]="uploadedPhotoUrl" alt="Uploaded Profile Pic" class="h-[83px] w-[83px] rounded-[50%] min-w-[83px]"/>
+
+         
+          <ng-container *ngIf="photoUploaded" class="upload-pic">
+            <form (ngSubmit)="onSubmit()">
+              <label>
+                <input id="profilepic" type="file" (change)="onFileSelected($event)" hidden  />
+                <span for="profilepic" class="text-[#FFC600]"> UPLOAD <br />
+                  PROFILE PIC</span>
+              </label>
+            </form>
+          </ng-container>
+        </div> -->
+        <div class="custom-row -mx-[10px]">
+          <div class="col-w6 px-[10px]">
+            <div class="flex flex-col mb-[22px]">
+              <label class="mb-2">Firstname <sup class="text-[#FFC600]">*</sup>
+              </label>
+              <h1  class="placeholder-[#4D585D] border-gray-600 bg-[#2C3538] h-[44px]  px-[16px] py-[12px] mt-2 border  text-[#D9D9D9] rounded-lg text-[16px]">
+                {{userProfile.firstName}}  
+                </h1>
+               <!-- <input type="text" [(ngModel)]="userProfile.firstName" placeholder="Enter your firstname" required
+                name="firstName"
+                class="bg-[#2C3538] border border-gray-600 text-[#D9D9D9] rounded-lg py-[12px] focus:outline-none outline-none leading-none text-[16px] px-4" />  -->
+            </div>
+            <div class="flex flex-col mb-[22px]">
+              <label class="mb-2">Lastname <sup class="text-[#FFC600]">*</sup></label>
+              <h1  class="placeholder-[#4D585D] border-gray-600 bg-[#2C3538] h-[44px]  px-[16px] py-[12px] mt-2 border  text-[#D9D9D9] rounded-lg text-[16px]">
+              {{userProfile.lastName}}  
+              </h1>
+              <!-- <input type="text" [(ngModel)]="userProfile.lastName" placeholder="Enter your lastname" required
+                name="lastName"
+                class="bg-[#2C3538] border border-gray-600 text-[#D9D9D9] rounded-lg py-[12px] focus:outline-none outline-none leading-none text-[16px] px-4" />  -->
+            </div>
+          </div>
+          <div class="col-w6 px-[10px]">
+            <div class="flex flex-col mb-[22px] relative">
+              <label class="mb-2 ">Date of Birth</label>
+
+              <mat-form-field class="bg-[#2C3538]  border border-gray-600 text-[#D9D9D9] customMatform rounded-[10px]  mt-2">
+                <input matInput [matDatepicker]="picker" [max]="getToday()" [(ngModel)]="selectedDate"
+                  [readonly]="true">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker [disabled]="disableDob"></mat-datepicker>
+              </mat-form-field>
+              <div *ngIf="isAgeLessThan18" class="text-red-500 text-[12px]  absolute  lg:top-[80px]">
+                User must be at least 18 years old.
+              </div>
+            </div>
+            <div class="flex flex-col mb-[22px]">
+              <label class="mb-2">NIN</label>
+              <input type="text"
+                     [(ngModel)]="selectedNationalIdentityNumber"
+                     name="NIN"
+                     (keydown)="onKeyDown($event)"
+                     [disabled]="disableNIN"
+                     class="bg-[#2C3538] border border-gray-600 text-[#D9D9D9] rounded-lg py-[12px] 
+                            focus:outline-none outline-none leading-none text-[16px] px-[16px] mt-2"
+                     required />
+              <div *ngIf="!isValidNIN()" class="text-red-500 mt-1">Enter 11-digit numeric NIN</div>
+            </div>
+
+          </div>
+          <div class="col-w6 px-[10px]">
+            <div class="flex flex-col mb-[22px]">
+
+              <label class="mb-2">Gender</label>
+              <select name="languages" [(ngModel)]="selectedGender" (change)="onGenderChange()" [disabled]="disableGender"
+                class="bg-[#2C3538] border border-gray-600 text-[#D9D9D9] rounded-lg py-[12px] focus:outline-none outline-none leading-none text-[16px] px-4">
+                <option class="text-black bg-slate-500" value="Male">
+                  Male
+                </option>
+                <option class="text-black bg-slate-500" value="Female">
+                  Female
+                </option>
+              </select>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="flex items-center gap-3 lg:gap-2 lg:py-2 md:px-0 p-4 px-0 justify-between">
+        <a  (click)="closeDialog()" class="w-[164px]">
+          <button
+            class="uppercase bg-[#2C3538] text-[#FFC600] text-base hover:bg-[#ffc600] hover:text-white rounded-md font-medium text-center h-full py-3 px-4 w-full">
+            Cancel
+          </button>
+        </a>
+        <button (click)="saveUserData()"
+          class="uppercase bg-[#FFC600] text-[#18242A] text-base rounded-md font-medium text-center h-full py-3 px-4 w-50 w-[164px]">
+          Save
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" src="../node_modules/tw-elements/dist/js/tw-elements.umd.min.js"></script>

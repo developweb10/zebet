@@ -1,0 +1,438 @@
+<div class="flex flex-col bg-[#18242A]">
+	<div class="flex justify-between items-center">
+		<div class="custom-date-wrap flex items-center gap-4 mobile_date">
+			<button (click)="allData()"
+				class="bg-[#FFC600] text-black py-1 hidden lg:flex px-3 rounded-lg text-sm hover:bg-primary hover:text-text_primary">
+				All
+			</button>
+			<button class="flex lg:hidden items-center gap-2 text-white py-3 rounded-lg text-sm">
+				<a (click)="goHome()">
+					<img src="assets/svg/Backarrow.svg" />
+				</a>
+
+				Transactions
+			</button>
+
+			<div class="lg:flex relative w-full  gap-4 hidden">
+				<!-- <input
+					class="bg-[#2C3538] py-1 px-3 text-sm rounded-lg date w-full"
+					placeholder="DD MM YYYY"
+					name="startDate"
+					[(ngModel)]="startDate"
+					required
+					type="date"
+				/>
+				<div class="date-piker-icon">
+					<img src="assets/svg/calender.svg" />
+				</div> -->
+				<!-- <h3 class="text-sm text-white mb-3">From</h3> -->
+
+				<mat-form-field
+					class="bg-[#2C3538]  border border-gray-600 text-[#D9D9D9] customMatform rounded-[10px]">
+					<input matInput [matDatepicker]="pickerStartDate" (dateChange)="handleStartDateChange($event)"
+						[max]="getToday()" [(ngModel)]="startDate" [readonly]="true">
+					<mat-datepicker-toggle matSuffix [for]="pickerStartDate"></mat-datepicker-toggle>
+					<mat-datepicker #pickerStartDate></mat-datepicker>
+				</mat-form-field>
+				<!-- <h3 class="text-sm text-white mb-3">To</h3> -->
+
+				<mat-form-field
+					class="bg-[#2C3538]  border border-gray-600 text-[#D9D9D9] customMatform rounded-[10px]">
+					<input matInput [matDatepicker]="pickerEndDate" (dateChange)="handleEndDateChange($event)"
+						[max]="getToday()" [(ngModel)]="endDate" [readonly]="true">
+					<mat-datepicker-toggle matSuffix [for]="pickerEndDate"></mat-datepicker-toggle>
+					<mat-datepicker #pickerEndDate></mat-datepicker>
+				</mat-form-field>
+			</div>
+			<!-- <div class="md:flex relative w-full hidden">
+				<input
+					class="bg-[#2C3538] py-1 px-3 text-sm rounded-lg date w-full"
+					placeholder="DD MM YYYY"
+					name="endDate"
+					[(ngModel)]="endDate"
+					required
+					type="date"
+				/>
+				<div class="date-piker-icon">
+					<img src="assets/svg/calender.svg" />
+				</div>
+			</div> -->
+
+			<div class="relative hidden lg:block">
+				<button (click)="filterData('desk')"
+					class="flex justify-center text-xs lg:text-[14px] text-code text-[#000000] bg-[#FFC600] rounded-lg py-2 px-2 w-[93px]">
+					<span class="flex justify-center button-spinner mx-auto" *ngIf="!isDataLoaded"></span>
+					<span *ngIf="isDataLoaded">Filter</span>
+				</button>
+
+			</div>
+			<div class="flex custom-mob-date py-1 px-2 ml-2 lg:hidden " (click)="showFilterModal = true ">
+				<svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
+					<circle cx="9.47368" cy="9.47368" r="9.47368" transform="matrix(-4.37114e-08 1 1 4.37114e-08 0 0)"
+						fill="#2C3538" />
+					<path
+						d="M6.5 8.5H7.5V9.5H6.5V8.5ZM13.5 6V13C13.5 13.55 13.05 14 12.5 14H5.5C4.945 14 4.5 13.55 4.5 13L4.505 6C4.505 5.45 4.945 5 5.5 5H6V4H7V5H11V4H12V5H12.5C13.05 5 13.5 5.45 13.5 6ZM5.5 7H12.5V6H5.5V7ZM12.5 13V8H5.5V13H12.5ZM10.5 9.5H11.5V8.5H10.5V9.5ZM8.5 9.5H9.5V8.5H8.5V9.5Z"
+						fill="white" />
+				</svg>
+				<span class="text-[12px]"> All Dates</span>
+
+				<span class="ml-1" style="margin-top: 1px;">
+					<svg width="12" height="14" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path
+							d="M4.375 3.42541L4 3.89546L3.625 3.42541L0.525 -3.62344e-08L1.60597e-08 0.58011L4 5L8 0.58011L7.475 -5.15909e-07L4.375 3.42541Z"
+							fill="white" />
+						<path
+							d="M4.375 3.42541L4 3.89546L3.625 3.42541L0.525 -3.62344e-08L1.60597e-08 0.58011L4 5L8 0.58011L7.475 -5.15909e-07L4.375 3.42541Z"
+							stroke="white" />
+					</svg>
+				</span>
+
+
+			</div>
+		</div>
+
+		<!-- IMPLEMENT MOBILE CALENDAR HERE -->
+		<!-- <div class="flex items-center gap-3">
+			<div class="calendar-mobile md:hidden block">
+				<img src="assets/svg/calender.svg" />
+			</div>
+		</div> -->
+		<!-- <div class="">
+			<div class="flex items-center gap-4 ">
+			<img src="assets/svg/uparrow.svg" alt="">
+			<img src="assets/svg/downarrow.svg" alt="">
+			<div class="lg:hidden md:hidden">
+				<img src="assets/svg/calender2.svg" (click)="openCalenderModel()" alt="">
+			</div>
+		</div>
+		</div> -->
+	</div>
+
+	<div class="flex flex-col pt-3" *ngIf="isDataLoaded">
+		<div *ngIf="
+			combinedHistory && combinedHistory.length > 0;
+			">
+			<div class="custom-ele-box" *ngFor="let transaction of combinedHistory; let i = index">
+				<div class="flex flex-col  w-[33.33%]">
+					<div class="flex items-center gap-2 mb-2 sm:mb-3">
+						<div *ngIf="
+								transaction.requestType === 'WITHDRAWAL'
+							">
+							<img src="assets/svg/withdrawal.svg" />
+						</div>
+
+						<div *ngIf="
+								transaction.requestType === 'DEPOSIT'
+							
+							">
+							<img src="assets/svg/deposit.svg" />
+						</div>
+						<h3 class="text-xs sm:text-sm font-bold text-white">
+							{{transaction.requestTypeName}}
+						</h3>
+					</div>
+					<p class="m-0 text-[10px] sm:text-sm text-[#868686]">
+						{{ (transaction.updatedAt ? transaction.updatedAt : transaction.createdAt) | date: 'dd/MM/yyyy'
+						}} at
+						{{ (transaction.updatedAt ? transaction.updatedAt : transaction.createdAt) | date: 'hh:mm a' }}
+					</p>
+				</div>
+				<div class="flex flex-col  w-[33.33%] hidden lg:block">
+					<div class="flex items-center gap-2 mb-2 sm:mb-3">
+						<h3 class="text-xs sm:text-sm font-bold text-white">
+							Transaction ID
+						</h3>
+					</div>
+
+					<p class="m-0 text-[10px] sm:text-sm text-[#868686]">
+						{{transaction.paymentRequestId}}
+					</p>
+				</div>
+				<div class="flex flex-col action_wrapper w-[33.33%]   mb-2 gap-2">
+					<h5 class="text-xs sm:text-sm text-white m-0" style="text-align: right;">
+						{{ transaction.wCurrency }} {{ transaction.wAmount }}
+					</h5>
+					<div class="flex items-center gap-4 " style="justify-content: end;">
+						<div class="modifyrefresh_btn hidden lg:block">
+							<button
+								[disabled]="transaction.statusName == 'Denied' || transaction.statusName == 'Complete'"
+								(click)="refreshStatus(transaction, i)"
+								class="flex justify-center text-xs lg:text-[12px] text-code rounded-lg px-2 w-[85px] py-1 refresh_btn"
+								[style.background-color]="transaction.statusName == 'Denied' || transaction.statusName == 'Complete' ? 'gray' : ''"
+								[style.color]="transaction.statusName == 'Denied' || transaction.statusName == 'Complete' ? 'white' : ''">
+								<span class="flex justify-center button-spinner mx-auto"
+									*ngIf="transaction.isLoading"></span>
+								<span *ngIf="!transaction.isLoading">Refresh</span>
+							</button>
+						</div>
+
+
+
+						<div class="modifyrefresh_text w-[48%]   flex" style="justify-content: end;">
+							<p class="text-[10px] sm:text-[16px]" [ngClass]="{
+							'text-red-500': transaction.statusName === 'Denied',
+							'text-green-500': transaction.statusName === 'Complete',
+							'text-yellow-500': transaction.statusName === 'Waiting for approval' || transaction.statusName === 'Processing'
+						}">
+								{{transaction.statusName}}
+							</p>
+						</div>
+					</div>
+
+					<!-- <p
+						class="text-[#ff5353] text-[8px] sm:text-[10px] mt-2 sm:mt-3"
+						*ngIf="
+							transaction.transactionTypeId === 'DEPOSIT_FAILED' ||
+							transaction.transactionTypeId === 'WITHDRAWAL_FAILED'
+						"
+					>
+						Failed
+					</p> -->
+				</div>
+				<div>
+
+				</div>
+				
+
+			</div>
+			<div class="mo_custom-ele-box " *ngFor="let transaction of combinedHistory; let i = index">
+				<div class="flex justify-between w-[100%]">
+					<div>
+						<div class="flex items-center gap-2 mb-2 sm:mb-3">
+							<div *ngIf="
+									transaction.requestType === 'WITHDRAWAL'
+								">
+								<img src="assets/svg/withdrawal.svg" />
+							</div>
+
+							<div *ngIf="
+									transaction.requestType === 'DEPOSIT'
+								
+								">
+								<img src="assets/svg/deposit.svg" />
+							</div>
+							<h3 class="text-xs sm:text-sm font-bold text-white">
+								{{transaction.requestTypeName}}
+							</h3>
+						</div>
+						<p class="m-0 text-[10px] sm:text-sm text-[#868686]">
+							{{ (transaction.updatedAt ? transaction.updatedAt : transaction.createdAt) | date:
+							'dd/MM/yyyy' }} at
+							{{ (transaction.updatedAt ? transaction.updatedAt : transaction.createdAt) | date: 'hh:mm a'
+							}}
+						</p>
+					</div>
+					<div>
+						<div class="mb-2">
+							<h5 class="text-xs sm:text-sm text-white m-0" style="text-align: right;">
+								{{ transaction.wCurrency }} {{ transaction.wAmount }}
+							</h5>
+						</div>
+
+						<p class="text-[10px] sm:text-[16px]" [ngClass]="{
+							'text-red-500': transaction.statusName === 'Denied',
+							'text-green-500': transaction.statusName === 'Complete',
+							'text-yellow-500': transaction.statusName === 'Waiting for approval' || transaction.statusName === 'Processing'
+						}">
+							{{transaction.statusName}}
+						</p>
+					</div>
+				</div>
+				<div class="flex justify-between w-[100%]" style="align-items: end;">
+					<div>
+						<div class="flex items-center gap-2 mb-2 sm:mb-3">
+							<h3 class="text-xs sm:text-sm font-bold text-white">
+								Transaction ID
+							</h3>
+						</div>
+
+						<p class="m-0 text-[10px] sm:text-sm text-[#868686]">
+							{{transaction.paymentRequestId}}
+						</p>
+					</div>
+					<div class="justify-end">
+						<div class="modifyrefresh_btn">
+							<button
+								[disabled]="transaction.statusName == 'Denied' || transaction.statusName == 'Complete'"
+								(click)="refreshStatus(transaction, i)"
+								class="flex justify-center text-xs lg:text-[12px] text-code rounded-lg px-2 w-[85px] py-1 refresh_btn"
+								[style.background-color]="transaction.statusName == 'Denied' || transaction.statusName == 'Complete' ? 'gray' : ''"
+								[style.color]="transaction.statusName == 'Denied' || transaction.statusName == 'Complete' ? 'white' : ''">
+								<span class="flex justify-center button-spinner mx-auto"
+									*ngIf="transaction.isLoading"></span>
+								<span *ngIf="!transaction.isLoading">Refresh</span>
+							</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+
+		</div>
+		<div  class="pagination flex items-center justify-center mt-4">
+			<button (click)="prevPage()" [disabled]="currentPage === 0"
+				class="mr-2 px-3 py-1 bg-yellow-500 text-white rounded-md disabled:bg-gray-600">Previous</button>
+			<span class="text-yellow-500"> {{ currentPages }} </span>
+			<button (click)="nextPage()" [disabled]="combinedHistory.length <= 0" 
+				class="ml-2 px-3 py-1 bg-yellow-500 text-white rounded-md disabled:bg-gray-600">Next</button>
+			<!-- <div>
+				<button *ngFor="let page of generatePageArray()"
+						(click)="setPage(page)"
+						class="px-3 py-1 mx-1 rounded-md"
+						[ngClass]="{'bg-yellow-500 text-white': page === currentPage, 'bg-gray-600': page !== currentPage}">
+					{{ page }}
+				</button>
+			</div> -->
+		</div>
+
+
+
+
+		<div *ngIf="noTransactionsMessage">
+			<div class="pt-4 flex flex-col items-center justify-center">
+				<img src="assets/svg/transactions.svg" />
+				<p class="pt-2 flex justify-center items-center">No data available</p>
+			</div>
+		</div>
+	</div>
+	<div class="w-full flex justify-center pt-[72px]" *ngIf="loadingData">
+		<div class="spinner"></div>
+	</div>
+
+
+	<div class="modal lg:hidden" *ngIf="showFilterModal">
+		<div class="modal-content">
+			<div class="modal-wrapper">
+				<div class="flex items-center gap-2 pb-5 mb-4 border-b border-secondary">
+					<svg (click)="showFilterModal = false" width="24" height="24" viewBox="0 0 24 24" fill="none"
+						xmlns="http://www.w3.org/2000/svg">
+						<circle cx="12" cy="12" r="12" fill="#2C3538" />
+						<path
+							d="M8.73711 13.1621H18.5996V12.0371H8.73711L13.3871 7.38711L12.5996 6.59961L6.59961 12.5996L12.5996 18.5996L13.3871 17.8121L8.73711 13.1621Z"
+							fill="white" />
+						<path
+							d="M8.73711 13.1621H18.5996V12.0371H8.73711L13.3871 7.38711L12.5996 6.59961L6.59961 12.5996L12.5996 18.5996L13.3871 17.8121L8.73711 13.1621Z"
+							stroke="white" />
+					</svg>
+
+					<h3 class="text-lg font-bold text-white">Filter</h3>
+				</div>
+				<div class="flex flex-col  overflow-auto">
+					<!-- <div class="flex pb-5 mb-4 border-b border-secondary">
+				  <a
+					class="bg-primary rounded-lg px-3 py-1 w-11 text-[#2C3538] text-sm text-center flex"
+					>All</a
+				  >
+				</div> -->
+					<div class="grid grid-cols-2 items-center gap-3">
+						<div class="flex flex-col w-fit">
+							<h3 class="text-sm text-white mb-3">From</h3>
+							<div class="mobile-cal-piker" [class.active]="isSelectedStartDate">
+								<div class="icon">
+									<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15"
+										fill="none">
+										<g clip-path="url(#clip0_5153_17029)">
+											<path
+												d="M4.54683 6.86953H5.70794V8.03064H4.54683V6.86953ZM12.6746 3.96675V12.0945C12.6746 12.7331 12.1521 13.2556 11.5135 13.2556H3.38572C2.7413 13.2556 2.22461 12.7331 2.22461 12.0945L2.23041 3.96675C2.23041 3.32814 2.7413 2.80564 3.38572 2.80564H3.96628V1.64453H5.12739V2.80564H9.77183V1.64453H10.9329V2.80564H11.5135C12.1521 2.80564 12.6746 3.32814 12.6746 3.96675ZM3.38572 5.12786H11.5135V3.96675H3.38572V5.12786ZM11.5135 12.0945V6.28898H3.38572V12.0945H11.5135ZM9.19128 8.03064H10.3524V6.86953H9.19128V8.03064ZM6.86905 8.03064H8.03016V6.86953H6.86905V8.03064Z"
+												fill="white" />
+										</g>
+										<defs>
+											<clipPath id="clip0_5153_17029">
+												<rect width="13.9333" height="13.9333" fill="white"
+													transform="translate(0.483398 0.483398)" />
+											</clipPath>
+										</defs>
+									</svg>
+								</div>
+								<input type="datetime" [value]="startDate" name="startDate" id="startDate"
+									placeholder="DD MM YYYY" (click)="setLabel('FROM')" />
+							</div>
+						</div>
+						<div class="flex flex-col w-fit">
+							<h3 class="text-sm text-white mb-3">To</h3>
+							<div class="mobile-cal-piker" [class.active]="isSelectedEndDate">
+								<div class="icon">
+									<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15"
+										fill="none">
+										<g clip-path="url(#clip0_5153_17029)">
+											<path
+												d="M4.54683 6.86953H5.70794V8.03064H4.54683V6.86953ZM12.6746 3.96675V12.0945C12.6746 12.7331 12.1521 13.2556 11.5135 13.2556H3.38572C2.7413 13.2556 2.22461 12.7331 2.22461 12.0945L2.23041 3.96675C2.23041 3.32814 2.7413 2.80564 3.38572 2.80564H3.96628V1.64453H5.12739V2.80564H9.77183V1.64453H10.9329V2.80564H11.5135C12.1521 2.80564 12.6746 3.32814 12.6746 3.96675ZM3.38572 5.12786H11.5135V3.96675H3.38572V5.12786ZM11.5135 12.0945V6.28898H3.38572V12.0945H11.5135ZM9.19128 8.03064H10.3524V6.86953H9.19128V8.03064ZM6.86905 8.03064H8.03016V6.86953H6.86905V8.03064Z"
+												fill="white" />
+										</g>
+										<defs>
+											<clipPath id="clip0_5153_17029">
+												<rect width="13.9333" height="13.9333" fill="white"
+													transform="translate(0.483398 0.483398)" />
+											</clipPath>
+										</defs>
+									</svg>
+								</div>
+								<input type="datetime" [value]="endDate" placeholder="DD MM YYYY" name="endDate"
+									id="endDate" (click)="setLabel('TO')" />
+							</div>
+						</div>
+					</div>
+
+					<div class="calendar-card">
+						<div class="calendar-header flex justify-between">
+							<h3 class="text-sm text-white m-0">{{ currdate }}</h3>
+							<div class="flex items-center gap-3">
+								<a class="mx-1" (click)="navigateTo('previous')">
+									<svg class="text-white" xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+										viewBox="0 0 12 12" fill="none">
+										<mask id="mask0_623_10662" style="mask-type: alpha" maskUnits="userSpaceOnUse"
+											x="2" y="0" width="8" height="12">
+											<path fill-rule="evenodd" clip-rule="evenodd"
+												d="M9.27396 0.469661C9.57498 0.762543 9.57498 1.2374 9.27396 1.53028L4.68021 5.99978L9.27396 10.4693C9.57498 10.7622 9.57498 11.237 9.27396 11.5299C8.97293 11.8228 8.48488 11.8228 8.18385 11.5299L2.5 5.99978L8.18385 0.469661C8.48488 0.17678 8.97293 0.17678 9.27396 0.469661Z"
+												fill="#141841" />
+										</mask>
+										<g mask="url(#mask0_623_10662)">
+											<rect y="-0.000976562" width="11.9995" height="11.9995" fill="white" />
+										</g>
+									</svg>
+								</a>
+
+								<a class="mx-1" (click)="navigateTo('next')">
+									<svg class="text-white" xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+										viewBox="0 0 12 12" fill="none">
+										<mask id="mask0_623_10665" style="mask-type: alpha" maskUnits="userSpaceOnUse"
+											x="2" y="0" width="8" height="12">
+											<path fill-rule="evenodd" clip-rule="evenodd"
+												d="M2.72604 0.469661C2.42502 0.762543 2.42502 1.2374 2.72604 1.53028L7.31979 5.99978L2.72604 10.4693C2.42502 10.7622 2.42502 11.237 2.72604 11.5299C3.02707 11.8228 3.51512 11.8228 3.81615 11.5299L9.5 5.99978L3.81615 0.469661C3.51512 0.17678 3.02707 0.17678 2.72604 0.469661Z"
+												fill="#141841" />
+										</mask>
+										<g mask="url(#mask0_623_10665)">
+											<rect y="-0.000976562" width="11.9995" height="11.9995" fill="white" />
+										</g>
+									</svg>
+								</a>
+							</div>
+						</div>
+						<div class="calendar-days">
+							<div class="calendar-day">Sun</div>
+							<div class="calendar-day">Mon</div>
+							<div class="calendar-day">Tue</div>
+							<div class="calendar-day">Wed</div>
+							<div class="calendar-day">Thu</div>
+							<div class="calendar-day">Fri</div>
+							<div class="calendar-day">Sat</div>
+						</div>
+						<div class="calendar-days">
+							<div class="calendar-day" *ngFor="let date of calendarDateLoaders; let i = index"
+								(click)="selectDateMobile(date, true)" [class.active]="isDateActiveMobile(date)">
+								{{ date.day }}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="footer-action">
+					<button class="btn-save" (click)="filterCustomDate()">Filter</button>
+					<button class="btn-cancel" (click)="showFilterModal = false">
+						Cancel
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

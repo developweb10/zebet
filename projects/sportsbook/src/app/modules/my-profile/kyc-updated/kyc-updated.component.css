@@ -1,0 +1,27 @@
+.modal-content {
+    border-radius: 20px 20px 0px 0px;
+    border: 1px solid #4d585d;
+    background: #18242a;
+    box-shadow: -1px 4px 34px 9px rgba(0, 0, 0, 0.65);
+    max-width: 100%;
+    padding: 20px;
+    position: relative;
+    height: calc(100% - 125px);
+    width: 100%;
+  }
+  .modal-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100%;
+    max-width: 920px;
+    margin: 0 auto;
+  }
+  .modal-wrapper .modal-body {
+    flex: 1;
+    overflow: auto;
+  }
+
+  .submitbtn:disabled {
+    background-color: #4D585D;
+  }

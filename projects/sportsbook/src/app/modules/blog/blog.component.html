@@ -1,0 +1,87 @@
+<div class="flex justify-center align-center loading" *ngIf="isLoading">
+  <div class="spinner mx-auto"> </div>
+</div>
+
+<section class="flex main-wrapper  custom-row" *ngIf="!isLoading">
+  <div class="left-aside col-w2">
+  </div>
+  <div class="middle-wrapper col-w8">
+    <div class="custom-nav">
+      <div *ngIf="categories">
+        <ul class="custom-navList">
+          <li class="list-items" *ngFor="let category of categories">
+
+            <button *ngIf="category.title !== 'All'" (click)="onCategoryClick(category.id)"
+              [ngClass]="{ 'active': activeCategory === category.id }"
+              [ngStyle]="{ 'border-bottom': activeCategory === category.id ? '6px solid #FFC600' : 'none', 'color': activeCategory === category.id ? '#FFC600' : 'white', 'padding-bottom': activeCategory === category.id ? '10px' : '0'   }">
+              {{ category.title }}
+            </button>
+            <button *ngIf="category.title === 'All'" (click)="showAllBlogItems()"
+              [ngClass]="{ 'active': activeCategory === 'All' }"
+              [ngStyle]="{ 'border-bottom': activeCategory === 'All' ? '6px solid #FFC600' : 'none', 'color': activeCategory === 'All' ? '#FFC600' : 'white', 'padding-bottom': activeCategory === category.id ? '0' : '10px'  }">
+              {{ category.title }}
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card-group-row blog-wrapper ">
+      <div class="card-group-col" *ngFor="let item of blogData">
+        <a (click)="navigateToBlogPost(item)">
+          <mat-card class="card  mainBlogBlock--imgHolder">
+            <span *ngIf="activeCategory && !item.blog_id">
+              <img mat-card-image [src]="ASSETS_URL + 'assets/' + item.banner + '?'  " alt="Photo of a Shiba Inu">
+            </span>
+
+            <!-- Display item.blog_id?.banner if activeCategory is true and item.blog_id is present -->
+            <span *ngIf="activeCategory && item.blog_id">
+              <img mat-card-image [src]="ASSETS_URL + 'assets/' + item.blog_id?.banner + '?' " alt="Photo of a Shiba Inu">
+            </span>
+            <mat-card-content>
+              <div class="meta-date" *ngIf="!activeCategory">{{ item.date_created | date:'MMMM d, y' }}</div>
+              <div class="meta-date" *ngIf="activeCategory">{{ item.blog_id?.date_created | date:'MMMM d, y' }}</div>
+              <!-- Use ngIf to conditionally display item.title or item.blog_id.title -->
+              <mat-card-title *ngIf="!activeCategory">{{ item.title }}</mat-card-title>
+              <mat-card-title *ngIf="activeCategory">{{ item.blog_id?.title || item.title }}</mat-card-title>
+
+              <!-- Use ngIf to conditionally display item.short_content or item.blog_id.short_content -->
+              <div
+                [innerHTML]="!activeCategory ? item.short_content : item.blog_id?.short_content || item.short_content">
+              </div>
+            </mat-card-content>
+            <mat-card-actions>
+              <!-- Use ngIf to conditionally display item.facebook_link or item.blog_id.facebook_link -->
+              <a [href]="!activeCategory ? item.facebook_link : item.blog_id?.facebook_link || item.facebook_link">
+                <img src="assets/img/x.svg" alt="">
+              </a>
+
+              <!-- Use ngIf to conditionally display item.twitter_link or item.blog_id.twitter_link -->
+              <a [href]="!activeCategory ? item.twitter_link : item.blog_id?.twitter_link || item.twitter_link">
+                <img src="assets/img/face.svg" alt="">
+              </a>
+            </mat-card-actions>
+            <button
+              class="bg-yellow-400 text-black py-0.5 px-1 rounded-md my-2 font-[500]  transition duration-300 ease-in-out mt-auto mb-4 mx-4"
+              (click)="navigateToBlogPost(item)">Read More
+            </button>
+          </mat-card>
+        </a>
+      </div>
+    </div>
+    <div class="d-flex justify-center align-center gap-[10px] mt-[15px]">
+      <button class="bg-[#ffc600] text-[#18242a] px-[10px] py-[5px] rounded-[5px]  leading-none"
+        (click)="onPageChange(currentPage - 1)" [hidden]="currentPage === 1">Previous</button>
+      <div class="d-flex align-center">
+        <span class="bg-[#2c3538] inline-block px-[4px] py-[4px] leading-none rounded-[5px]">{{ currentPage }} </span>
+
+      </div>
+      <button class="bg-[#ffc600] text-[#18242a] px-[10px] py-[5px] rounded-[5px]  leading-none"
+        (click)="onPageChange(currentPage + 1)" [hidden]="currentPage === calculateTotalPages()">Next</button>
+
+    </div>
+  </div>
+  <div class="right-aside col-w2">
+
+  </div>
+</section>

@@ -1,0 +1,166 @@
+<div class="main-container">
+    <img src="assets/svg/hlepclose.svg" class="close-icon" (click)="dialogRef.close()" />
+    <h2 class="heading"> GTBank</h2>
+    <div class="main-section">
+      <mat-accordion>
+        <mat-expansion-panel  [disabled]="isAccordionDisabled" (click)="openLinkInNewTab()"
+         >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              GTCollections
+            </mat-panel-title>
+  
+          </mat-expansion-panel-header>
+        </mat-expansion-panel>
+      </mat-accordion>
+      <mat-accordion>
+        <mat-expansion-panel [expanded]="panelOpenState === 'panel1'" (opened)="onPanelOpened('panel1')"
+          (closed)="onPanelClosed('panel1')">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Deposit With GTBank Website
+            </mat-panel-title>
+  
+          </mat-expansion-panel-header>
+          <div style="padding: 0 15px 15px;">
+            <ol class="accordian_ol" style="display: flex; flex-direction: column; gap: 15px; margin-top: 5px;">
+              <li>Log in to your GTBank internet banking platform <a href="https://www.gtbank.com/" target="_blank"
+                  style="color: yellow;">www.gtbank.com</a></li>
+              <li>On the left-hand panel, click on “Payments & Collections”</li>
+              <li>Click on “Sports and Gaming”</li>
+              <li>Select ZEbet from the list of gaming operators.</li>
+              <li>Click on “Make New Payment”</li>
+              <li>Enter your ZEbet ID number (This is the number found at the top right of the home page just left to your
+                wallet balance) and the desired deposit amount you wish to top up to your ZE-Wallet.</li>
+              <li>Your ZE-Wallet will be credited immediately after the transaction is successful.
+                For further enquires, kindly reach out to ze support at support@zebet.ng
+  
+              </li>
+              <li> Minimum Deposit: ₦100</li>
+              <li>Fee: ₦50</li>
+              <div style="display: flex; gap: 10px;" class="btn-mobile">
+                <button class="btn-withdraw" (click)="openLink()"> Visit GTBank to Deposit </button>
+                <!-- <button class="btn-withdraw"> check Transaction result </button> -->
+              </div>
+  
+            </ol>
+          </div>
+  
+  
+  
+  
+        </mat-expansion-panel>
+      </mat-accordion>
+      <mat-accordion>
+        <mat-expansion-panel [expanded]="panelOpenState === 'panel2'" (opened)="onPanelOpened('panel2')"
+          (closed)="onPanelClosed('panel2')">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Deposit With GTBank Mobile
+            </mat-panel-title>
+  
+          </mat-expansion-panel-header>
+          <div style="padding: 0 15px 15px;">
+            <ol class="accordian_ol" style="display: flex; flex-direction: column; gap: 15px; margin-top: 5px;">
+              <li>Login to the GTWorld on your mobile or handheld device then click on “Payments”</li>
+              <li>On the next page, click on “Sports and Gaming”</li>
+              <li>Select your bank account from the “From account” drop-down menu
+                Select ZEbet from the “Category” drop-down menu
+                then select ZEBET Channels from the “Product” drop-down menu.
+                Click “Continue”
+              </li>
+              <li>Enter your ZEbet ID number (This is found at the top right of the home page when you click on your
+                wallet balance), your telephone number and the desired deposit amount.</li>
+              <li>The next page returns your ZEbet customer reference number, phone number and the name (as registered on
+                your ZEbet account) basically for confirmation purpose.</li>
+              <li>Enter your 4-digit GTBank transaction pin to finalize and click “Done”</li>
+              <li>A confirmation of transaction page is displayed on the final screen and your ZEbet wallet is instantly
+                funded.</li>
+              <li> Minimum Deposit: ₦100</li>
+              <p>A confirmation of transaction page is displayed on the final screen and your ZEbet wallet is instantly
+                funded.</p>
+              <!-- <div style="display: flex; gap: 10px;">
+                <div class="btn-Transaction">
+                  <button class="btn-withdraw"> check Transaction result </button>
+  
+                </div>
+              </div> -->
+  
+            </ol>
+          </div>
+  
+  
+  
+  
+        </mat-expansion-panel>
+      </mat-accordion>
+      <mat-accordion>
+        <mat-expansion-panel [expanded]="panelOpenState === 'panel3'" (opened)="onPanelOpened('panel3')"
+          (closed)="onPanelClosed('panel3')">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Deposit With USSD
+            </mat-panel-title>
+  
+          </mat-expansion-panel-header>
+          <div style="padding: 0 15px 15px;">
+            <ol class="accordian_ol" style="display: flex; flex-direction: column; gap: 15px; margin-top: 5px;">
+              <li>Dial *737*50*Amount*451# <br>
+                Example: *737*50*100*451#
+              </li>
+              <li>Enter your registered phone number as your reference ID and click send.</li>
+              <li>Enter your 737 pin or token code to complete your transaction and click Send. Your account is instantly
+                credited.</li>
+              <!-- <div style="display: flex; gap: 10px;">
+                <div class="btn-Transaction">
+                  <button class="btn-withdraw"> check Transaction result </button>
+  
+                </div>
+              </div> -->
+            </ol>
+          </div>
+  
+  
+  
+  
+        </mat-expansion-panel>
+      </mat-accordion>
+      <mat-accordion>
+        <mat-expansion-panel [expanded]="panelOpenState === 'panel4'" (opened)="onPanelOpened('panel4')"
+          (closed)="onPanelClosed('panel4')">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              GTB DIRECT DEPOSIT
+            </mat-panel-title>
+  
+          </mat-expansion-panel-header>
+          <div style="padding: 0 15px 15px;">
+            <ol class="accordian_ol" style="display: flex; flex-direction: column; gap: 15px; margin-top: 5px;">
+              <li>Open your mobile banking app.
+              </li>
+             <li>If you're a GTB user, select "TRANSFER." For users of other banks, choose "OTHER BANKS TRANSFERS."</li>
+             
+             <li>Select "BANK" and choose GTB from the list.</li>
+             <li>Enter the account number: 0589898338.</li>
+             <li>Confirm the account name as "ZEGAMING NIGERIA LIMITED."</li>
+             <li>Enter the amount you wish to deposit in the "AMOUNT" field.</li>
+             <li>Review the transaction details and select "PROCEED."</li>
+             <li>Input your PIN when prompted and confirm by clicking "OKAY."</li>
+             <li>Chat customer service and share the proof of payment to get credited</li>
+            </ol>
+          </div>
+  
+  
+  
+  
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+    <div class="btn-wrapper-cancel" >
+      <!-- <div><img src="assets/svg/hlepclose.svg" /></div> -->
+      <button class="cancel-btn" (click)="dialogRef.close()"><img src="assets/img/close.png" />Cancel Payment</button></div>
+    <!-- </div> -->
+    <div class="secured-text">
+      <p><img src="assets/img/lock.png" style="height: 15px; width: 15px;" />secured by <strong>GTBank</strong></p>
+    </div>
+  </div>
